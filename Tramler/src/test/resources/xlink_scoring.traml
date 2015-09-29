@@ -1,0 +1,1554 @@
+<?xml version="1.0"?>
+<TraML version="null">
+  <cvList/>
+  <SourceFileList/>
+  <ContactList/>
+  <PublicationList/>
+  <InstrumentList/>
+  <SoftwareList/>
+  <ProteinList/>
+  <CompoundList>
+    <Compound id="Unknown molecule: 2681.39920 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="double"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2184.17722 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2015.16953 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3342.82317 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2681.39857 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="double"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2980.43185 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1943.13362 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 4162.90002 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1793.89027 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1409.78277 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2327.35809 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="double"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1900.09132 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3038.65442 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="double"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 4468.27286 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="6"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2097.27849 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3372.83197 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3523.72612 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2346.31876 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1528.92353 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2465.41913 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 4220.90812 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2459.40412 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1952.07289 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2327.35667 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="double"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3297.48701 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2117.15494 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1844.96785 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 4525.29310 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="7"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 4525.29567 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2409.38102 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1859.04982 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2912.54901 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3356.79467 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 6143.80622 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="6"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1630.93228 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1612.92403 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2409.38033 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1708.01765 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3867.97060 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2908.57627 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2392.30145 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2923.41004 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2923.41061 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1717.05922 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2564.45625 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1504.92449 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2459.40253 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1900.09481 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 4220.90841 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2119.14163 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1240.74220 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3934.08077 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1844.96992 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2568.48921 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1431.80014 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1504.92505 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3867.96821 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1940.09689 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3867.96562 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2595.42952 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2909.44353 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2257.23298 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2327.35744 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="double"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3867.96194 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="6"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1715.08809 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3372.82922 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 4219.91907 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 4178.90841 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2269.30753 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2606.55208 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3372.83221 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2338.44769 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 4777.46588 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="6"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3298.46773 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3523.71649 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1844.97173 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2129.22745 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1578.93838 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2681.39741 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="double"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1555.91194 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1496.94673 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1643.02933 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 4984.60314 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="7"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3055.68721 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3067.76027 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="double"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 4525.29853 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1702.02994 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1549.81489 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2668.46701 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="double"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2568.48994 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 4525.29374 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="6"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2606.55413 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3067.76069 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1708.01961 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2950.69727 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1528.92412 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3382.79197 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2804.38177 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1665.99550 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1985.97562 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1630.93037 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2652.35493 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 4236.89902 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 6144.81532 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1999.06649 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1630.93441 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2923.40878 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3038.65229 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2759.48577 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1353.80104 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2928.58756 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1702.02949 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2346.31805 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2698.54174 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3356.79265 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2197.01873 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3082.65192 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2927.45893 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1943.13373 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 4005.93013 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2525.31537 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3082.65081 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2587.49849 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 3372.82737 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2391.29605 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 2980.42769 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 1940.10017 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+    <Compound id="Unknown molecule: 4178.89672 Da">
+      <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+      <userParam name="label" type="xs:string" value="single"/>
+      <RetentionTimeList/>
+    </Compound>
+  </CompoundList>
+  <TransitionList/>
+  <TargetList>
+    <TargetIncludeList>
+      <Target id="Unknown molecule: 2681.39920 Da" compoundRef="Unknown molecule: 2681.39920 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="894.80701"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2184.17722 Da" compoundRef="Unknown molecule: 2184.17722 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="729.06635"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2015.16953 Da" compoundRef="Unknown molecule: 2015.16953 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="504.79966"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3342.82317 Da" compoundRef="Unknown molecule: 3342.82317 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="836.71307"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2681.39857 Da" compoundRef="Unknown molecule: 2681.39857 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="537.28699"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2980.43185 Da" compoundRef="Unknown molecule: 2980.43185 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="994.48456"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1943.13362 Da" compoundRef="Unknown molecule: 1943.13362 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="389.634"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 4162.90002 Da" compoundRef="Unknown molecule: 4162.90002 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="833.58728"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1793.89027 Da" compoundRef="Unknown molecule: 1793.89027 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="598.9707"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1409.78277 Da" compoundRef="Unknown molecule: 1409.78277 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="353.45297"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2327.35809 Da" compoundRef="Unknown molecule: 2327.35809 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="582.8468"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1900.09132 Da" compoundRef="Unknown molecule: 1900.09132 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="381.02554"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3038.65442 Da" compoundRef="Unknown molecule: 3038.65442 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="608.73816"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 4468.27286 Da" compoundRef="Unknown molecule: 4468.27286 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="745.71942"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="6"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2097.27849 Da" compoundRef="Unknown molecule: 2097.27849 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="525.3269"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3372.83197 Da" compoundRef="Unknown molecule: 3372.83197 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="844.21527"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3523.72612 Da" compoundRef="Unknown molecule: 3523.72612 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="705.7525"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2346.31876 Da" compoundRef="Unknown molecule: 2346.31876 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="783.11353"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1528.92353 Da" compoundRef="Unknown molecule: 1528.92353 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="383.23816"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2465.41913 Da" compoundRef="Unknown molecule: 2465.41913 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="617.36206"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 4220.90812 Da" compoundRef="Unknown molecule: 4220.90812 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="845.1888999999999"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2459.40412 Da" compoundRef="Unknown molecule: 2459.40412 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="820.80865"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1952.07289 Da" compoundRef="Unknown molecule: 1952.07289 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="651.69824"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2327.35667 Da" compoundRef="Unknown molecule: 2327.35667 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="466.47861"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3297.48701 Da" compoundRef="Unknown molecule: 3297.48701 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="825.37903"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2117.15494 Da" compoundRef="Unknown molecule: 2117.15494 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="706.72559"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1844.96785 Da" compoundRef="Unknown molecule: 1844.96785 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="462.24924"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 4525.29310 Da" compoundRef="Unknown molecule: 4525.29310 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="647.47772"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="7"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 4525.29567 Da" compoundRef="Unknown molecule: 4525.29567 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="906.06641"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2409.38102 Da" compoundRef="Unknown molecule: 2409.38102 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="482.8834800000001"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1859.04982 Da" compoundRef="Unknown molecule: 1859.04982 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="620.69055"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2912.54901 Da" compoundRef="Unknown molecule: 2912.54901 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="729.14453"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3356.79467 Da" compoundRef="Unknown molecule: 3356.79467 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="672.36621"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 6143.80622 Da" compoundRef="Unknown molecule: 6143.80622 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="1024.97498"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="6"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1630.93228 Da" compoundRef="Unknown molecule: 1630.93228 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="544.65137"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1612.92403 Da" compoundRef="Unknown molecule: 1612.92403 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="538.64862"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2409.38033 Da" compoundRef="Unknown molecule: 2409.38033 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="603.35236"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1708.01765 Da" compoundRef="Unknown molecule: 1708.01765 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="428.01169"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3867.97060 Da" compoundRef="Unknown molecule: 3867.97060 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="1290.33081"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2908.57627 Da" compoundRef="Unknown molecule: 2908.57627 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="582.72253"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2392.30145 Da" compoundRef="Unknown molecule: 2392.30145 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="599.08264"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2923.41004 Da" compoundRef="Unknown molecule: 2923.41004 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="975.4772900000002"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2923.41061 Da" compoundRef="Unknown molecule: 2923.41061 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="975.47748"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1717.05922 Da" compoundRef="Unknown molecule: 1717.05922 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="573.36035"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2564.45625 Da" compoundRef="Unknown molecule: 2564.45625 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="642.12134"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1504.92449 Da" compoundRef="Unknown molecule: 1504.92449 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="377.2384"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2459.40253 Da" compoundRef="Unknown molecule: 2459.40253 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="615.85791"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1900.09481 Da" compoundRef="Unknown molecule: 1900.09481 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="476.03098"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 4220.90841 Da" compoundRef="Unknown molecule: 4220.90841 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="1056.23438"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2119.14163 Da" compoundRef="Unknown molecule: 2119.14163 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="707.38782"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1240.74220 Da" compoundRef="Unknown molecule: 1240.74220 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="414.58801"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3934.08077 Da" compoundRef="Unknown molecule: 3934.08077 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="787.82343"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1844.96992 Da" compoundRef="Unknown molecule: 1844.96992 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="615.99725"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2568.48921 Da" compoundRef="Unknown molecule: 2568.48921 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="643.12958"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1431.80014 Da" compoundRef="Unknown molecule: 1431.80014 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="478.27398999999997"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1504.92505 Da" compoundRef="Unknown molecule: 1504.92505 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="502.64896"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3867.96821 Da" compoundRef="Unknown molecule: 3867.96821 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="967.99933"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1940.09689 Da" compoundRef="Unknown molecule: 1940.09689 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="647.70624"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3867.96562 Da" compoundRef="Unknown molecule: 3867.96562 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="774.6004"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2595.42952 Da" compoundRef="Unknown molecule: 2595.42952 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="866.15045"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2909.44353 Da" compoundRef="Unknown molecule: 2909.44353 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="728.36816"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2257.23298 Da" compoundRef="Unknown molecule: 2257.23298 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="753.41827"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2327.35744 Da" compoundRef="Unknown molecule: 2327.35744 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="776.79309"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3867.96194 Da" compoundRef="Unknown molecule: 3867.96194 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="645.6676"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="6"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1715.08809 Da" compoundRef="Unknown molecule: 1715.08809 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="429.7793"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3372.82922 Da" compoundRef="Unknown molecule: 3372.82922 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="675.57312"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 4219.91907 Da" compoundRef="Unknown molecule: 4219.91907 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="844.9910899999999"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 4178.90841 Da" compoundRef="Unknown molecule: 4178.90841 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="1045.73438"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2269.30753 Da" compoundRef="Unknown molecule: 2269.30753 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="757.44312"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2606.55208 Da" compoundRef="Unknown molecule: 2606.55208 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="869.85797"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3372.83221 Da" compoundRef="Unknown molecule: 3372.83221 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="844.21533"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2338.44769 Da" compoundRef="Unknown molecule: 2338.44769 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="585.6192"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 4777.46588 Da" compoundRef="Unknown molecule: 4777.46588 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="797.25159"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="6"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3298.46773 Da" compoundRef="Unknown molecule: 3298.46773 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="825.62421"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3523.71649 Da" compoundRef="Unknown molecule: 3523.71649 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="881.9364"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1844.97173 Da" compoundRef="Unknown molecule: 1844.97173 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="462.25021"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2129.22745 Da" compoundRef="Unknown molecule: 2129.22745 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="710.74976"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1578.93838 Da" compoundRef="Unknown molecule: 1578.93838 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="527.32007"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2681.39741 Da" compoundRef="Unknown molecule: 2681.39741 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="671.35663"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1555.91194 Da" compoundRef="Unknown molecule: 1555.91194 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="519.64459"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1496.94673 Da" compoundRef="Unknown molecule: 1496.94673 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="375.24396"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1643.02933 Da" compoundRef="Unknown molecule: 1643.02933 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="548.68372"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 4984.60314 Da" compoundRef="Unknown molecule: 4984.60314 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="713.09344"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="7"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3055.68721 Da" compoundRef="Unknown molecule: 3055.68721 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="764.92908"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3067.76027 Da" compoundRef="Unknown molecule: 3067.76027 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="614.55933"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 4525.29853 Da" compoundRef="Unknown molecule: 4525.29853 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="1132.33191"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1702.02994 Da" compoundRef="Unknown molecule: 1702.02994 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="568.35059"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1549.81489 Da" compoundRef="Unknown molecule: 1549.81489 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="517.61224"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2668.46701 Da" compoundRef="Unknown molecule: 2668.46701 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="890.49628"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2568.48994 Da" compoundRef="Unknown molecule: 2568.48994 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="857.1705900000001"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 4525.29374 Da" compoundRef="Unknown molecule: 4525.29374 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="755.2229000000001"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="6"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2606.55413 Da" compoundRef="Unknown molecule: 2606.55413 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="652.64581"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3067.76069 Da" compoundRef="Unknown molecule: 3067.76069 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="767.94745"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1708.01961 Da" compoundRef="Unknown molecule: 1708.01961 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="428.01218"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2950.69727 Da" compoundRef="Unknown molecule: 2950.69727 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="591.14673"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1528.92412 Da" compoundRef="Unknown molecule: 1528.92412 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="510.6486499999999"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3382.79197 Da" compoundRef="Unknown molecule: 3382.79197 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="677.56567"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2804.38177 Da" compoundRef="Unknown molecule: 2804.38177 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="702.10272"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1665.99550 Da" compoundRef="Unknown molecule: 1665.99550 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="556.33911"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1985.97562 Da" compoundRef="Unknown molecule: 1985.97562 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="662.99915"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1630.93037 Da" compoundRef="Unknown molecule: 1630.93037 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="408.73987"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2652.35493 Da" compoundRef="Unknown molecule: 2652.35493 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="664.09601"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 4236.89902 Da" compoundRef="Unknown molecule: 4236.89902 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="848.3870800000001"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 6144.81532 Da" compoundRef="Unknown molecule: 6144.81532 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="1229.97034"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1999.06649 Da" compoundRef="Unknown molecule: 1999.06649 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="500.7739"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1630.93441 Da" compoundRef="Unknown molecule: 1630.93441 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="408.74088"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2923.40878 Da" compoundRef="Unknown molecule: 2923.40878 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="975.47687"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3038.65229 Da" compoundRef="Unknown molecule: 3038.65229 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="760.67035"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2759.48577 Da" compoundRef="Unknown molecule: 2759.48577 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="690.87872"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1353.80104 Da" compoundRef="Unknown molecule: 1353.80104 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="452.27429"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2928.58756 Da" compoundRef="Unknown molecule: 2928.58756 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="977.20313"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1702.02949 Da" compoundRef="Unknown molecule: 1702.02949 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="426.51465"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2346.31805 Da" compoundRef="Unknown molecule: 2346.31805 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="587.58679"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2698.54174 Da" compoundRef="Unknown molecule: 2698.54174 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="900.52119"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3356.79265 Da" compoundRef="Unknown molecule: 3356.79265 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="840.20544"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2197.01873 Da" compoundRef="Unknown molecule: 2197.01873 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="550.26196"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3082.65192 Da" compoundRef="Unknown molecule: 3082.65192 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="617.53766"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2927.45893 Da" compoundRef="Unknown molecule: 2927.45893 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="732.87201"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1943.13373 Da" compoundRef="Unknown molecule: 1943.13373 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="486.79071"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 4005.93013 Da" compoundRef="Unknown molecule: 4005.93013 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="1002.48981"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2525.31537 Da" compoundRef="Unknown molecule: 2525.31537 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="632.33612"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3082.65081 Da" compoundRef="Unknown molecule: 3082.65081 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="771.66998"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2587.49849 Da" compoundRef="Unknown molecule: 2587.49849 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="647.8819"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 3372.82737 Da" compoundRef="Unknown molecule: 3372.82737 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="675.57275"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2391.29605 Da" compoundRef="Unknown molecule: 2391.29605 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="798.10596"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 2980.42769 Da" compoundRef="Unknown molecule: 2980.42769 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="746.1142"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 1940.10017 Da" compoundRef="Unknown molecule: 1940.10017 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="486.03232"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="Unknown molecule: 4178.89672 Da" compoundRef="Unknown molecule: 4178.89672 Da">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="836.7866200000001"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="5"/>
+        </Precursor>
+      </Target>
+    </TargetIncludeList>
+    <TargetExcludeList/>
+  </TargetList>
+</TraML>

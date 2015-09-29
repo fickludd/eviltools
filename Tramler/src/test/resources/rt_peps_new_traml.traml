@@ -1,0 +1,1591 @@
+<?xml version="1.0"?>
+<TraML version="null">
+  <cvList/>
+  <SourceFileList/>
+  <ContactList/>
+  <PublicationList/>
+  <InstrumentList/>
+  <SoftwareList/>
+  <ProteinList>
+    <Protein id="1/RTpeptides_NEW">
+      <cvParam cvRef="MS" accession="MS:1000885" name="protein accession" value="1/RTpeptides_NEW"/>
+      <cvParam cvRef="MS" accession="MS:1000883" name="protein short name" value="1/RTpeptides_NEW"/>
+      <cvParam cvRef="MS" accession="MS:1000886" name="protein name" value="1/RTpeptides_NEW"/>
+      <Sequence>
+      </Sequence>
+    </Protein>
+  </ProteinList>
+  <CompoundList>
+    <Peptide id="VEATFGVDESNAK" sequence="VEATFGVDESNAK">
+      <ProteinRef ref="1/RTpeptides_NEW"/>
+    </Peptide>
+    <Peptide id="GAGSSEPVTGLDAK" sequence="GAGSSEPVTGLDAK">
+      <ProteinRef ref="1/RTpeptides_NEW"/>
+    </Peptide>
+    <Peptide id="GTFIIDPAAVIR" sequence="GTFIIDPAAVIR">
+      <ProteinRef ref="1/RTpeptides_NEW"/>
+    </Peptide>
+    <Peptide id="TPVISGGPYEYR" sequence="TPVISGGPYEYR">
+      <ProteinRef ref="1/RTpeptides_NEW"/>
+    </Peptide>
+    <Peptide id="GTFIIDPGGVIR" sequence="GTFIIDPGGVIR">
+      <ProteinRef ref="1/RTpeptides_NEW"/>
+    </Peptide>
+    <Peptide id="ADVTPADFSEWSK" sequence="ADVTPADFSEWSK">
+      <ProteinRef ref="1/RTpeptides_NEW"/>
+    </Peptide>
+    <Peptide id="YILAGVENSK" sequence="YILAGVENSK">
+      <ProteinRef ref="1/RTpeptides_NEW"/>
+    </Peptide>
+    <Peptide id="LGGNEQVTR" sequence="LGGNEQVTR">
+      <ProteinRef ref="1/RTpeptides_NEW"/>
+    </Peptide>
+    <Peptide id="TPVITGAPYEYR" sequence="TPVITGAPYEYR">
+      <ProteinRef ref="1/RTpeptides_NEW"/>
+    </Peptide>
+    <Peptide id="DGLDAASYYAPVR" sequence="DGLDAASYYAPVR">
+      <ProteinRef ref="1/RTpeptides_NEW"/>
+    </Peptide>
+  </CompoundList>
+  <TransitionList>
+    <Transition id="GTFIIDPAAVIR @ 636.869 / 741.425" peptideRef="GTFIIDPAAVIR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="1795.4"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="636.8691"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="741.425"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="4135.5"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GTFIIDPGGVIR @ 622.854 / 939.563" peptideRef="GTFIIDPGGVIR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="330.7"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="622.8535"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="939.5626"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3686.8"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="DGLDAASYYAPVR @ 466.561 / 768.402" peptideRef="DGLDAASYYAPVR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="348.8"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="466.5614"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="768.4021"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3024.2"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="ADVTPADFSEWSK @ 726.836 / 387.187" peptideRef="ADVTPADFSEWSK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="4954.1"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="726.8357"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="387.1873"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3179.6"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="DGLDAASYYAPVR @ 699.338 / 1112.536" peptideRef="DGLDAASYYAPVR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="5346.7"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="699.3384"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="1112.5355"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3033.9"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="DGLDAASYYAPVR @ 699.338 / 997.508" peptideRef="DGLDAASYYAPVR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="5042.2"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="699.3384"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="997.5082"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3033.9"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="DGLDAASYYAPVR @ 699.338 / 926.473" peptideRef="DGLDAASYYAPVR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="7774.6"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="699.3384"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="926.4729"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3033.9"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GAGSSEPVTGLDAK @ 644.823 / 333.177" peptideRef="GAGSSEPVTGLDAK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="2567.7"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="644.8226"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="333.1769"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1285.1"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="DGLDAASYYAPVR @ 466.561 / 442.278" peptideRef="DGLDAASYYAPVR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="2577.9"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="466.5614"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="442.2776"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3024.2"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="YILAGVENSK @ 547.298 / 633.320" peptideRef="YILAGVENSK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="2100.8"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="547.298"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="633.3201"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1887.8"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GTFIIDPAAVIR @ 424.915 / 458.308" peptideRef="GTFIIDPAAVIR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="5680.9"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="424.9152"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="458.3082"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="4137.0"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="DGLDAASYYAPVR @ 699.338 / 768.403" peptideRef="DGLDAASYYAPVR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="4253.0"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="699.3384"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="768.4033"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3033.9"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GTFIIDPAAVIR @ 424.915 / 529.344" peptideRef="GTFIIDPAAVIR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="1619.4"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="424.9152"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="529.3444"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="4137.0"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="DGLDAASYYAPVR @ 699.338 / 855.436" peptideRef="DGLDAASYYAPVR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="10000.0"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="699.3384"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="855.436"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3033.9"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="ADVTPADFSEWSK @ 484.893 / 420.225" peptideRef="ADVTPADFSEWSK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="312.1"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="484.8929"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="420.2253"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="2568.9"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="VEATFGVDESNAK @ 683.828 / 663.294" peptideRef="VEATFGVDESNAK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="2831.6"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="683.8279"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="663.2942"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1881.0"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="VEATFGVDESNAK @ 683.828 / 548.267" peptideRef="VEATFGVDESNAK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="2033.8"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="683.8279"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="548.2672"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1881.0"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="ADVTPADFSEWSK @ 484.893 / 387.187" peptideRef="ADVTPADFSEWSK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="786.7"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="484.8929"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="387.1868"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="2568.9"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="VEATFGVDESNAK @ 683.828 / 419.227" peptideRef="VEATFGVDESNAK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="2151.1"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="683.8279"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="419.227"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1881.0"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GAGSSEPVTGLDAK @ 644.823 / 503.282" peptideRef="GAGSSEPVTGLDAK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="2424.6"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="644.8226"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="503.2821"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1285.1"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="LGGNEQVTR @ 487.257 / 803.399" peptideRef="LGGNEQVTR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="1195.5"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="487.2567"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="803.399"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="357.0"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GTFIIDPAAVIR @ 636.869 / 313.703" peptideRef="GTFIIDPAAVIR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="345.1"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="636.8691"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="313.7026"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="4135.5"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="TPVISGGPYEYR @ 669.838 / 1140.568" peptideRef="TPVISGGPYEYR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="2153.5"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="669.8381"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="1140.5683"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="2310.6"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="ADVTPADFSEWSK @ 726.836 / 420.224" peptideRef="ADVTPADFSEWSK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="4547.7"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="726.8357"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="420.224"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3179.6"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="ADVTPADFSEWSK @ 484.893 / 969.418" peptideRef="ADVTPADFSEWSK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="102.8"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="484.8929"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="969.4183"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="2568.9"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="ADVTPADFSEWSK @ 726.836 / 533.746" peptideRef="ADVTPADFSEWSK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="4081.6"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="726.8357"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="533.7459"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3179.6"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="DGLDAASYYAPVR @ 466.561 / 855.434" peptideRef="DGLDAASYYAPVR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="303.0"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="466.5614"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="855.4339"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3024.2"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="ADVTPADFSEWSK @ 726.836 / 969.430" peptideRef="ADVTPADFSEWSK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="3493.3"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="726.8357"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="969.4299"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3179.6"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GAGSSEPVTGLDAK @ 644.823 / 800.451" peptideRef="GAGSSEPVTGLDAK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="10000.0"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="644.8226"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="800.4509"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1285.1"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GTFIIDPAAVIR @ 636.869 / 967.593" peptideRef="GTFIIDPAAVIR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="561.0"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="636.8691"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="967.5933"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="4135.5"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="LGGNEQVTR @ 487.257 / 503.293" peptideRef="LGGNEQVTR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="1188.3"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="487.2567"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="503.2932"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="357.0"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="TPVITGAPYEYR @ 683.854 / 956.448" peptideRef="TPVITGAPYEYR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="10000.0"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="683.8537"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="956.4475"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="2507.4"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="TPVITGAPYEYR @ 683.854 / 727.341" peptideRef="TPVITGAPYEYR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="3419.2"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="683.8537"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="727.3407"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="2507.4"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="YILAGVENSK @ 547.298 / 817.441" peptideRef="YILAGVENSK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="1969.1"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="547.298"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="817.4405"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1887.8"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GTFIIDPAAVIR @ 424.915 / 741.420" peptideRef="GTFIIDPAAVIR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="440.8"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="424.9152"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="741.4196"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="4137.0"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="TPVITGAPYEYR @ 683.854 / 855.399" peptideRef="TPVITGAPYEYR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="5231.2"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="683.8537"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="855.3987"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="2507.4"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="YILAGVENSK @ 547.298 / 348.188" peptideRef="YILAGVENSK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="1999.1"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="547.298"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="348.1878"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1887.8"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="LGGNEQVTR @ 487.257 / 632.335" peptideRef="LGGNEQVTR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="710.7"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="487.2567"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="632.3351"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="357.0"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="VEATFGVDESNAK @ 456.221 / 401.211" peptideRef="VEATFGVDESNAK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="481.7"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="456.221"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="401.2108"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1374.7"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="VEATFGVDESNAK @ 456.221 / 548.272" peptideRef="VEATFGVDESNAK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="1019.0"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="456.221"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="548.272"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1374.7"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="DGLDAASYYAPVR @ 699.338 / 605.341" peptideRef="DGLDAASYYAPVR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="4564.5"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="699.3384"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="605.3409"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3033.9"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="TPVISGGPYEYR @ 669.838 / 928.416" peptideRef="TPVISGGPYEYR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="10000.0"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="669.8381"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="928.4162"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="2310.6"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GTFIIDPGGVIR @ 622.854 / 419.229" peptideRef="GTFIIDPGGVIR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="378.6"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="622.8535"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="419.2291"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3686.8"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="ADVTPADFSEWSK @ 484.893 / 636.302" peptideRef="ADVTPADFSEWSK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="522.5"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="484.8929"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="636.3019"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="2568.9"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="VEATFGVDESNAK @ 683.828 / 966.451" peptideRef="VEATFGVDESNAK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="2478.4"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="683.8279"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="966.4508"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1881.0"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GTFIIDPAAVIR @ 636.869 / 854.510" peptideRef="GTFIIDPAAVIR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="2168.2"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="636.8691"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="854.5098"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="4135.5"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="LGGNEQVTR @ 487.257 / 860.422" peptideRef="LGGNEQVTR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="2804.4"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="487.2567"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="860.4221"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="357.0"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="TPVISGGPYEYR @ 669.838 / 841.384" peptideRef="TPVISGGPYEYR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="3439.3"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="669.8381"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="841.3838"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="2310.6"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GTFIIDPGGVIR @ 622.854 / 713.394" peptideRef="GTFIIDPGGVIR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="813.2"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="622.8535"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="713.394"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3686.8"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="VEATFGVDESNAK @ 456.221 / 663.295" peptideRef="VEATFGVDESNAK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="2838.1"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="456.221"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="663.295"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1374.7"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="YILAGVENSK @ 547.298 / 704.357" peptideRef="YILAGVENSK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="2032.1"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="547.298"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="704.3571"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1887.8"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GTFIIDPGGVIR @ 622.854 / 826.478" peptideRef="GTFIIDPGGVIR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="913.7"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="622.8535"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="826.4776"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3686.8"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="ADVTPADFSEWSK @ 726.836 / 1066.484" peptideRef="ADVTPADFSEWSK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="10000.0"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="726.8357"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="1066.4842"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3179.6"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GTFIIDPAAVIR @ 424.915 / 313.702" peptideRef="GTFIIDPAAVIR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="1103.6"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="424.9152"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="313.7022"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="4137.0"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="TPVISGGPYEYR @ 669.838 / 338.182" peptideRef="TPVISGGPYEYR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="3013.4"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="669.8381"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="338.1823"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="2310.6"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="LGGNEQVTR @ 487.257 / 375.235" peptideRef="LGGNEQVTR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="1023.6"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="487.2567"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="375.2351"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="357.0"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GAGSSEPVTGLDAK @ 644.823 / 604.330" peptideRef="GAGSSEPVTGLDAK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="4598.6"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="644.8226"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="604.3296"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1285.1"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="DGLDAASYYAPVR @ 466.561 / 605.341" peptideRef="DGLDAASYYAPVR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="2176.1"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="466.5614"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="605.3405"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3024.2"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="TPVITGAPYEYR @ 683.854 / 1069.531" peptideRef="TPVITGAPYEYR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="6232.3"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="683.8537"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="1069.5313"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="2507.4"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="ADVTPADFSEWSK @ 726.836 / 898.393" peptideRef="ADVTPADFSEWSK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="3754.1"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="726.8357"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="898.3933"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3179.6"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="LGGNEQVTR @ 487.257 / 746.377" peptideRef="LGGNEQVTR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="330.6"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="487.2567"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="746.377"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="357.0"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="VEATFGVDESNAK @ 456.221 / 332.193" peptideRef="VEATFGVDESNAK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="622.4"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="456.221"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="332.1933"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1374.7"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GTFIIDPGGVIR @ 622.854 / 598.368" peptideRef="GTFIIDPGGVIR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="10000.0"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="622.8535"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="598.3677"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3686.8"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="TPVISGGPYEYR @ 669.838 / 784.363" peptideRef="TPVISGGPYEYR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="1050.6"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="669.8381"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="784.3626"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="2310.6"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="ADVTPADFSEWSK @ 484.893 / 549.269" peptideRef="ADVTPADFSEWSK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="108.6"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="484.8929"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="549.2694"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="2568.9"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="VEATFGVDESNAK @ 456.221 / 419.225" peptideRef="VEATFGVDESNAK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="1915.4"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="456.221"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="419.225"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1374.7"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="TPVITGAPYEYR @ 683.854 / 1168.598" peptideRef="TPVITGAPYEYR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="2146.4"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="683.8537"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="1168.5983"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="2507.4"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="YILAGVENSK @ 547.298 / 477.232" peptideRef="YILAGVENSK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="1081.1"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="547.298"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="477.2315"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1887.8"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="YILAGVENSK @ 547.298 / 390.240" peptideRef="YILAGVENSK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="382.0"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="547.298"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="390.2396"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1887.8"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GTFIIDPGGVIR @ 622.854 / 306.145" peptideRef="GTFIIDPGGVIR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="1042.4"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="622.8535"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="306.1448"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3686.8"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GAGSSEPVTGLDAK @ 644.823 / 400.730" peptideRef="GAGSSEPVTGLDAK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="1308.3"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="644.8226"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="400.7295"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1285.1"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GTFIIDPAAVIR @ 424.915 / 626.398" peptideRef="GTFIIDPAAVIR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="4517.3"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="424.9152"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="626.3975"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="4137.0"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="DGLDAASYYAPVR @ 466.561 / 371.241" peptideRef="DGLDAASYYAPVR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="2820.9"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="466.5614"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="371.2405"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="3024.2"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="TPVISGGPYEYR @ 669.838 / 1041.501" peptideRef="TPVISGGPYEYR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="6462.1"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="669.8381"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="1041.5009"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="2310.6"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="VEATFGVDESNAK @ 683.828 / 819.384" peptideRef="VEATFGVDESNAK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="5230.3"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="683.8279"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="819.3843"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1881.0"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="TPVITGAPYEYR @ 683.854 / 338.182" peptideRef="TPVITGAPYEYR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="3637.2"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="683.8537"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="338.182"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="2507.4"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GTFIIDPAAVIR @ 636.869 / 419.229" peptideRef="GTFIIDPAAVIR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="464.5"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="636.8691"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="419.2285"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="4135.5"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="VEATFGVDESNAK @ 456.221 / 300.155" peptideRef="VEATFGVDESNAK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="423.9"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="456.221"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="300.155"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1374.7"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GTFIIDPAAVIR @ 424.915 / 387.271" peptideRef="GTFIIDPAAVIR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="2266.9"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="424.9152"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="387.2711"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="4137.0"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="VEATFGVDESNAK @ 683.828 / 300.156" peptideRef="VEATFGVDESNAK">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="2089.5"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="683.8279"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="300.1556"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="1881.0"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+    <Transition id="GTFIIDPAAVIR @ 636.869 / 306.145" peptideRef="GTFIIDPAAVIR">
+      <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="1321.6"/>
+      <Precursor>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="636.8691"/>
+      </Precursor>
+      <Product>
+        <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="306.1447"/>
+        <ConfigurationList>
+          <Configuration instrumentRef="null">
+            <cvParam cvRef="MS" accession="MS:1000045" name="collision energy" value="30.0"/>
+          </Configuration>
+        </ConfigurationList>
+      </Product>
+      <RetentionTime>
+        <cvParam cvRef="MS" accession="MS:1000895" name="local retention time" value="4135.5"/>
+        <cvParam cvRef="MS" accession="MS:1000916" name="retention time window lower offset" value="0.0"/>
+        <cvParam cvRef="MS" accession="MS:1000917" name="retention time window upper offset" value="0.0"/>
+      </RetentionTime>
+    </Transition>
+  </TransitionList>
+</TraML>

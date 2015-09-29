@@ -1,0 +1,647 @@
+<?xml version="1.0"?>
+<TraML version="null">
+  <cvList/>
+  <SourceFileList/>
+  <ContactList/>
+  <PublicationList/>
+  <InstrumentList/>
+  <SoftwareList/>
+  <ProteinList/>
+  <CompoundList/>
+  <TransitionList/>
+  <TargetList>
+    <TargetIncludeList>
+      <Target id="YILAGVENSK +0.0, naturally 53.848%" peptideRef="YILAGVENSK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.5384758059757085"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="547.29803873496"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="YILAGVENSK +1.0, naturally 31.722%" peptideRef="YILAGVENSK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.3172193986478854"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="547.79971615386"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="YILAGVENSK +2.0, naturally 10.955%" peptideRef="YILAGVENSK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.10955348155209595"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="548.3013935727599"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="YILAGVENSK +0.0, naturally 53.848%" peptideRef="YILAGVENSK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.5384758059757085"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="365.2011179789333"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="YILAGVENSK +1.0, naturally 31.722%" peptideRef="YILAGVENSK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.3172193986478854"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="365.5355695915334"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="YILAGVENSK +2.0, naturally 10.955%" peptideRef="YILAGVENSK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.10955348155209595"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="365.8700212041333"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="YILAGVENSK +0.0, naturally 53.848%" peptideRef="YILAGVENSK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.5384758059757085"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="274.15265760092"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="YILAGVENSK +1.0, naturally 31.722%" peptideRef="YILAGVENSK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.3172193986478854"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="274.40349631037003"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="YILAGVENSK +2.0, naturally 10.955%" peptideRef="YILAGVENSK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.10955348155209595"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="274.65433501982"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="TPVITGAPYEYR +0.0, naturally 45.403%" peptideRef="TPVITGAPYEYR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.45403372535926473"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="683.853709412025"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="TPVITGAPYEYR +1.0, naturally 34.250%" peptideRef="TPVITGAPYEYR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.34250224601822854"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="684.355386830925"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="TPVITGAPYEYR +2.0, naturally 14.519%" peptideRef="TPVITGAPYEYR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.14519019648104892"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="684.8570642498249"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="TPVITGAPYEYR +0.0, naturally 45.403%" peptideRef="TPVITGAPYEYR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.45403372535926473"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="456.23823176364334"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="TPVITGAPYEYR +1.0, naturally 34.250%" peptideRef="TPVITGAPYEYR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.34250224601822854"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="456.57268337624333"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="TPVITGAPYEYR +2.0, naturally 14.519%" peptideRef="TPVITGAPYEYR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.14519019648104892"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="456.9071349888433"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="TPVITGAPYEYR +0.0, naturally 45.403%" peptideRef="TPVITGAPYEYR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.45403372535926473"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="342.4304929394525"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="TPVITGAPYEYR +1.0, naturally 34.250%" peptideRef="TPVITGAPYEYR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.34250224601822854"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="342.6813316489025"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="TPVITGAPYEYR +2.0, naturally 14.519%" peptideRef="TPVITGAPYEYR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.14519019648104892"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="342.9321703583525"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="GTFIIDPAAVIR +0.0, naturally 47.736%" peptideRef="GTFIIDPAAVIR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.4773600201024748"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="636.8691625147549"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="GTFIIDPAAVIR +1.0, naturally 33.901%" peptideRef="GTFIIDPAAVIR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.33901083864795056"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="637.3708399336549"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="GTFIIDPAAVIR +2.0, naturally 13.438%" peptideRef="GTFIIDPAAVIR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.13437630192256714"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="637.8725173525548"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="GTFIIDPAAVIR +0.0, naturally 47.736%" peptideRef="GTFIIDPAAVIR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.4773600201024748"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="424.9152004987966"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="GTFIIDPAAVIR +1.0, naturally 33.901%" peptideRef="GTFIIDPAAVIR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.33901083864795056"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="425.24965211139664"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="GTFIIDPAAVIR +2.0, naturally 13.438%" peptideRef="GTFIIDPAAVIR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.13437630192256714"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="425.5841037239966"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="GTFIIDPAAVIR +0.0, naturally 47.736%" peptideRef="GTFIIDPAAVIR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.4773600201024748"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="318.93821949081746"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="GTFIIDPAAVIR +1.0, naturally 33.901%" peptideRef="GTFIIDPAAVIR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.33901083864795056"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="319.1890582002675"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="GTFIIDPAAVIR +2.0, naturally 13.438%" peptideRef="GTFIIDPAAVIR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.13437630192256714"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="319.43989690971745"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="GAGSSEPVTGLDAK +0.0, naturally 50.227%" peptideRef="GAGSSEPVTGLDAK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.502270698652334"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="644.8226062451549"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="GAGSSEPVTGLDAK +1.0, naturally 32.479%" peptideRef="GAGSSEPVTGLDAK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.32479315191602826"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="645.324283664055"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="GAGSSEPVTGLDAK +2.0, naturally 12.611%" peptideRef="GAGSSEPVTGLDAK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.12611101876715522"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="645.8259610829549"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="GAGSSEPVTGLDAK +0.0, naturally 50.227%" peptideRef="GAGSSEPVTGLDAK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.502270698652334"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="430.2174963190633"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="GAGSSEPVTGLDAK +1.0, naturally 32.479%" peptideRef="GAGSSEPVTGLDAK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.32479315191602826"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="430.55194793166334"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="GAGSSEPVTGLDAK +2.0, naturally 12.611%" peptideRef="GAGSSEPVTGLDAK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.12611101876715522"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="430.88639954426327"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="GAGSSEPVTGLDAK +0.0, naturally 50.227%" peptideRef="GAGSSEPVTGLDAK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.502270698652334"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="322.9149413560175"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="GAGSSEPVTGLDAK +1.0, naturally 32.479%" peptideRef="GAGSSEPVTGLDAK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.32479315191602826"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="323.1657800654675"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="GAGSSEPVTGLDAK +2.0, naturally 12.611%" peptideRef="GAGSSEPVTGLDAK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.12611101876715522"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="323.4166187749175"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="DGLDAASYYAPVR +0.0, naturally 45.521%" peptideRef="DGLDAASYYAPVR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.4552112519961309"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="699.33842348588"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="DGLDAASYYAPVR +1.0, naturally 34.032%" peptideRef="DGLDAASYYAPVR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.3403198366583263"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="699.84010090478"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="DGLDAASYYAPVR +2.0, naturally 14.516%" peptideRef="DGLDAASYYAPVR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.14515536715095967"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="700.3417783236799"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="DGLDAASYYAPVR +0.0, naturally 45.521%" peptideRef="DGLDAASYYAPVR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.4552112519961309"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="466.56137447954666"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="DGLDAASYYAPVR +1.0, naturally 34.032%" peptideRef="DGLDAASYYAPVR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.3403198366583263"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="466.8958260921467"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="DGLDAASYYAPVR +2.0, naturally 14.516%" peptideRef="DGLDAASYYAPVR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.14515536715095967"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="467.23027770474664"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="DGLDAASYYAPVR +0.0, naturally 45.521%" peptideRef="DGLDAASYYAPVR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.4552112519961309"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="350.17284997638"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="DGLDAASYYAPVR +1.0, naturally 34.032%" peptideRef="DGLDAASYYAPVR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.3403198366583263"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="350.42368868583003"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="DGLDAASYYAPVR +2.0, naturally 14.516%" peptideRef="DGLDAASYYAPVR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.14515536715095967"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="350.67452739528"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="ADVTPADFSEWSK +0.0, naturally 44.017%" peptideRef="ADVTPADFSEWSK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.44016706638169845"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="726.835713619075"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="ADVTPADFSEWSK +1.0, naturally 34.213%" peptideRef="ADVTPADFSEWSK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.34213276204892884"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="727.3373910379751"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="ADVTPADFSEWSK +2.0, naturally 15.205%" peptideRef="ADVTPADFSEWSK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.15205049755671138"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="727.839068456875"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="ADVTPADFSEWSK +0.0, naturally 44.017%" peptideRef="ADVTPADFSEWSK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.44016706638169845"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="484.89290123501"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="ADVTPADFSEWSK +1.0, naturally 34.213%" peptideRef="ADVTPADFSEWSK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.34213276204892884"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="485.22735284761006"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="ADVTPADFSEWSK +2.0, naturally 15.205%" peptideRef="ADVTPADFSEWSK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.15205049755671138"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="485.56180446021"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="ADVTPADFSEWSK +0.0, naturally 44.017%" peptideRef="ADVTPADFSEWSK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.44016706638169845"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="363.92149504297754"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="ADVTPADFSEWSK +1.0, naturally 34.213%" peptideRef="ADVTPADFSEWSK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.34213276204892884"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="364.17233375242756"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="ADVTPADFSEWSK +2.0, naturally 15.205%" peptideRef="ADVTPADFSEWSK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.15205049755671138"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="364.4231724618775"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="TPVISGGPYEYR +0.0, naturally 46.412%" peptideRef="TPVISGGPYEYR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.46412170819367704"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="669.838059347885"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="TPVISGGPYEYR +1.0, naturally 33.986%" peptideRef="TPVISGGPYEYR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.3398590090804808"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="670.339736766785"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="TPVISGGPYEYR +2.0, naturally 14.085%" peptideRef="TPVISGGPYEYR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.1408492793367407"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="670.8414141856849"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="TPVISGGPYEYR +0.0, naturally 46.412%" peptideRef="TPVISGGPYEYR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.46412170819367704"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="446.89446505421665"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="TPVISGGPYEYR +1.0, naturally 33.986%" peptideRef="TPVISGGPYEYR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.3398590090804808"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="447.2289166668167"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="TPVISGGPYEYR +2.0, naturally 14.085%" peptideRef="TPVISGGPYEYR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.1408492793367407"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="447.56336827941664"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="TPVISGGPYEYR +0.0, naturally 46.412%" peptideRef="TPVISGGPYEYR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.46412170819367704"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="335.4226679073825"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="TPVISGGPYEYR +1.0, naturally 33.986%" peptideRef="TPVISGGPYEYR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.3398590090804808"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="335.6735066168325"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="TPVISGGPYEYR +2.0, naturally 14.085%" peptideRef="TPVISGGPYEYR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.1408492793367407"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="335.9243453262825"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="VEATFGVDESNAK +0.0, naturally 47.470%" peptideRef="VEATFGVDESNAK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.47470234284367674"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="683.827888587005"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="VEATFGVDESNAK +1.0, naturally 33.293%" peptideRef="VEATFGVDESNAK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.33292736355054675"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="684.329566005905"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="VEATFGVDESNAK +2.0, naturally 13.752%" peptideRef="VEATFGVDESNAK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.1375234057959811"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="684.8312434248049"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="VEATFGVDESNAK +0.0, naturally 47.470%" peptideRef="VEATFGVDESNAK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.47470234284367674"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="456.22101788029664"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="VEATFGVDESNAK +1.0, naturally 33.293%" peptideRef="VEATFGVDESNAK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.33292736355054675"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="456.5554694928967"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="VEATFGVDESNAK +2.0, naturally 13.752%" peptideRef="VEATFGVDESNAK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.1375234057959811"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="456.8899211054966"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="VEATFGVDESNAK +0.0, naturally 47.470%" peptideRef="VEATFGVDESNAK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.47470234284367674"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="342.4175825269425"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="VEATFGVDESNAK +1.0, naturally 33.293%" peptideRef="VEATFGVDESNAK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.33292736355054675"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="342.66842123639253"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="VEATFGVDESNAK +2.0, naturally 13.752%" peptideRef="VEATFGVDESNAK">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.1375234057959811"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="342.9192599458425"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="LGGNEQVTR +0.0, naturally 59.755%" peptideRef="LGGNEQVTR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.5975505533381374"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="487.25670523755997"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="LGGNEQVTR +1.0, naturally 29.070%" peptideRef="LGGNEQVTR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.2907049737905354"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="487.75838265645996"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="LGGNEQVTR +2.0, naturally 8.771%" peptideRef="LGGNEQVTR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.08771081931958083"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="488.26006007535995"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="LGGNEQVTR +0.0, naturally 59.755%" peptideRef="LGGNEQVTR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.5975505533381374"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="325.173562314"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="LGGNEQVTR +1.0, naturally 29.070%" peptideRef="LGGNEQVTR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.2907049737905354"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="325.5080139266"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="LGGNEQVTR +2.0, naturally 8.771%" peptideRef="LGGNEQVTR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.08771081931958083"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="325.84246553919996"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="LGGNEQVTR +0.0, naturally 59.755%" peptideRef="LGGNEQVTR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.5975505533381374"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="244.13199085221999"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="LGGNEQVTR +1.0, naturally 29.070%" peptideRef="LGGNEQVTR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.2907049737905354"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="244.38282956166998"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="LGGNEQVTR +2.0, naturally 8.771%" peptideRef="LGGNEQVTR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.08771081931958083"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="244.63366827111997"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="GTFIIDPGGVIR +0.0, naturally 48.797%" peptideRef="GTFIIDPGGVIR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.48796627998948644"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="622.8535124506149"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="GTFIIDPGGVIR +1.0, naturally 33.576%" peptideRef="GTFIIDPGGVIR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.3357632650260428"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="623.3551898695149"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="GTFIIDPGGVIR +2.0, naturally 12.988%" peptideRef="GTFIIDPGGVIR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.12988254794495419"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="623.8568672884148"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="GTFIIDPGGVIR +0.0, naturally 48.797%" peptideRef="GTFIIDPGGVIR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.48796627998948644"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="415.5714337893699"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="GTFIIDPGGVIR +1.0, naturally 33.576%" peptideRef="GTFIIDPGGVIR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.3357632650260428"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="415.90588540196995"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="GTFIIDPGGVIR +2.0, naturally 12.988%" peptideRef="GTFIIDPGGVIR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.12988254794495419"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="416.2403370145699"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="3"/>
+        </Precursor>
+      </Target>
+      <Target id="GTFIIDPGGVIR +0.0, naturally 48.797%" peptideRef="GTFIIDPGGVIR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.48796627998948644"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="311.93039445874746"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="GTFIIDPGGVIR +1.0, naturally 33.576%" peptideRef="GTFIIDPGGVIR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.3357632650260428"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="312.1812331681975"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+      <Target id="GTFIIDPGGVIR +2.0, naturally 12.988%" peptideRef="GTFIIDPGGVIR">
+        <cvParam cvRef="MS" accession="MS:1001226" name="product ion intensity" value="0.12988254794495419"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="312.43207187764745"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="4"/>
+        </Precursor>
+      </Target>
+    </TargetIncludeList>
+    <TargetExcludeList/>
+  </TargetList>
+</TraML>

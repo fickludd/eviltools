@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<TraML version="null">
+  <cvList/>
+  <SourceFileList/>
+  <ContactList/>
+  <PublicationList/>
+  <InstrumentList/>
+  <SoftwareList/>
+  <ProteinList>
+    <Protein id="decoy">
+      <cvParam cvRef="MS" accession="MS:1000885" name="protein accession" value="unknown"/>
+      <cvParam cvRef="MS" accession="MS:1000883" name="protein short name" value="decoy"/>
+      <cvParam cvRef="MS" accession="MS:1000886" name="protein name" value="decoy"/>
+      <Sequence>
+      </Sequence>
+    </Protein>
+  </ProteinList>
+  <CompoundList>
+    <Peptide id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEPHKCCK" sequence="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEPHKCCK">
+      <ProteinRef ref="decoy"/>
+    </Peptide>
+    <Peptide id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEAYNKCVDKSEVFDAALSPLDAPMEDNEVEAICHSK" sequence="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEAYNKCVDKSEVFDAALSPLDAPMEDNEVEAICHSK">
+      <ProteinRef ref="decoy"/>
+    </Peptide>
+    <Peptide id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AGGLHHQQGEGITLRNFPIIKMTTK" sequence="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AGGLHHQQGEGITLRNFPIIKMTTK">
+      <ProteinRef ref="decoy"/>
+    </Peptide>
+    <Peptide id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEAYNKCVDK" sequence="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEAYNKCVDK">
+      <ProteinRef ref="decoy"/>
+    </Peptide>
+    <Peptide id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~ACCDAMEGYTERLTAVTCLKDGFLTHLSK" sequence="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~ACCDAMEGYTERLTAVTCLKDGFLTHLSK">
+      <ProteinRef ref="decoy"/>
+    </Peptide>
+    <Peptide id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEAELKAQLEAKEK" sequence="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEAELKAQLEAKEK">
+      <ProteinRef ref="decoy"/>
+    </Peptide>
+    <Peptide id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AFETVENVLKVHDEFPCQQLYQAFAILVLAK" sequence="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AFETVENVLKVHDEFPCQQLYQAFAILVLAK">
+      <ProteinRef ref="decoy"/>
+    </Peptide>
+    <Peptide id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~2DSS~AEAELKAQLEAK" sequence="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~2DSS~AEAELKAQLEAK">
+      <ProteinRef ref="decoy"/>
+    </Peptide>
+    <Peptide id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS" sequence="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS">
+      <ProteinRef ref="decoy"/>
+    </Peptide>
+    <Peptide id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEPHKCCKSGVK" sequence="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEPHKCCKSGVK">
+      <ProteinRef ref="decoy"/>
+    </Peptide>
+    <Peptide id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEAELKAQLEAK" sequence="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEAELKAQLEAK">
+      <ProteinRef ref="decoy"/>
+    </Peptide>
+  </CompoundList>
+  <TransitionList/>
+  <TargetList>
+    <TargetIncludeList>
+      <Target id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEPHKCCK +2" peptideRef="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEPHKCCK">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="2114.9869618896896"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEAYNKCVDKSEVFDAALSPLDAPMEDNEVEAICHSK +2" peptideRef="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEAYNKCVDKSEVFDAALSPLDAPMEDNEVEAICHSK">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="3676.69848256848"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AGGLHHQQGEGITLRNFPIIKMTTK +2" peptideRef="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AGGLHHQQGEGITLRNFPIIKMTTK">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="3031.0168842714243"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEAYNKCVDK +2" peptideRef="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEAYNKCVDK">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="2227.5458949912945"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~ACCDAMEGYTERLTAVTCLKDGFLTHLSK +2" peptideRef="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~ACCDAMEGYTERLTAVTCLKDGFLTHLSK">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="3245.5223646714894"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEAELKAQLEAKEK +2" peptideRef="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEAELKAQLEAKEK">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="2436.20233379712"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AFETVENVLKVHDEFPCQQLYQAFAILVLAK +2" peptideRef="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AFETVENVLKVHDEFPCQQLYQAFAILVLAK">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="3439.2085468915443"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS +2" peptideRef="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="1657.7818404591399"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEPHKCCKSGVK +2" peptideRef="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEPHKCCKSGVK">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="2300.5953964156047"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+      <Target id="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEAELKAQLEAK +2" peptideRef="ACCDAMEGYTERLTAVTCLKDGFLTHLSK~DSS~AEAELKAQLEAK">
+        <cvParam cvRef="MS" accession="MS:1001141" name="intensity of precursor ion" value="1.0"/>
+        <Precursor>
+          <cvParam cvRef="MS" accession="MS:1000827" name="isolation window target m/z" value="2307.633555746135"/>
+          <cvParam cvRef="MS" accession="MS:1000041" name="charge state" value="2"/>
+        </Precursor>
+      </Target>
+    </TargetIncludeList>
+    <TargetExcludeList/>
+  </TargetList>
+</TraML>
