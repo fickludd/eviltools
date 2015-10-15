@@ -1,7 +1,6 @@
 package se.lth.immun
 
-import se.lth.immun.app.CLIApplication
-import se.lth.immun.app.CommandlineArgumentException
+import se.jt.CLIApp
 
 import se.lth.immun.xml.XmlWriter
 
@@ -12,201 +11,147 @@ import java.io.BufferedReader
 import java.io.FileWriter
 import java.io.BufferedWriter
 import java.util.Properties
+
 import collection.mutable.ArrayBuffer
 import collection.mutable.HashSet
 import collection.JavaConversions._
+import scala.util.{Try, Success, Failure}
 
 import se.lth.immun.traml.ghost._
 import se.lth.immun.xml._
 import se.lth.immun.chem._
 
-object Tramler extends CLIApplication {
+object Tramler extends CLIApp {
 	
 	trait ReadMode
-	case class InCsv() extends ReadMode
-	case class InTraml() extends ReadMode
-	case class Unknown() extends ReadMode
+	case object InCsv extends ReadMode
+	case object InTraml extends ReadMode
+	case object Unknown extends ReadMode
+	case object InFragmentBin extends ReadMode
 	
-	var inFile:File 		= _
-	var readMode:ReadMode 	= _
-	var outTramlFile:Option[File] = None
-	var outputDefault:File 	= _
 	var modFile:File		= _
 	var mods:Seq[IModifier] 	= Nil
-	var traml:GhostTraML 	= _
-	var ops:Seq[TramlOperation] = Nil
 	
-	def isExt(f:File, ext:String) =
-		f.toString.toLowerCase.endsWith(ext)
-	
-	def replaceExt(f:File, oldExt:String, ext:String) =
-		new File(f.toString.dropRight(oldExt.length) + ext)
-	
-	def appendExt(f:File, ext:String) =
-		new File(f.toString + ext)
-	
-	
-	def parseOp(str:String):TramlOperation = {
-		def getOp(opString:String) = opString match {
-			case Decoy.opString => new Decoy()
-			case Isotopes.opString => new Isotopes()
-			case Include.opString => new Include()
-			case Clean.opString => new Clean()
-			case Subsample.opString => new Subsample()
-			case Stats.opString => new Stats()
-			case _ =>
-				throw new IllegalArgumentException("'"+str+"' is not a valid traml operation!")
-		}
-		
-		if (str.contains("(")) {
-			val parts 	= str.split("\\(",2)
-			val op 		= getOp(parts(0))
-			val params 	= parts(1).init
-			op.params = params
-			try {
-				op.setup(params, mods)
-			} catch {
-				case e:Exception =>
-					throw new IllegalArgumentException(
-							"\n   == "+parts(0)+" ==\n"+
-							e.getMessage() + "\n" + op.usage
-						, e)
-			}
-			op
-		} else 
-			getOp(str)
-	}
+	val properties = new Properties
+    properties.load(this.getClass.getResourceAsStream("/pom.properties"))
+    
+	val t0 		= System.currentTimeMillis
+	val name 	= properties.getProperty("pom.name")
+	val version = properties.getProperty("pom.version")
+    
+	val params = new TramlerParams
+    
+	val allowedOperations = Array(Clean, Decoy, Isotopes, Subsample, Stats, Trim)
 	
 	def main(args:Array[String]):Unit = {
 		
-		var properties = new Properties
-    	properties.load(this.getClass.getResourceAsStream("/pom.properties"))
-    	    	
-		arg("IN_FILE", s => {
-			inFile = new File(s)
-			outputDefault =
-				if (isExt(inFile, ".traml")) {
-					readMode = InTraml()
-					appendExt(inFile, ".out")
-				} else if (isExt(inFile, ".csv") || 
-							isExt(inFile, ".txt") || 
-							isExt(inFile, ".tsv")
-				) {
-					readMode = InCsv()
-					replaceExt(inFile, ".csv", ".traml")
-				} else {
-					readMode = Unknown()
-					appendExt(inFile, ".traml")
-				}
-		})
-		
-		rest("OPS", opStrings => {
-			ops = opStrings.map(s => {
-				val op = parseOp(s)
-				op match {
-					case d:Decoy =>
-						outputDefault = 
-							if (isExt(outputDefault, ".out")) 
-								replaceExt(outputDefault, ".traml.out", ".decoy.traml")
-							else
-								replaceExt(outputDefault, ".traml", ".decoy.traml")
-					case _ => {}
-				}
-				op
-			})
-			
-		}, true)
-		
-		opt("output", 
-				"file where output traml should be saved (default: input csv .traml)", 
-				s => {
-					outTramlFile = Some(new File(s))
-				},
-				"X")
-		
-		opt("mods", 
-				"file with modifications (one per line)", 
-				s => {
-					modFile = new File(s)
-					mods = readModFile(modFile)
-				},
-				"X")
-		
-		
-		val before 		= System.currentTimeMillis
-    	val name 		= properties.getProperty("pom.name")
-    	val version 	= properties.getProperty("pom.version")
-    	
-		try {
-			parseArgs(name + " "+version, args)
-		} catch {
-			case cae:CommandlineArgumentException => 
-				println(cae.toString)
-				println
-				println(CsvParser.USAGE)
-				println
-				println(operationsHelp)
-				println
-			
-				return
+		val argsErrs = parseArgs(name, version, args, params, List("in"), Some("ops"))
+		if (argsErrs.nonEmpty) {
+			println("\n\n  OPERATIONS:")
+			println("  ===========")
+			println("    operations syntax is 'operation(option1,option2=value,...,optionN)'\n")
+			println(operationsHelp)
+			failOnError(argsErrs)
 		}
-		
+    	    	
 		println(name + " "+version)
-		println("       input file: "+inFile)
+		println("       input file: "+params.in.value)
     	
-		traml = readInFile
+		
+		val (readMode, outDef1) = inFormat(params.inFile)
+		
+		val ops = params.ops.split(" ").map(parseOp)
+		val outputDefault = 
+			if (params.ops.split(" ").exists(_.startsWith(Decoy.opString)))
+				if (isExt(outDef1, ".out")) 
+					replaceExt(outDef1, ".traml.out", ".decoy.traml")
+				else
+					replaceExt(outDef1, ".traml", ".decoy.traml")
+			else outDef1
+		
+		var traml = readFile(readMode, params.inFile)
     	
 		for (op <- ops) {
-			println("  [%s]".format(op.toString))
-			traml = op.operate(traml)
+			println("  [ %s ]".format(op.toString))
+			traml = op.operate(traml, params)
 		}
     	
-		val outFile = outTramlFile.getOrElse(outputDefault)
+		val outFile = params.outFile.getOrElse(outputDefault)
 		println("    [OUTPUT] file: "+outFile)
     	println()
     	
-    	traml.write(new XmlWriter(new BufferedWriter(new FileWriter(outFile))))
+    	traml.write(XmlWriter(new BufferedWriter(new FileWriter(outFile))))
 		
-		val after = System.currentTimeMillis
-		println("  time taken: "+niceTiming(after-before))
+		println("  time taken: "+niceTiming(System.currentTimeMillis - t0))
 	}
+	
 	
 	
 	def operationsHelp:String = 
-		"\n   == "+Decoy.opString+" ==\n"+ (new Decoy).usage + "\n" +
-		"\n   == "+Isotopes.opString+" ==\n"+ (new Isotopes).usage + "\n" +
-		"\n   == "+Include.opString+" ==\n"+ (new Include).usage + "\n" +
-		"\n   == "+Clean.opString+" ==\n"+ (new Clean).usage + "\n" +
-		"\n   == "+Subsample.opString+" ==\n"+ (new Subsample).usage + "\n" +
-		"\n   == "+Stats.opString+" ==\n"+ (new Stats).usage + "\n"
+		allowedOperations.mkString("\n\n")
 	
 	
-	
-	
-	def niceTiming(t:Long) = {
-		val ms = t % 1000
-		var x = t / 1000
-		val s = x % 60
-		x = x / 60
-		val m = x & 60
-		x = x / 60
-		val h = x % 24
-		val d = x / 24
-		"%d days %02d:%02d:%02d.%ds".format(d, h, m, s, ms)
+		
+	def parseOp(str:String):TramlOperation.Instance = {
+		def getGen(op:String) = 
+			allowedOperations.find(_.opString == op) match {
+				case Some(gen) => gen
+				case None =>
+					throw new IllegalArgumentException("'%s' is not a valid traml operation!".format(str))
+			}
+		
+		def getParams(str:String):Seq[(String, String)] = 
+			str.split(",").map(kv => 
+				if (kv.contains("=")) {
+					val parts = kv.split("=", 2)
+					(parts(0), parts(1))
+				} else (kv, "")
+			)
+		
+		val (gen, params) = 
+			if (str.contains("(")) {
+				val parts 	= str.split("\\(",2)
+				(getGen(parts(0)), getParams(parts(1).init))
+			} else 
+				(getGen(str), Nil)
+		
+		Try(gen.makeInstance(params, mods)) match {
+			case Success(inst) => inst
+			case Failure(e) =>
+				throw new IllegalArgumentException(gen.toString, e)
+		}
 	}
+		
+	
+	def inFormat(inFile:File) = {
+		if (isExt(inFile, ".traml"))
+			(InTraml, appendExt(inFile, ".out"))
+		else if (isExt(inFile, ".csv") || 
+					isExt(inFile, ".txt") || 
+					isExt(inFile, ".tsv")
+				)
+			(InCsv, replaceExt(inFile, ".csv", ".traml"))
+		else if (isExt(inFile, ".fragments.bin"))
+			(InFragmentBin, appendExt(inFile, ".traml"))
+		else
+			(Unknown, appendExt(inFile, ".traml"))
+	}
+		
 	
 	
-	def readInFile = {
+	def readFile(readMode:ReadMode, f:File) = {
 		readMode match {
-			case InCsv() =>
-				CsvParser.fromFile(new BufferedReader(new FileReader(inFile)))
-			case InTraml() =>
+			case InCsv =>
+				CsvParser.fromFile(new BufferedReader(new FileReader(f)))
+			case InTraml =>
 				GhostTraML.fromFile(new XmlReader(
-					new BufferedReader(new FileReader(inFile))
+					new BufferedReader(new FileReader(f))
 				))
-			case Unknown() =>
+			case InFragmentBin =>
+				FragmentBin.parse(f)
+			case Unknown =>
 				println("WARN: unknown file extension, attemping to read as a .csv")
-				CsvParser.fromFile(new BufferedReader(new FileReader(inFile)))
+				CsvParser.fromFile(new BufferedReader(new FileReader(f)))
 		}
 	}
 	
@@ -222,4 +167,13 @@ object Tramler extends CLIApplication {
 		mods.flatten
 	}
 	
+	
+	def isExt(f:File, ext:String) =
+		f.toString.toLowerCase.endsWith(ext)
+	
+	def replaceExt(f:File, oldExt:String, ext:String) =
+		new File(f.toString.dropRight(oldExt.length) + ext)
+	
+	def appendExt(f:File, ext:String) =
+		new File(f.toString + ext)
 }

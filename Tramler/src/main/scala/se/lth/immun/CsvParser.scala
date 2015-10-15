@@ -214,33 +214,18 @@ object CsvParser {
 			cols:Cols
 	):GhostTraML = {
     	
-    	val outTraml 	= new GhostTraML
-    	val ts 			= new HashSet[GhostTransition]
+    	val b 	= new GhostTramlBuilder
+    	val ts 	= new HashSet[GhostTransition]
     	
     	var line = nextLine()
     	while (line.isDefined) {
     		val vals = line.get
     		val prot = vals(cols.prot)
-    		if (!outTraml.proteins.contains(prot)) {
-    			val gProt = new GhostProtein
-		    	gProt.id 		= prot
-		    	gProt.accession = 
-		    		if (cols.acc >= 0) vals(cols.acc) else "unknown"
-				gProt.name 		= prot 
-				gProt.shortName = prot
-				gProt.sequence 	= ""
-		    	outTraml.proteins += gProt.id -> gProt
-    		}
+    		b.addProtein(prot, if (cols.acc >= 0) Some(vals(cols.acc)) else None)
     		
     		val pep = vals(cols.seq)
-    		if (!outTraml.peptides.contains(pep)) {
-    			val gPep = new GhostPeptide
-    			gPep.id = pep
-    			gPep.sequence = pep
-    			outTraml.peptides += gPep.id -> gPep
-    		}
-    		if (!outTraml.peptides(pep).proteins.contains(prot))
-    			outTraml.peptides(pep).proteins += prot
+    		b.addPeptide(pep)
+    		b.setPepProt(pep, prot)
     		
     		val gt = new GhostTransition
     		gt.q1 = vals(cols.q1).toDouble
@@ -277,16 +262,12 @@ object CsvParser {
     		if (cols.intensity >= 0)
     			gt.intensity = vals(cols.intensity).toDouble
     		
-    		if (!ts.contains(gt))
-    			ts += gt
+    		b.addTransition(gt)
     		
     		line = nextLine()
     	}
     	
-		for (gt <- ts) 
-			outTraml += gt
-			
-    	return outTraml
+		return b.result
 	}
 	
 	

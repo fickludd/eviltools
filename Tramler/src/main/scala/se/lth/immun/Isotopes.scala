@@ -7,9 +7,22 @@ import se.lth.immun.unimod.UniMod
 
 import scala.util.{Try, Success, Failure}
 import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.HashMap
 
 
-object Isotopes {
+object Isotopes extends TramlOperation.Generator(
+		"isotopes",
+		"""  Create inclusion targets for the most frequent isotopes for peptides and compounds.
+    chargeOffests    semi-colon separated list of charge offsets from the baseCharge that should be added
+    mz               two semi-colon separated value of the minimum and maximum precursor m/z that should be included
+    n                the number of isotopes to include per peptide-ion or compound-ion
+    mode             the charge to give inclusion list ions. Either 
+                       'guess'     which means that an educated guess 
+	 	                           will be made based on the number 
+                                   of K and R in the peptide sequence
+                       'existing'  q1 charges present in existing 
+		                           transitions will be used"""
+) {
 	case class NaturalOccurence(dm:Double, occurence:Double)
 	
 	trait ChargeMode
@@ -18,155 +31,140 @@ object Isotopes {
 	case class Existing() extends ChargeMode
 	
 	val ISOTOPE_dM = Element.C13.monoisotopicWeight - Element.C.monoisotopicWeight
-	
-	val opString = "isotopes"
-}
-
-class Isotopes extends TramlOperation("ISOTOPES") {
 		
 	import Isotopes._
 	
-	var mods:Seq[IModifier] = Nil
-	var nIsotopes = 1
-	var chargeMode:ChargeMode = Base(2)
-	var chargeOffsets:Seq[Int] = List(0)
-	var mzRange = (0.0, Double.MaxValue)
+	def makeInstance(params:Seq[(String, String)], mods:Seq[IModifier]) = 
+		new IsotopesInstance(params, mods)
 	
-	
-	def setup(params:String, mods:Seq[IModifier]) = {
-		this.mods = mods
-		for (p <- params.split(","))
-			p.trim match {
+	class IsotopesInstance(
+			params:Seq[(String, String)], 
+			val mods:Seq[IModifier]
+	) extends TramlOperation.Instance(opString, params) {
+		var nIsotopes = 1
+		var chargeMode:ChargeMode = Base(2)
+		var chargeOffsets:Seq[Int] = List(0)
+		var mzRange = (0.0, Double.MaxValue)
+		
+		for ((k,v) <- params)
+			k match {
+				case "n" => nIsotopes = v.toInt
+				case "mode" => 
+					chargeMode = 
+						if (v == "guess") Guess()
+						else if (v == "existing") Existing()
+						else Base(v.toInt)
+				case "chargeOffsets" =>
+					chargeOffsets = v.split(";").map(_.trim.toInt)
+				case "mz" =>
+					val parts = v.split(":").map(_.trim.toDouble)
+					mzRange = (parts(0), parts(1))
 				case x =>
-					if (x.contains("=")) {
-						val kv = x.split("=")
-						kv.head match {
-							case "n" =>
-								nIsotopes = x.drop(2).toInt
-							case "mode" =>
-								chargeMode = 
-									if (kv(1) == "guess") Guess()
-									else if (kv(1) == "existing") Existing()
-									else Base(kv(1).toInt)
-							case "chargeOffsets" =>
-								chargeOffsets =
-									kv(1).split(";").map(_.trim.toInt)
-							case "mz" =>
-								val parts = kv(1).split(";").map(_.trim.toDouble)
-								mzRange = (parts(0), parts(1))
-							case x =>
-								throw new IllegalArgumentException("Unknown param '"+x+"'")
-						}
-					} else
-						throw new IllegalArgumentException("Unknown param '"+x+"'")
+					throw new IllegalArgumentException("Unknown param '"+x+"'")
 			}
-	}
-	
-	def usage:String = """Create inclusion targets for the most frequent isotopes for peptides and compounds. Options are
-  mode =     the charge to give inclusion list ions. Either  
-             integer
-             'guess'     which means that an educated guess will be made based on the number 
-                         of K and R in the peptide sequence
-             'existing'  q1 charges present in existing transitions will be used  
-  chargeOffests =  semi-colon separated list of charge offsets from the baseCharge that should be added
-  mz =             two semi-colon separated value of the minimum and maximum precursor m/z that should be included
-  n=            the number of isotopes to include per peptide-ion or compound-ion
-"""
-	
-	def operate(in:GhostTraML):GhostTraML = {
-		if (nIsotopes == 0)
-			return in
 		
-		val out = in
-		
-		val failed = new ArrayBuffer[(GhostPeptide, Throwable)]
-		
-		import PeptideParser._
-		for {
-			(ref, pep) <- in.peptides
-		} {
-			val pepMol = PeptideParser.parseSequence(pep.sequence) match {
-    			case XLinkPeptide(xl) =>
-    				Some(xl)
-    			case UniModPeptide(p) =>
-    				Some(p)
-    			case Unparsable(seq) =>
-    				None
-    		}
+		def operate(in:GhostTraML, params:TramlerParams):GhostTraML = {
+			if (nIsotopes == 0)
+				return in
 			
-			pepMol match {
-				case Some(m) =>
-					val occurs = getIsotopes(m.getIsotopeDistribution)
-					val m0 = m.monoisotopicMass
-					
-					val zs = 
-						chargeMode match {
-							case Guess() =>
-								chargeOffsets.map(_ + guessCharge(m))
-							case Base(z) => chargeOffsets.map(_ + z)
-							case Existing() =>
-								in.transitions.filter(_.peptideRef == ref).map(_.q1z).toSet.toSeq
-						}
-						
-					
-					for {
-						z <- zs
-						occ <- occurs
-					} {
-						val mz = (m0 + occ.dm + Constants.PROTON_WEIGHT*z) / z
-						if (mz >= mzRange._1 && mz < mzRange._2) {
-							val gt = new GhostTarget
-							gt.peptideRef = ref
-							gt.id = "%s %dC13 +%d, naturally %.3f%%".format(gt.peptideRef, occ.dm.toInt, z, occ.occurence*100)
-							gt.intensity = occ.occurence
-							gt.q1 = mz
-							gt.q1z = z
-							in += gt
-						}
-					}
-				case None => {}
-			}
-		}
-		
-		
-		
-		for ((key,comp) <- in.compounds) {
-			val ec = Peptide.averagine(comp.mass)
-			val occurs = getIsotopes(ec.getIsotopeDistribution)
-			val m0 = comp.mass
+			val out = in
 			
-			val zs = 
-				chargeMode match {
-					case Guess() =>
-						chargeOffsets.map(_ + 0)
-					case Base(z) => chargeOffsets.map(_ + z)
-					case Existing() =>
-						comp.preferredCharges 
-				}
-						
-			for {
-				z <- zs
-				occ <- occurs
-			} {
-				val gt = new GhostTarget
-				gt.compoundRef = key
-				gt.q1 = (m0 + occ.dm + Constants.PROTON_WEIGHT*z) / z
-				gt.q1z = z
-				gt.intensity = occ.occurence
-				gt.id = "%s +%.1f, naturally %.3f%%".format(gt.compoundRef, occ.dm, occ.occurence*100)
+			val failed = new ArrayBuffer[(GhostPeptide, Throwable)]
+			
+			lazy val existingQ1z = 
+					in.transitions
+						.map(gt => (gt.peptideRef, gt.q1z)).distinct
+						.groupBy(_._1)
+						.mapValues(_.map(_._2))
+			
 				
-				out += gt
+			
+			import PeptideParser._
+			for {
+				(ref, pep) <- in.peptides
+			} {
+				val pepMol = PeptideParser.parseSequence(pep.sequence) match {
+	    			case XLinkPeptide(xl) =>
+	    				Some(xl)
+	    			case UniModPeptide(p) =>
+	    				Some(p)
+	    			case Unparsable(seq) =>
+	    				None
+	    		}
+				
+				pepMol match {
+					case Some(m) =>
+						val occurs = getIsotopes(m.getIsotopeDistribution, nIsotopes)
+						val m0 = m.monoisotopicMass
+						
+						val zs = 
+							chargeMode match {
+								case Guess() =>
+									chargeOffsets.map(_ + guessCharge(m))
+								case Base(z) => chargeOffsets.map(_ + z)
+								case Existing() => existingQ1z.get(ref).getOrElse(chargeOffsets.map(_ + 2))
+							}
+							
+						
+						for {
+							z <- zs
+							occ <- occurs
+						} {
+							val mz = (m0 + occ.dm + Constants.PROTON_WEIGHT*z) / z
+							if (mz >= mzRange._1 && mz < mzRange._2) {
+								val gt = new GhostTarget
+								gt.peptideRef = ref
+								gt.id = "%s %dC13 +%d, naturally %.3f%%".format(gt.peptideRef, occ.dm.toInt, z, occ.occurence*100)
+								gt.intensity = occ.occurence
+								gt.q1 = mz
+								gt.q1z = z
+								in += gt
+							}
+						}
+					case None => {}
+				}
 			}
+			
+			
+			
+			for ((key,comp) <- in.compounds) {
+				val ec = Peptide.averagine(comp.mass)
+				val occurs = getIsotopes(ec.getIsotopeDistribution, nIsotopes)
+				val m0 = comp.mass
+				
+				val zs = 
+					chargeMode match {
+						case Guess() =>
+							chargeOffsets.map(_ + 0)
+						case Base(z) => chargeOffsets.map(_ + z)
+						case Existing() =>
+							comp.preferredCharges 
+					}
+							
+				for {
+					z <- zs
+					occ <- occurs
+				} {
+					val gt = new GhostTarget
+					gt.compoundRef = key
+					gt.q1 = (m0 + occ.dm + Constants.PROTON_WEIGHT*z) / z
+					gt.q1z = z
+					gt.intensity = occ.occurence
+					gt.id = "%s +%.1f, naturally %.3f%%".format(gt.compoundRef, occ.dm, occ.occurence*100)
+					
+					out += gt
+				}
+			}
+			
+			return out
 		}
-		
-		return out
 	}
-	
-	
-	
-	def getIsotopes(id:IsotopeDistribution):Seq[NaturalOccurence] = {
+		
+		
+		
+	def getIsotopes(id:IsotopeDistribution, n:Int):Seq[NaturalOccurence] = {
 		val isotopes = new ArrayBuffer[NaturalOccurence]
-		for (i <- id.intensities.sorted.takeRight(nIsotopes).reverse) {
+		for (i <- id.intensities.sorted.takeRight(n).reverse) {
 			val ii = id.intensities.indexOf(i)
 			isotopes += NaturalOccurence(ISOTOPE_dM * ii, i)
 		}

@@ -3,13 +3,24 @@ package se.lth.immun
 import se.lth.immun.traml.ghost._
 import se.lth.immun.chem._
 
-abstract class TramlOperation(
-		val name:String
-) {
-	var params:String = ""
-	override def toString = name + (if (params != "") " " + params else "")
+object TramlOperation {
+	abstract class Generator(
+			val opString:String,
+			val usage:String
+	) {
+		def makeInstance(params:Seq[(String, String)], mods:Seq[IModifier]):Instance
+		//override def toString = name + (if (params != "") " " + params else "")
+		
+		override def toString = "%s\n%s\n%s".format(opString, opString.map(_ => '-').mkString, usage)
+	}
 	
-	def setup(params:String, mods:Seq[IModifier])
-	def operate(in:GhostTraML):GhostTraML
-	def usage:String
+	abstract class Instance(opString:String, params:Seq[(String, String)]) {
+		def operate(in:GhostTraML, params:TramlerParams):GhostTraML
+		
+		override def toString =
+			"%s(%s)".format(opString.toUpperCase, params.map(t => 
+				if (t._2 != "") t._1 + "=" + t._2
+				else t._1
+				).mkString(","))
+	}
 }

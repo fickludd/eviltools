@@ -2,14 +2,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>se.lth.immun</groupId>
   <artifactId>Tramler</artifactId>
-  <version>0.3.2</version>
+  <version>0.4.2</version>
   <inceptionYear>2014</inceptionYear>
   <properties>
     <scala.version>2.10.0</scala.version>
-    <short.name>tramler</short.name>
     <mainClass>se.lth.immun.Tramler</mainClass>
-    <script.file>target/${short.name}</script.file>
-    <selfContained.jar>${basedir}/target/${build.finalName}-jar-with-dependencies.jar</selfContained.jar>
   </properties>
   
   <dependencies>
@@ -31,11 +28,6 @@
     	<scope>test</scope>
     </dependency>
   	<dependency>
-  		<groupId>se.lth.immun</groupId>
-  		<artifactId>App</artifactId>
-  		<version>1.1.0</version>
-  	</dependency>
-  	<dependency>
   	  <groupId>se.lth.immun</groupId>
   	  <artifactId>Files</artifactId>
   	  <version>0.8.0</version>
@@ -43,17 +35,27 @@
   	<dependency>
   		<groupId>se.lth.immun</groupId>
   		<artifactId>TraML</artifactId>
-  		<version>1.1.0</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>se.lth.immun</groupId>
-  		<artifactId>UniMod</artifactId>
   		<version>1.2.1</version>
   	</dependency>
   	<dependency>
   		<groupId>se.lth.immun</groupId>
   		<artifactId>XLink</artifactId>
-  		<version>0.1.0</version>
+  		<version>0.3.3</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>se.jt</groupId>
+  		<artifactId>CLIApp</artifactId>
+  		<version>1.1.0</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>se.lth.immun</groupId>
+  		<artifactId>UniMod</artifactId>
+  		<version>1.2.2</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>se.lth.immun</groupId>
+  		<artifactId>MsFragmentationIO</artifactId>
+  		<version>0.4.1</version>
   	</dependency>
   </dependencies>
   
@@ -79,8 +81,15 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
-        <configuration>
+        <executions>
+                <execution>
+                    <phase>compile</phase>
+                    <goals>
+                        <goal>compile</goal>
+                    </goals>
+                </execution>
+            </executions>
+           <configuration>
           <source>1.6</source>
           <target>1.6</target>
         </configuration>
@@ -90,13 +99,22 @@
         <groupId>org.scala-tools</groupId>
         <artifactId>maven-scala-plugin</artifactId>
         <executions>
-          <execution>
-            <goals>
-              <goal>compile</goal>
-              <goal>testCompile</goal>
-            </goals>
-          </execution>
-        </executions>
+                <execution>
+                    <id>scala-compile-first</id>
+                    <phase>process-resources</phase>
+                    <goals>
+                        <goal>add-source</goal>
+                        <goal>compile</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>scala-test-compile</id>
+                    <phase>process-test-resources</phase>
+                    <goals>
+                        <goal>testCompile</goal>
+                    </goals>
+                </execution>
+            </executions>
         <configuration>
           <scalaVersion>${scala.version}</scalaVersion>
         </configuration>
@@ -122,6 +140,8 @@
       <plugin>
 	    <artifactId>maven-assembly-plugin</artifactId>
 	    <configuration>
+              <finalName>${artifactId}-${version}.free</finalName>
+              <appendAssemblyId>false</appendAssemblyId>
 	      <descriptorRefs>
 	        <descriptorRef>jar-with-dependencies</descriptorRef>
 	      </descriptorRefs>
@@ -141,7 +161,7 @@
           </execution>
         </executions>
 	  </plugin>
-	  
+	  	  
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.9</version>
@@ -176,49 +196,6 @@
           </execution>
 	    </executions>
 	  </plugin>
-      
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.6</version>
-        <executions>
-          <execution>
-            <id>deploy to public</id>
-            <phase>verify</phase>
-            <configuration>
-              <target>
-				<!-- 
-				<copy file="${selfContained.jar}"
-					tofile="${publicDeploy.jar}"
-					overwrite="true"/>
-				<chmod file="${publicDeploy.jar}" perm="755"/>
-				 -->
-				 <echo message="changed '${publicDeploy.jar}' permissions to 755"/>
-              </target>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-          
-          <execution>
-            <id>install shortcut script</id>
-            <phase>install</phase>
-            <configuration>
-              <target>
-              	<echo message="creating shortcut script '${script.file}'"/>
-				<echo file="${script.file}">#!/bin/bash 
-java -jar ${selfContained.jar} "$@"
-				</echo>
-				<chmod file="${script.file}" perm="755"/>
-				<echo message="changed '${script.file}' permissions to 755"/>
-              </target>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
 </project>

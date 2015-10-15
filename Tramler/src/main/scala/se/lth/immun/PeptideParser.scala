@@ -1,6 +1,7 @@
 package se.lth.immun
 
 import se.lth.immun.xlink.XLink
+import se.lth.immun.xlink.KojakXLink
 import se.lth.immun.chem._
 import se.lth.immun.unimod.UniMod
 
@@ -13,15 +14,15 @@ object PeptideParser {
 	
 	def parseSequence(seq:String):PepParseResult = {
 		try {
-			return XLinkPeptide(XLink.fromString(seq, UniMod.parseUniModSequence))
+			return UniModPeptide(UniMod.parseUniModSequence(seq))
 		} catch {
 			case e:Throwable =>
-				try {
-					return UniModPeptide(UniMod.parseUniModSequence(seq))
-				} catch {
-					case e:Throwable =>
-						return Unparsable(seq)
+				e.printStackTrace
+				return XLink.fromString(seq, UniMod.parseUniModSequence, KojakXLink.DSS_CARB_CONF) match {
+					case Left(xl) => XLinkPeptide(xl)
+					case Right(msg) => Unparsable(seq)
 				}
+				 
 		}
 	}
 }
