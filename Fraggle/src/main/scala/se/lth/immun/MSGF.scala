@@ -5,8 +5,12 @@ import scala.io.Source
 
 import se.lth.immun.protocol.MSFragmentationProtocol.FragmentationType
 
-object MSGF {
+object MSGF extends Interpret.IDs {
 
+	import Interpret._
+	
+	val formatName = "MS-GF+ identification tsv" 
+		
 	case class MSGFid(
 			val specId:String,
 			val scanNum:Int,
@@ -23,11 +27,12 @@ object MSGF {
 			val specEValue:Double,
 			val eValue:Double,
 			val qValue:Double,
-			val pepQValue:Double)
+			val pepQValue:Double
+		) extends ID
 	
 	val scanNumRE = """scan=(\d+)""".r.unanchored		
 
-	def fromFile(f:File, fdrCutoff:Double):Seq[MSGFid] = {
+	def fromFile(f:File, params:InterpretParams):Seq[MSGFid] = {
 		
 		(for ( line <- Source.fromFile(f).getLines.drop(1) ) yield {
 			val p = line.split("\t")
@@ -60,7 +65,7 @@ object MSGF {
 				p(14).toDouble,
 				p(15).toDouble
 			)
-		}).toSeq.filter(_.qValue < fdrCutoff)
+		}).toSeq.filter(x => x.qValue < params.psmFDR && x.eValue < params.eValue)
 	}
 	
 	

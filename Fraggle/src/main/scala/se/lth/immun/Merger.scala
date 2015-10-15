@@ -24,6 +24,7 @@ trait Merger {
 		AAMolecule(
 				0,
 				b.sequence,
+				b.protein,
 				b.mass,
 				b.observations.map(ob =>
 					Observation(
@@ -67,7 +68,8 @@ trait Merger {
 			val intensities = fs.map(_.base.intensity).toArray
 			val intMid = f(intensities)
 			val intStd = StatUtils.variance(intensities)
-			val base = BaseFragment(intMid, fs.head.base.z, None, Some(intStd), fs.length)
+			val mzErrPPMavg = StatUtils.mean(fs.flatMap(_.base.mzErrPPM).toArray)
+			val base = BaseFragment(intMid, fs.head.base.z, fs.head.base.mz, Some(intStd), Some(mzErrPPMavg), fs.length)
 			fs.head match {
 				case sf:SimpleFragment 	=> SimpleFragment(base, sf.fragmentType, sf.ordinal)
 				case xf:XLinkFragment 	=> XLinkFragment(base, xf.fragmentType, xf.ordinal, xf.peptide)

@@ -12,7 +12,10 @@ object Fraggle extends CLIApp {
 	val name 		= properties.getProperty("pom.artifactId")
 	val version 	= properties.getProperty("pom.version")
 	
-	val commands = Map("interpret" -> Interpret)
+	val commands = Map(
+			"interpret" -> Interpret,
+			"combine" -> Combine,
+			"export" -> Export)
 		
 	def main(args:Array[String]):Unit = {
 		
@@ -25,7 +28,7 @@ object Fraggle extends CLIApp {
 			case None =>
 				println("Unknown command '%s'".format(args.head))
 				printCommandsAndExit
-		} 
+		}
 	}
 	
 	

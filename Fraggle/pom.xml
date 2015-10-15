@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>se.lth.immun</groupId>
   <artifactId>Fraggle</artifactId>
-  <version>0.1.0</version>
+  <version>0.5.1</version>
   <inceptionYear>2015</inceptionYear>
   <properties>
     <scala.version>2.10.0</scala.version>
@@ -36,7 +36,7 @@
     <dependency>
     	<groupId>se.jt</groupId>
     	<artifactId>CLIApp</artifactId>
-    	<version>1.1.0</version>
+    	<version>1.2.0</version>
     </dependency>
     <dependency>
     	<groupId>se.lth.immun</groupId>
@@ -46,7 +46,7 @@
     <dependency>
     	<groupId>se.lth.immun</groupId>
     	<artifactId>MsFragmentationIO</artifactId>
-    	<version>0.3.0</version>
+    	<version>0.4.1</version>
     </dependency>
     <dependency>
     	<groupId>se.lth.immun</groupId>
@@ -62,6 +62,11 @@
     	<groupId>org.apache.commons</groupId>
     	<artifactId>commons-math3</artifactId>
     	<version>3.5</version>
+    </dependency>
+    <dependency>
+    	<groupId>se.lth.immun</groupId>
+    	<artifactId>XLMasterFormat</artifactId>
+    	<version>0.1.0</version>
     </dependency>
   </dependencies>
   

@@ -4,9 +4,6 @@ import se.jt.Params
 import se.jt.CLIApp
 import java.io.File
 
-import MSGF._
-import FraggleIntermediary._
-
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.File
@@ -35,6 +32,7 @@ import se.lth.immun.chem.PeptideUtil
 import se.lth.immun.chem.PeptideFragment
 import se.lth.immun.chem.EPeptideFragment
 
+import FraggleIntermediary._
 
 
 
@@ -50,6 +48,20 @@ object Interpret extends Command with CLIApp {
 	
 	case class InternalIon(first:Int, last:Int, mz:Double, z:Int)
 	
+	trait ID {
+		def scanNum:Int
+		def precursorMz:Double
+		def z:Int
+		def pepSequence:String
+		def protein:String
+		def qValue:Double
+	}
+	
+	trait IDs {
+		def fromFile(f:File, params:InterpretParams):Seq[ID]
+		def formatName:String
+	}
+	
 	class InterpretParams extends Params {
 		import Params._
 		
@@ -61,7 +73,11 @@ object Interpret extends Command with CLIApp {
 		val fragMaxCharge = 2 		## "Maximal fragment charge to consider"
 		val minInternalLength = 2	## "Min length of internal ions to consider"
 		val maxInternalLength = 6	## "Max length of internal ions to consider"
-		val fdr = 1.0				## "The FDR cutoff to apply on loaded identifications"
+		val psmFDR = 1.0				## "The PSM level FDR cutoff to apply on loaded identifications"
+		val eValue = 1.0				## "The eValue cutoff to apply on MS-GF+ identifications"
+		val peptideProb = 0.0			## "The peptide probability cutoff to apply on loaded Peptide Csv identifications"
+		
+		val excludeProtPrefix = "DECOY"	## "Proteins with this prefix will be ignored"
 		
 		val outDir			= ""		## "output directory (by default same as input mzML)"
 		val outName			= ""		## "basename for output files (by default same as input mzML)"
@@ -69,13 +85,13 @@ object Interpret extends Command with CLIApp {
 		val writeTsv		= false		## "set to write tsv instead of fragment binary file"
 		
 		def outBase = {
-			val mzMLFile = new File(mzML)
+			val identFile = new File(identTsv)
 			val dir = 
 				if (outDir.value != "") outDir.value
-				else mzMLFile.getParent
+				else identFile.getParent
 			val name =
 				if (outName.value != "") outName.value
-				else stripExts(mzMLFile.getName)
+				else stripExts(identFile.getName)
 			(dir, name) 
 		}
 		
@@ -95,7 +111,10 @@ object Interpret extends Command with CLIApp {
 			else path
 		
 		def stripExts(path:String) =
-			stripExt(stripExt(path, ".gz"), ".mzML")
+			stripExt(stripExt(stripExt(path, ".gz"), ".tsv"), ".mzML")
+			
+		def mzMLBaseName = 
+			new File(stripExts(mzML)).getName
 	}
 	
 	
@@ -110,10 +129,14 @@ object Interpret extends Command with CLIApp {
 		
 		printHeader(command)
 		
-		status("reading identifications...")
-		val byScan = MSGF.fromFile(new File(params.identTsv), params.fdr).sortBy(_.scanNum).toArray
+		val format = guessFormat(params.identTsv)
+		
+		status("reading identifications from %s...".format(format.formatName))
+		val byScan = format.fromFile(new File(params.identTsv), params).sortBy(_.scanNum).toArray
 		status("interpreting mzML...")
-		val rawAAMolecules = parseMzML(new File(params.mzML), byScan)
+		val rawAAMolecules = 
+			parseMzML(new File(params.mzML), byScan)
+				.filter(!_.protein.startsWith(params.excludeProtPrefix))
 		
 		status("reading iRT peptides...")
 		val irtPeptides = IRT.readPeptideTsv(new File(params.irt))
@@ -139,7 +162,7 @@ object Interpret extends Command with CLIApp {
 	}
 	
 	
-	def parseMzML(f:File, byScan:Array[MSGFid]) = {
+	def parseMzML(f:File, byScan:Array[ID]) = {
 		
 		val aaMolecules = new ArrayBuffer[RawAAMolecule]
 		val dh = new MzMLDataHandlers(
@@ -157,7 +180,7 @@ object Interpret extends Command with CLIApp {
 	val scanNumRE = """scan=(\d+)""".r.unanchored
 	def handleSpectrum(
 			aaMolecules:ArrayBuffer[RawAAMolecule],
-			byScan:Array[MSGFid]
+			byScan:Array[ID]
 	)(
 			s:Spectrum
 	) = {
@@ -197,7 +220,7 @@ object Interpret extends Command with CLIApp {
 	}
 	
 	
-	def interpret(gs:GhostSpectrum, id:MSGFid):RawAAMolecule = {
+	def interpret(gs:GhostSpectrum, id:ID):RawAAMolecule = {
 		
 		import EPeptideFragment._
 		
@@ -206,7 +229,7 @@ object Interpret extends Command with CLIApp {
 			PeptideUtil.possibleIons(pep, Array(a,b,c,x,y,z), params.fragMaxCharge.value).map(x => (x.mz, Left(x))) ++
 			ionize(genInternalFragments(pep, params.minInternalLength, params.maxInternalLength), params.fragMaxCharge).map(x => (x.mz, Right(x)))
 		
-		val sortedFragIons = possFragIons.sortBy(_._1)	
+		val sortedFragIons = possFragIons.sortBy(_._1)
 		
 		val fragIons = new ArrayBuffer[FragmentAnnotation]
 		var i = 0
@@ -214,7 +237,8 @@ object Interpret extends Command with CLIApp {
 		while (i < gs.mzs.length && j < sortedFragIons.length) {
 			val (fmz, fdesc) = sortedFragIons(j)
 			val mzDiff = gs.mzs(i) - fmz
-			if (math.abs(mzDiff) / fmz * 1e6 < params.fragMatchTol) {
+			val mzErrPPM = math.abs(mzDiff) / fmz * 1e6 
+			if (mzErrPPM < params.fragMatchTol) {
 				val fragIon = 
 					fdesc match {
 						case Left(fi) =>
@@ -223,6 +247,7 @@ object Interpret extends Command with CLIApp {
 									gs.intensities(i), 
 									fi.numExtraProtons - fi.numExtraElectrons, 
 									Some(fmz),
+									Some(mzErrPPM),
 									None,
 									1
 								),
@@ -235,6 +260,7 @@ object Interpret extends Command with CLIApp {
 									gs.intensities(i), 
 									ii.z, 
 									Some(ii.mz),
+									Some(mzErrPPM),
 									None,
 									1
 								),
@@ -261,6 +287,7 @@ object Interpret extends Command with CLIApp {
 		
 		RawAAMolecule(
 				id.pepSequence, 
+				id.protein,
 				pep.monoisotopicMass, 
 				Array(RawObservation(
 						ft,
@@ -282,12 +309,12 @@ object Interpret extends Command with CLIApp {
 	def normalize(fragIons:Seq[FragmentAnnotation], base:Double) =
 		for (fi <- fragIons) yield
 			fi match {
-				case SimpleFragment(BaseFragment(int, z, mz, intStd, n), ftype, ordinal) =>
-					SimpleFragment(BaseFragment(int / base, z, mz, intStd, n), ftype, ordinal)
-				case XLinkFragment(BaseFragment(int, z, mz, intStd, n), ftype, ordinal, pep) =>
-					XLinkFragment(BaseFragment(int / base, z, mz, intStd, n), ftype, ordinal, pep)
-				case InternalFragment(BaseFragment(int, z, mz, intStd, n), first, last) =>
-					InternalFragment(BaseFragment(int / base, z, mz, intStd, n), first, last)
+				case SimpleFragment(bf, ftype, ordinal) =>
+					SimpleFragment(bf.normalizeBy(base), ftype, ordinal)
+				case XLinkFragment(bf, ftype, ordinal, pep) =>
+					XLinkFragment(bf.normalizeBy(base), ftype, ordinal, pep)
+				case InternalFragment(bf, first, last) =>
+					InternalFragment(bf.normalizeBy(base), first, last)
 			}
 	
 	
@@ -368,4 +395,11 @@ object Interpret extends Command with CLIApp {
 		else
 			throw new Exception("Unknown file format '%s'".format(name))
 	}
+	
+	
+	def guessFormat(path:String):IDs = 
+		if (path.endsWith(".pep.csv")) PepCsv
+		else if (path.endsWith(".xl.tsv")) Kojak
+		else if (path.endsWith(".tsv")) MSGF
+		else throw new Exception("Unknown file format for path 'path'!")
 }

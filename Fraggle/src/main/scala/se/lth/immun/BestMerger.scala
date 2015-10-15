@@ -10,6 +10,7 @@ object BestMerger {
 		AAMolecule(
 				0,
 				b.sequence,
+				b.protein,
 				b.mass,
 				b.observations.map(ob =>
 					ob.xs.maxBy(_.fragBaseIntensity)

@@ -1,6 +1,7 @@
 package se.lth.immun
 
 import scala.collection.mutable.ArrayBuffer
+import java.io.File
 
 import se.lth.immun.protocol.FragmentAnnotation
 import se.lth.immun.protocol.MSFragmentationProtocol.FragmentationType
@@ -13,6 +14,7 @@ object FraggleIntermediary {
 
 	case class RawAAMolecule(
 			val sequence:String,
+			val protein:String,
 			val mass:Double,
 			val observations:Seq[RawObservation])
 			
@@ -37,7 +39,7 @@ object FraggleIntermediary {
 		
 	object AAMoleculeBuilder {
 		def apply(x:AAMolecule) = {
-			val b = new AAMoleculeBuilder(x.sequence, x.mass)
+			val b = new AAMoleculeBuilder(x.sequence, x.protein, x.mass)
 			for (obs <- x.observations) 
 				b.observations += ObservationBuilder(obs)
 			b
@@ -46,6 +48,7 @@ object FraggleIntermediary {
 		
 	class AAMoleculeBuilder(
 			val sequence:String,
+			val protein:String,
 			val mass:Double
 	) {
 		val observations = new ArrayBuffer[ObservationBuilder]
@@ -60,6 +63,8 @@ object FraggleIntermediary {
 				}
 			this
 		}
+		
+		override def toString = sequence
 	}
 	
 	object ObservationBuilder {

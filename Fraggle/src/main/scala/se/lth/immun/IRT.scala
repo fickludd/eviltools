@@ -25,6 +25,7 @@ object IRT {
 			AAMolecule(
 					0,
 					x.sequence,
+					x.protein,
 					x.mass,
 					x.observations.map(o => Observation(
 							o.fragmentationType,
@@ -42,7 +43,7 @@ object IRT {
 				)
 				
 		override def toString = 
-			"IRTMap(slope=%f, intercept=%f, r2=%f, resStd=%f, dataPoints=%s)".format(slope, intercept, r2, residualStd, dataPoints.mkString(","))
+			"IRTMap(slope=%f, intercept=%f, r2=%f, resStd=%f, nDataPoints=%d)".format(slope, intercept, r2, residualStd, dataPoints.length)
 	}
 	
 	def readPeptideTsv(f:File):Seq[IRTPeptide] = {

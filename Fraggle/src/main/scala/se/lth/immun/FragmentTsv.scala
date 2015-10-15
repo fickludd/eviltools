@@ -21,8 +21,8 @@ object FragmentTsv {
 		row(
 			"sequence", "mass", 
 			"fragmentationType", "ce", "precursorCharge", "iRT", "precursorMz", "precursorIntensity", 
-			"fragmentIntensity", "fragmentCharge", "fragmentMz", "fragmentIntensityStd", 
-			"fragmentType", "ordinal", "firstInternal", "lastInternal", "xlinkPeptide")(Array())
+			"fragmentIntensity", "fragmentCharge", "fragmentMz", "fragmentIntensityStd", "fragmentMzErrPPM" 
+			)(Array("fragmentType", "ordinal", "firstInternal", "lastInternal", "xlinkPeptide"))
 			
 		for {
 			aaMol <- aaMolecules
@@ -50,7 +50,8 @@ object FragmentTsv {
 				frag.base.intensity,
 				frag.base.z,
 				frag.base.mz.getOrElse(Double.NaN),
-				frag.base.intensityStd.getOrElse(Double.NaN)
+				frag.base.intensityStd.getOrElse(Double.NaN),
+				frag.base.mzErrPPM.getOrElse(Double.NaN)
 				)(fragCols)
 		}
 	}

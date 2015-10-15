@@ -26,11 +26,13 @@ object Combine extends Command with CLIApp {
 		val writeTsv		= false		## "set to write tsv instead of fragment binary file"
 		
 		
-		def outFile = 
-			new File(outDir, outName + ".fragments.bin")
+		def outFile = out(outName + ".fragments.bin")
+		def outTsv = out(outName + ".fragments.tsv")
 		
-		def outTsv = 
-			new File(outDir, outName + ".fragments.tsv")
+		def out(name:String) =
+			if (outDir.value != "")
+				new File(outDir, name)
+			else new File(name)
 		
 		def fragmentFiles =
 			fragmentFile.value.split(" ").map(path => new File(path))
@@ -42,7 +44,7 @@ object Combine extends Command with CLIApp {
 	
 	def execute(name:String, version:String, command:String, args:Array[String]) = {
 		
-		failOnError(parseArgs(name, version, args, params, List("fragmentFile"), Some("fragmentFile")))
+		failOnError(parseArgs(name, version, args, params, Nil, Some("fragmentFile")))
 		
 		printHeader(command)
 		
@@ -68,6 +70,7 @@ object Combine extends Command with CLIApp {
 			status("writing output binary...")
 			MsFragmentationFile.write(params.outFile, aaMolecules, params.verbose)
 		}
+		status("done")
 	}
 	
 	
@@ -90,10 +93,16 @@ object Combine extends Command with CLIApp {
 		val merged = new ArrayBuffer[AAMoleculeBuilder]
 		var i = 0
 		var j = 0
+		def isLast(sequence:String) =
+			merged.nonEmpty && merged.last.sequence == sequence
+		
 		while (i < sortedOld.length && j < sortedNew.length) {
 			val oSeq = sortedOld(i).sequence
 			val nSeq = sortedNew(j).sequence
-			if (oSeq == nSeq) {
+			if (isLast(nSeq)) {
+				merged.last.append(sortedNew(j))
+				j += 1
+			} else if (oSeq == nSeq) {
 				merged += sortedOld(i).append(sortedNew(j))
 				i += 1
 				j += 1
@@ -112,7 +121,10 @@ object Combine extends Command with CLIApp {
 		}
 		
 		while (j < sortedNew.length) {
-			merged += AAMoleculeBuilder(sortedNew(j))
+			if (merged.nonEmpty && merged.last.sequence == sortedNew(j).sequence)
+				merged.last.append(sortedNew(j))
+			else
+				merged += AAMoleculeBuilder(sortedNew(j))
 			j += 1
 		}
 		

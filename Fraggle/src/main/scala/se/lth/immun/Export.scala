@@ -19,11 +19,32 @@ object Export extends Command with CLIApp {
 		//val minTransitions = 6	## "Exclude peptide ions with less than this number of transitions"
 		
 		val outDir			= ""			## "output directory (by default same as input mzML)"
-		val outName			= "combined"	## "basename for output files (by default 'combined')"
+		val outName			= ""			## "basename for output files (by default 'combined')"
 		val verbose 		= false			## "set to enable a lot of output"
 		
-		def outTsv = 
-			new File(outDir, outName + ".fragments.tsv")
+		def outBase = {
+			val identFile = new File(fragmentFile)
+			val dir = 
+				if (outDir.value != "") outDir.value
+				else identFile.getParent
+			val name =
+				if (outName.value != "") outName.value
+				else stripExts(identFile.getName)
+			(dir, name)
+		}
+		
+		def outTsv = { 
+			val (dir, name) = outBase
+			new File(dir, name + ".fragments.tsv")
+		}
+		
+		def stripExt(path:String, ext:String) =
+			if (path.toLowerCase.endsWith(ext.toLowerCase))
+				path.dropRight(ext.length)
+			else path
+		
+		def stripExts(path:String) =
+			stripExt(stripExt(stripExt(path, ".gz"), ".tsv"), ".mzML")
 	}
 	
 	val desc = "Export fragment library to tsv or traml, applying some rules"
