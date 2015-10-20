@@ -2,6 +2,8 @@ package se.lth.immun
 
 import java.io.File
 import scala.io.Source
+import scala.collection.mutable.ArrayBuffer
+import scala.util.{Try, Success, Failure}
 
 import FraggleIntermediary._
 import se.lth.immun.protocol.AAMolecule
@@ -28,17 +30,20 @@ object IRT {
 					x.protein,
 					x.mass,
 					x.observations.map(o => Observation(
-							o.fragmentationType,
-							o.z,
-							o.ce,
-							o.precursorMz,
-							o.precursorIntensity,
-							o.rt * slope + intercept,
-							o.fragBaseIntensity,
-							o.qValue,
-							o.percentAnnotatedOfMS2tic,
-							o.n,
-							o.fragments
+							o.x.fragmentationType,
+							o.x.z,
+							o.x.ce,
+							o.x.precursorMz,
+							o.x.precursorIntensity,
+							Some(o.rt * slope + intercept),
+							o.x.fragBaseIntensity,
+							o.x.qValue,
+							o.x.percentAnnotatedOfMS2tic,
+							o.x.n,
+							o.x.precursorType,
+							o.x.precursorIntensityRank,
+							o.x.precursorFeatureApexIntensity,
+							o.x.fragments
 					))
 				)
 				
@@ -46,13 +51,40 @@ object IRT {
 			"IRTMap(slope=%f, intercept=%f, r2=%f, resStd=%f, nDataPoints=%d)".format(slope, intercept, r2, residualStd, dataPoints.length)
 	}
 	
+	
+	
 	def readPeptideTsv(f:File):Seq[IRTPeptide] = {
 		
-		(for ( line <- Source.fromFile(f).getLines.drop(1) ) yield {
+		var iPEPTIDE = -1
+		var iIRT = -1
+		
+		var headerParsed = false
+		val irtPeps = new ArrayBuffer[IRTPeptide]
+		
+		for ( line <- Source.fromFile(f).getLines ) {
 			val p = line.split("\t")
-			IRTPeptide(p(0), p(1).toDouble)
-		}).toSeq
+			
+			if (!headerParsed) {
+				val lc = p.map(_.toLowerCase) 
+				if (lc.contains("peptide") && lc.contains("irt")) {
+					iPEPTIDE = lc.indexOf("peptide")
+					iIRT = lc.indexOf("irt")
+				} else {
+					iPEPTIDE = p.indexWhere(x => Try(x.toDouble).isFailure)
+					iIRT = p.indexWhere(x => Try(x.toDouble).isSuccess)
+					if (iPEPTIDE < 0 || iIRT < 0)
+						throw new Exception("Could not parse IRT peptide definition file. Needs peptide sequence and IRT columns!")
+					irtPeps += IRTPeptide(p(iPEPTIDE), p(iIRT).toDouble)
+				}
+				headerParsed = true
+			} else
+				irtPeps += IRTPeptide(p(iPEPTIDE), p(iIRT).toDouble)
+		}
+		
+		irtPeps
 	}
+	
+	
 	
 	def findDataPoints(
 			irtPeps:Seq[IRTPeptide], 
@@ -64,6 +96,8 @@ object IRT {
 			obs <- aaMol.observations
 		} yield IRTDataPoint(irtPep.sequence, irtPep.iRT, obs.rt)
 	}
+	
+	
 	
 	def createMap(dataPoints:Seq[IRTDataPoint]):IRTMap = {
 		val sr = new SimpleRegression(true)

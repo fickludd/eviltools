@@ -24,7 +24,13 @@ object Fraggle extends CLIApp {
 		
 		commands.get(args.head) match {
 			case Some(cmd) =>
-				cmd.execute(name, version, args.head, args.tail)
+				try {
+					cmd.execute(name, version, args.head, args.tail)
+				} catch {
+					case e:Exception =>
+						println(e)
+						System.exit(1)
+				}
 			case None =>
 				println("Unknown command '%s'".format(args.head))
 				printCommandsAndExit

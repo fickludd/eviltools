@@ -19,4 +19,7 @@ trait Command {
 	
 	def status(msg:String) = 
 		println(timeStamp + msg)
+		
+	def info(msg:String) =
+		println("".padTo(timeStamp.length, ' ') + "  " + msg)
 }

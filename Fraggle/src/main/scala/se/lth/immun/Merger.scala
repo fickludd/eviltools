@@ -31,13 +31,16 @@ trait Merger {
 						ob.fragmentationType,
 						ob.z,
 						ob.ce,
-						f(ob.xs.map(_.precursorMz)),
-						f(ob.xs.map(_.precursorIntensity)),
-						f(ob.xs.map(_.iRT)),
-						ob.xs.map(_.fragBaseIntensity).sum,
-						ob.xs.map(_.qValue).max,
-						f(ob.xs.map(_.percentAnnotatedOfMS2tic)),
-						ob.xs.length,
+						Some(f(ob.xs.flatMap(_.precursorMz))),
+						Some(f(ob.xs.flatMap(_.precursorIntensity))),
+						Some(f(ob.xs.flatMap(_.iRT))),
+						Some(ob.xs.flatMap(_.fragBaseIntensity).sum),
+						Some(ob.xs.flatMap(_.qValue).max),
+						Some(f(ob.xs.flatMap(_.percentAnnotatedOfMS2tic))),
+						Some(ob.xs.length),
+						None,
+						None,
+						Some(f(ob.xs.flatMap(_.precursorFeatureApexIntensity))),
 						mergeObservations(ob.xs)
 					)))
 					

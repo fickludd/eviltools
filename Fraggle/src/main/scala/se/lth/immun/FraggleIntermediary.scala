@@ -13,23 +13,15 @@ import se.lth.immun.protocol.Observation
 object FraggleIntermediary {
 
 	case class RawAAMolecule(
-			val sequence:String,
-			val protein:String,
-			val mass:Double,
-			val observations:Seq[RawObservation])
+			sequence:String,
+			protein:String,
+			mass:Double,
+			observations:Seq[RawObservation])
 			
 	case class RawObservation(
-		val fragmentationType:FragmentationType,
-		val z:Int,
-		val ce:Double,
-		val precursorMz:Double,
-		val precursorIntensity:Double,
-		val rt:Double,
-		val fragBaseIntensity:Double,
-		val qValue:Double,
-		val percentAnnotatedOfMS2tic:Double,
-		val n:Int,
-		val fragments:Seq[FragmentAnnotation])
+			x:Observation,
+			rt:Double
+		)
 	
 		
 		

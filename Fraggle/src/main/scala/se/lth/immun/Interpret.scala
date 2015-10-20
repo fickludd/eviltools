@@ -13,7 +13,8 @@ import java.util.zip.GZIPInputStream
 
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.JavaConversions._
-import scala.util.{Either, Left, Right}
+import scala.collection.mutable.HashSet
+import scala.util.{Either, Left, Right, Try, Failure, Success}
 
 import se.lth.immun.xml.XmlReader
 import se.lth.immun.mzml.MzML
@@ -24,6 +25,7 @@ import se.lth.immun.mzml.ghost.GhostSpectrum
 
 import se.lth.immun.protocol._
 import se.lth.immun.protocol.MSFragmentationProtocol.FragmentType
+import se.lth.immun.protocol.MSFragmentationProtocol.PrecursorType
 import se.lth.immun.unimod.UniMod
 import se.lth.immun.chem.Ion
 import se.lth.immun.chem.Peptide
@@ -47,6 +49,26 @@ object Interpret extends Command with CLIApp {
 	val ETD_ACC = "MS:1000598"
 	
 	case class InternalIon(first:Int, last:Int, mz:Double, z:Int)
+	
+	trait SpectrumID { def scan:Int }
+	case class ScanID(val scan:Int) extends SpectrumID
+	case class DemixOrigID(
+			val scan:Int, 
+			val precInt:Double, 
+			val rtInSec:Double, 
+			val precRank:Int
+		) extends SpectrumID
+	case class DemixFeatID(
+			val scan:Int, 
+			val precInt:Double, 
+			val rtInSec:Double, 
+			val featApexInt:Double, 
+			val precRank:Int
+		) extends SpectrumID
+	case class DemixComplFragID(
+			val scan:Int, 
+			val precRank:Int
+		) extends SpectrumID
 	
 	trait ID {
 		def scanNum:Int
@@ -76,8 +98,10 @@ object Interpret extends Command with CLIApp {
 		val psmFDR = 1.0				## "The PSM level FDR cutoff to apply on loaded identifications"
 		val eValue = 1.0				## "The eValue cutoff to apply on MS-GF+ identifications"
 		val peptideProb = 0.0			## "The peptide probability cutoff to apply on loaded Peptide Csv identifications"
+		val irtR2 = 0.9					## "r2 threshold required for iRT maps. Will fail if this level is not met."
 		
 		val excludeProtPrefix = "DECOY"	## "Proteins with this prefix will be ignored"
+		val useFeatureApexRT = false 	## "Use MS1 feature apex rt when available (parsed from spectrum id)"
 		
 		val outDir			= ""		## "output directory (by default same as input mzML)"
 		val outName			= ""		## "basename for output files (by default same as input mzML)"
@@ -132,21 +156,51 @@ object Interpret extends Command with CLIApp {
 		val format = guessFormat(params.identTsv)
 		
 		status("reading identifications from %s...".format(format.formatName))
-		val byScan = format.fromFile(new File(params.identTsv), params).sortBy(_.scanNum).toArray
+		val idsByScan = 
+			format.fromFile(new File(params.identTsv), params)
+				.sortBy(_.scanNum)
+				.toArray
+		val afterExclusion = idsByScan.filter(!_.protein.startsWith(params.excludeProtPrefix))
+		info("read %d IDs".format(afterExclusion.length))
+		info("excluded %d IDs".format(idsByScan.length - afterExclusion.length))
+		
 		status("interpreting mzML...")
-		val rawAAMolecules = 
-			parseMzML(new File(params.mzML), byScan)
-				.filter(!_.protein.startsWith(params.excludeProtPrefix))
+		val rawAAMolecules = parseMzML(new File(params.mzML), afterExclusion)
+		info("interpreted %d IDs from %d spectra".format(rawAAMolecules.length, interpretedSpectra.size))
 		
 		status("reading iRT peptides...")
 		val irtPeptides = IRT.readPeptideTsv(new File(params.irt))
 		status("extracting iRT peptide identifications...")
 		val irtDataPoints = IRT.findDataPoints(irtPeptides, rawAAMolecules)
 		status("building iRT map...")
-		val irtMap = IRT.createMap(irtDataPoints)
+		def irtFail(msg:String) =
+			new Exception("Failure creating iRT map: "+msg)
+		val irtMap = 
+			Try(IRT.createMap(irtDataPoints)) match {
+				case Success(map) => map
+				case Failure(e) =>
+					e match {
+						case nde:org.apache.commons.math3.exception.NoDataException =>
+							throw irtFail("not enough iRT datapoints, n=%d\n  IRT DATAPOINTS:\n%s".format(
+									irtDataPoints.length,
+									irtDataPoints.mkString("\n  ")
+								))
+						case e:Exception =>
+							throw irtFail(e.getMessage)
+					}
+			}
 		
-		println("IRT MAP:")
-		println(irtMap)
+		
+		
+		info("IRT MAP:")
+		info("             slope = "+irtMap.slope)
+		info("         intercept = "+irtMap.intercept)
+		info("                r2 = "+irtMap.r2)
+		info(" residual std.dev. = "+irtMap.residualStd)
+		info("     n data points = "+irtMap.dataPoints.length)
+		
+		if (irtMap.r2 < params.irtR2)
+			throw irtFail("iRT map r2=%f below required level %f".format(irtMap.r2, params.irtR2.value))
 		
 		status("calculating iRTs...")
 		val aaMolecules:Seq[AAMolecule] = rawAAMolecules.map(irtMap)
@@ -154,13 +208,14 @@ object Interpret extends Command with CLIApp {
 		if (params.writeTsv) {
 			status("writing output tsv...")
 			FragmentTsv.write(params.outTsv, aaMolecules)
+			info("wrote to '%s'".format(params.outTsv))
 		} else {
 			status("writing output binary...")
 			MsFragmentationFile.write(params.outFile, aaMolecules, params.verbose)
+			info("wrote to '%s'".format(params.outFile))
 		}
 		status("done")
 	}
-	
 	
 	def parseMzML(f:File, byScan:Array[ID]) = {
 		
@@ -177,7 +232,7 @@ object Interpret extends Command with CLIApp {
 	
 	
 	var idIndex = 0
-	val scanNumRE = """scan=(\d+)""".r.unanchored
+	var interpretedSpectra = new HashSet[Int]
 	def handleSpectrum(
 			aaMolecules:ArrayBuffer[RawAAMolecule],
 			byScan:Array[ID]
@@ -186,31 +241,28 @@ object Interpret extends Command with CLIApp {
 	) = {
 		
 		val msLevel = s.cvParams.find(_.accession == MS_LEVEL_ACC).map(_.value.get.toInt)
-		val scanNum = s.id match {
-			case scanNumRE(num) => num.toInt
-			case _ => 
-				throw new Exception("Couldn't parse scan number from spectrum title '%s'".format(s.id))
-		}
+		val specID = parseSpectrumID(s.id)
 		
 		lazy val gs = GhostSpectrum.fromSpectrum(s)
-		while (idIndex < byScan.length && byScan(idIndex).scanNum <= scanNum) {
+		while (idIndex < byScan.length && byScan(idIndex).scanNum <= specID.scan) {
 			
-			if (byScan(idIndex).scanNum == scanNum) {
+			if (byScan(idIndex).scanNum == specID.scan) {
 				msLevel match {
 					case Some(x) =>
 						if (x != 2)
-							throw new Exception("[SCAN_NUM:%d] Will only match ids to spectra with ms level 2, got %d".format(scanNum, x))
+							throw new Exception("[SCAN_NUM:%d] Will only match ids to spectra with ms level 2, got %d".format(specID.scan, x))
 					case None =>
-						throw new Exception("[SCAN_NUM:%d] No msLevel annotation found in spectrum!".format(scanNum))
+						throw new Exception("[SCAN_NUM:%d] No msLevel annotation found in spectrum!".format(specID.scan))
 				}
 				
 				// check centroiding!!
 				
 				try {
-					aaMolecules += interpret(gs, byScan(idIndex))
+					aaMolecules += interpret(gs, byScan(idIndex), specID)
+					interpretedSpectra += idIndex
 				} catch {
 					case e:Exception =>
-						println("[SPEC:%d %s] Failed interpretation".format(scanNum, s.id))
+						println("[SPEC:%d %s] Failed interpretation".format(specID.scan, s.id))
 						e.printStackTrace
 				}
 			}
@@ -220,7 +272,7 @@ object Interpret extends Command with CLIApp {
 	}
 	
 	
-	def interpret(gs:GhostSpectrum, id:ID):RawAAMolecule = {
+	def interpret(gs:GhostSpectrum, id:ID, specID:SpectrumID):RawAAMolecule = {
 		
 		import EPeptideFragment._
 		
@@ -280,30 +332,55 @@ object Interpret extends Command with CLIApp {
 			}
 		}
 		
-		val (ft, ce) = parseFragmentationType(gs.spectrum)
-		val fragBaseIntensity = 
-			if (fragIons.nonEmpty) fragIons.map(_.base.intensity).max
-			else 1.0
+		
+		val observations =
+			if (fragIons.isEmpty) Array[RawObservation]()
+			else {
+				val (ft, ce) = parseFragmentationType(gs.spectrum)
+				val fragBaseIntensity = fragIons.map(_.base.intensity).max
+				val (rt, apexInt, precType, precRank) = 
+					specID match {
+						case DemixFeatID(precInt, rt, apexInt, scan, precRank) => 
+							(rt, Some(apexInt), PrecursorType.FEAT, precRank)
+						case DemixOrigID(precInt, rt, scan, precRank) => 
+							(rt, None, PrecursorType.ORIG, precRank)
+						case DemixComplFragID(scan, precRank) =>
+							(gs.scanStartTime, None, PrecursorType.COMPL_FRAG, precRank)
+						case _ =>
+							(gs.scanStartTime, None, PrecursorType.ORIG, 1)
+					}
+				
+				Array(RawObservation(
+						Observation(
+							ft,
+							id.z,
+							ce,
+							Some(id.precursorMz),
+							parsePrecursorIntensity(gs.spectrum, id.precursorMz, id.z),
+							None,
+							Some(fragBaseIntensity),
+							Some(id.qValue),
+							Some(fragIons.map(_.base.intensity).sum / gs.intensities.sum),
+							None,
+							Some(precType),
+							Some(precRank),
+							apexInt,
+							normalize(fragIons, fragBaseIntensity)
+						),
+						rt
+					))
+			}
+		
+		
 		
 		RawAAMolecule(
 				id.pepSequence, 
 				id.protein,
 				pep.monoisotopicMass, 
-				Array(RawObservation(
-						ft,
-						id.z,
-						ce,
-						id.precursorMz,
-						parsePrecursorIntensity(gs.spectrum, id.precursorMz, id.z).getOrElse(0.0),
-						gs.scanStartTime,
-						fragBaseIntensity,
-						id.qValue,
-						fragIons.map(_.base.intensity).sum / gs.intensities.sum,
-						1,
-						normalize(fragIons, fragBaseIntensity)
-					))
+				observations
 			)
 	}
+	
 	
 	
 	def normalize(fragIons:Seq[FragmentAnnotation], base:Double) =
@@ -384,6 +461,21 @@ object Interpret extends Command with CLIApp {
 		(ft, ce)
 	}
 	
+	val demixOrigRE = """ORIG precInt=([^ ]) rtInSec=([^ ]) scan=(\d+) precRank=(\d+)""".r
+	val demixFeatRE = """FEAT precInt=([^ ]) rtInSec=([^ ]) featApexInt=([^ ]) scan=(\d+) precRank=(\d+)""".r
+	val demixComplFragRE = """COMPL_FRAG scan=(\d+) precRank=(\d+)""".r
+	val scanNumRE = """scan=(\d+)""".r.unanchored
+	def parseSpectrumID(id:String) = 
+		id match {
+			case demixOrigRE(pInt, rt, scan, pRank) => DemixOrigID(pInt.toInt, rt.toDouble, scan.toInt, pRank.toInt)
+			case demixFeatRE(pInt, rt, fApexInt, scan, pRank) => DemixFeatID(pInt.toInt, rt.toDouble, fApexInt.toDouble, scan.toInt, pRank.toInt)
+			case demixComplFragRE(scan, pRank) => DemixComplFragID(scan.toInt, pRank.toInt)
+			case scanNumRE(scan) => ScanID(scan.toInt)
+			case _ => 
+				throw new Exception("Couldn't parse scan number from spectrum title '%s'".format(id))
+		
+		}
+	
 	
 	def getReader(f:File):XmlReader = {
 		val name = f.getName
@@ -398,8 +490,12 @@ object Interpret extends Command with CLIApp {
 	
 	
 	def guessFormat(path:String):IDs = 
-		if (path.endsWith(".pep.csv")) PepCsv
-		else if (path.endsWith(".xl.tsv")) Kojak
-		else if (path.endsWith(".tsv")) MSGF
-		else throw new Exception("Unknown file format for path 'path'!")
+		if (path.endsWith(".pep.csv") || path.endsWith(".pep.tsv")) PepCsv
+		else if (path.endsWith(".xl.tsv") || path.endsWith(".xl.tsv")) Kojak
+		else if (path.endsWith(".tsv") || path.endsWith(".csv")) MSGF
+		else throw new Exception("""Unknown file format for path 'path'!
+use
+	.pep.csv or .pep.tsv 	for PeptideProphet derived IDs
+	.xl.csv or .xl.tsv		for Kojak derived master XL format files
+	.csv or .tsv			for MS-GF+ (demix) derived IDs""")
 }

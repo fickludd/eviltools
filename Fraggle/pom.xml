@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>se.lth.immun</groupId>
   <artifactId>Fraggle</artifactId>
-  <version>0.5.1</version>
+  <version>0.6.0</version>
   <inceptionYear>2015</inceptionYear>
   <properties>
     <scala.version>2.10.0</scala.version>
@@ -46,7 +46,7 @@
     <dependency>
     	<groupId>se.lth.immun</groupId>
     	<artifactId>MsFragmentationIO</artifactId>
-    	<version>0.4.1</version>
+    	<version>0.5.0</version>
     </dependency>
     <dependency>
     	<groupId>se.lth.immun</groupId>
@@ -56,7 +56,7 @@
     <dependency>
     	<groupId>se.lth.immun</groupId>
     	<artifactId>UniMod</artifactId>
-    	<version>1.2.2</version>
+    	<version>1.2.3</version>
     </dependency>
     <dependency>
     	<groupId>org.apache.commons</groupId>
