@@ -53,7 +53,7 @@ object Tramler extends CLIApp {
 			println(operationsHelp)
 			failOnError(argsErrs)
 		}
-    	    	
+    	
 		println(name + " "+version)
 		println("       input file: "+params.in.value)
     	

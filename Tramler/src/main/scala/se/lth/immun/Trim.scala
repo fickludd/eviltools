@@ -3,6 +3,8 @@ package se.lth.immun
 import se.lth.immun.traml.ghost._
 import se.lth.immun.chem._
 
+import scala.collection.mutable.HashSet
+
 import Range._
 		
 object Trim extends TramlOperation.Generator(
@@ -99,16 +101,7 @@ object Trim extends TramlOperation.Generator(
 			}
 				
 			val out = new GhostTraML
-				
-			for {
-				t <- in.includes
-				if precZRange.has(t.q1z)
-				if precMassRange.has((t.q1 - Constants.PROTON_WEIGHT)/t.q1z)
-				if precMzOk(t.q1)
-			} {
-				setupPeptideAndCompound(out, t.peptideRef, t.compoundRef)
-				out += t
-			}
+			val okPrecIons = new HashSet[(String, Int)]
 			
 			for {
 				((mz, pep), gts) <- in.transitionGroups
@@ -129,9 +122,21 @@ object Trim extends TramlOperation.Generator(
 					
 				if (okFrags.length >= nFragRange.low) {
 					setupPeptideAndCompound(out, pep, null)
+					okPrecIons += pep -> okFrags.head.q1z
 					for (gt <- okFrags.sortBy(_.intensity).reverse.take(nFragRange.high))
 						out += gt
 				}
+			}
+				
+			for {
+				t <- in.includes
+				if okPrecIons.contains((if (t.peptideRef != null) t.peptideRef else t.compoundRef, t.q1z))
+				if precZRange.has(t.q1z)
+				if precMassRange.has((t.q1 - Constants.PROTON_WEIGHT)/t.q1z)
+				if precMzOk(t.q1)
+			} {
+				setupPeptideAndCompound(out, t.peptideRef, t.compoundRef)
+				out += t
 			}
 						
 			val protRefs = out.peptides.values.flatMap(_.proteins).toSet

@@ -10,15 +10,16 @@ class TramlerParams extends Params {
 	val in = ReqString("The input file. Can be csv or traml.")
 	val ops = ReqString("operations to perform")
 	
-	val diaFile = ""	## "file with dia isolation windows. Can be used for trimming"
+	val diaFile = ""	## "tsv with dia isolation windows (no header, iso window low and high cols). Can be used for trimming"
 	
-	val out = ""		## "file where output traml should be saved (default: input csv .traml)"
+	val outDir			= ""		## "directory where output traml should be saved"
+	val outName			= ""		## "file where output traml should be saved (default: input csv .traml)"
 	val modFile = ""	## "file with modifications (one per line)"
 	
 	lazy val inFile = new File(in)
 	def outFile =
-		if (out.value == "") None
-		else Some(new File(out))
+		if (outName.value == "") None
+		else Some(new File(outDir, outName))
 		
 	lazy val diaWindows = {
 		for (line <- Source.fromFile(new File(diaFile)).getLines.toSeq) yield {
