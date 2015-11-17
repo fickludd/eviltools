@@ -1,6 +1,6 @@
 package se.lth.immun
 
-import se.lth.immun.traml.ghost._
+import se.lth.immun.traml.clear._
 import se.lth.immun.chem._
 
 object TramlOperation {
@@ -15,7 +15,7 @@ object TramlOperation {
 	}
 	
 	abstract class Instance(opString:String, params:Seq[(String, String)]) {
-		def operate(in:GhostTraML, params:TramlerParams):GhostTraML
+		def operate(in:ClearTraML, params:TramlerParams):ClearTraML
 		
 		override def toString =
 			"%s(%s)".format(opString.toUpperCase, params.map(t => 

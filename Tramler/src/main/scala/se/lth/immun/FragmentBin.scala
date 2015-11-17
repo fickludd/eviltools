@@ -2,7 +2,7 @@ package se.lth.immun
 
 import java.io.File
 
-import se.lth.immun.traml.ghost._
+import se.lth.immun.traml.clear._
 import se.lth.immun.protocol.MsFragmentationFile
 import se.lth.immun.protocol.MSFragmentationProtocol.FragmentType
 import se.lth.immun.protocol.FragmentAnnotation
@@ -97,43 +97,51 @@ object FragmentBin {
 	}
 	
 	
-	def parse(f:File):GhostTraML = {
+	def parse(f:File):ClearTraML = {
 		val aaMolecules = MsFragmentationFile.read(f, false)
 		
-		val b = new GhostTramlBuilder
+		import PeptideParser._
+		import Clear._
+		
+		val c = new ClearTraML
 		
 		for (aaMol <- aaMolecules) {
-			b.addProtein(aaMol.protein, None)
-			b.addPeptide(aaMol.sequence)
-			b.setPepProt(aaMol.sequence, aaMol.protein)
+			c.proteins += aaMol.protein
+			val cp = new ClearPeptide(aaMol.sequence, Array(aaMol.protein))
+			cp.rt = Some(ClearRetentionTime.IRT(mean(aaMol.observations.flatMap(_.iRT))))
 			
+			lazy val pepMass = 
+				PeptideParser.parseSequence(aaMol.sequence) match {
+					case UniModPeptide(pep) => pep.monoisotopicMass
+					case XLinkPeptide(xl) => xl.monoisotopicMass
+					case Unparsable(str) => 
+						throw new Exception("Cannot parse peptide '%s' and peptide m/z not annotated. Exiting!\n%s".format(aaMol.sequence, str))
+				}
 			lazy val fragMassCalc = FragmentMassCalculator(aaMol.sequence)
 			
-			for {
-				obs <- aaMol.observations
-				frag <- obs.fragments
-			} {
-				val gt = new GhostTransition
-				gt.q1 	= obs.precursorMz
-				gt.q1z 	= obs.z
-				gt.ce 	= obs.ce
-				gt.q3 	= frag.base.mz.getOrElse(fragMassCalc.calc(frag) / frag.base.z + Constants.PROTON_WEIGHT)
-				gt.q3z 	= frag.base.z
-				gt.peptideRef = aaMol.sequence
+			for (obs <- aaMol.observations) {
+				val a = 
+					cp.getAssay(
+						aaMol.mass / obs.z + Constants.PROTON_WEIGHT,
+						obs.z,
+						Some(obs.ce)
+					)
 				
-				gt.irt 	= obs.iRT
-				gt.intensity = frag.base.intensity
-				
-				val ionString = toIonString(frag) 
-				gt.ions += ionString
-				
-				gt.id = "%s%s %s%s".format(aaMol.sequence, pluses(gt.q1z), ionString, pluses(gt.q3z))
-				
-				b.addTransition(gt)
+				for (frag <- obs.fragments) {
+					a.ms2Channels += Channel(
+							frag.base.mz.getOrElse(fragMassCalc.calc(frag)), 
+							frag.base.z, 
+							toIonString(frag), 
+							2,
+							Some(frag.base.intensity)
+						)
+				}
 			}
+			
+			c.compounds += cp
 		}
 		
-		b.result
+		c
 	}
 	
 	def toIonString(fa:FragmentAnnotation):String = 
@@ -158,4 +166,7 @@ object FragmentBin {
 
 	def pluses(n:Int) =
 		"++++++++++++++++++++++".take(n)
+		
+	def mean(xs:Seq[Double]) =
+		xs.sum / xs.length
 }

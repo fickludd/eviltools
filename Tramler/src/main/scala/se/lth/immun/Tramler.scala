@@ -17,7 +17,7 @@ import collection.mutable.HashSet
 import collection.JavaConversions._
 import scala.util.{Try, Success, Failure}
 
-import se.lth.immun.traml.ghost._
+import se.lth.immun.traml.clear._
 import se.lth.immun.xml._
 import se.lth.immun.chem._
 
@@ -41,16 +41,38 @@ object Tramler extends CLIApp {
     
 	val params = new TramlerParams
     
-	val allowedOperations = Array(Clean, Decoy, Isotopes, Subsample, Stats, Trim)
+	val allowedOperations = Array(Clean, Decoy, Distort, Ms1Isotopes, Subsample, Stats, Trim, Tsv)
 	
 	def main(args:Array[String]):Unit = {
 		
+		val helpRE = """--help=(\w+)""".r
+		for (a <- args)
+			a match {
+				case helpRE(op) =>
+					println(">> TRAMLER HELP MODE:")
+					println(allowedOpsString)
+					println
+					allowedOperations.find(_.opString == op) match {
+						case Some(op) =>
+							println(op.toString)
+							System.exit(0)
+						case None =>
+							println("Unknown operation '%s'".format(op))
+							println(allowedOpsString)
+							System.exit(1)
+					}
+				case _ => {}
+			}
+		
 		val argsErrs = parseArgs(name, version, args, params, List("in"), Some("ops"))
+			
 		if (argsErrs.nonEmpty) {
-			println("\n\n  OPERATIONS:")
-			println("  ===========")
-			println("    operations syntax is 'operation(option1,option2=value,...,optionN)'\n")
-			println(operationsHelp)
+			println
+			println
+			println(allowedOpsString)
+			println
+			println("    operations syntax is 'operation(option1,option2=value,...,optionN)'")
+			//println(operationsHelp)
 			failOnError(argsErrs)
 		}
     	
@@ -60,35 +82,59 @@ object Tramler extends CLIApp {
 		
 		val (readMode, outDef1) = inFormat(params.inFile)
 		
-		val ops = params.ops.split(" ").map(parseOp)
-		val outputDefault = 
-			if (params.ops.split(" ").exists(_.startsWith(Decoy.opString)))
-				if (isExt(outDef1, ".out")) 
-					replaceExt(outDef1, ".traml.out", ".decoy.traml")
-				else
-					replaceExt(outDef1, ".traml", ".decoy.traml")
-			else outDef1
+		try {
+			val ops = params.ops.split(" ").map(parseOp)
 		
-		var traml = readFile(readMode, params.inFile)
-    	
-		for (op <- ops) {
-			println("  [ %s ]".format(op.toString))
-			traml = op.operate(traml, params)
+			val outputDefault = 
+				if (params.ops.split(" ").exists(_.startsWith(Decoy.opString)))
+					if (isExt(outDef1, ".out")) 
+						replaceExt(outDef1, ".traml.out", ".decoy.traml")
+					else
+						replaceExt(outDef1, ".traml", ".decoy.traml")
+				else outDef1
+			
+			var traml = {
+					val rawTraML = readFile(readMode, params.inFile)
+					val (okTraML, abnormalities) = QualityControl.check(rawTraML, params)
+					if (abnormalities.isEmpty)
+						println(" no abnormalities detected in loaded file...")
+					else {
+						if (params.verbose) {
+							println(" abnormalities in loaded file:")
+							println(abnormalities.map("  "+_).mkString("\n"))
+						} else
+							println(" %d abnormalities in loaded file!".format(abnormalities.length))
+					}
+					okTraML
+				}
+	    	
+			for (op <- ops) {
+				println("  [ %s ]".format(op.toString))
+				traml = op.operate(traml, params)
+			}
+	    	
+			if (readMode == InTraml && params.ops.split(" ").forall(_.startsWith("stats")))
+				println("    no output written since only stats operation specified on input TraML")
+			else {
+				val outFile = params.outFile.getOrElse(outputDefault)
+				println("    [OUTPUT] file: "+outFile)
+		    	println()
+		    	
+		    	traml.write(XmlWriter(new BufferedWriter(new FileWriter(outFile))))
+			}
+			println("  time taken: "+niceTiming(System.currentTimeMillis - t0))
+		} catch {
+			case e:IllegalArgumentException =>
+				println
+				println(e.getMessage)
+				System.exit(1)
 		}
-    	
-		val outFile = params.outFile.getOrElse(outputDefault)
-		println("    [OUTPUT] file: "+outFile)
-    	println()
-    	
-    	traml.write(XmlWriter(new BufferedWriter(new FileWriter(outFile))))
-		
-		println("  time taken: "+niceTiming(System.currentTimeMillis - t0))
 	}
 	
 	
 	
-	def operationsHelp:String = 
-		allowedOperations.mkString("\n\n")
+	def allowedOpsString = 
+		" allowed operations are: "+allowedOperations.map(_.opString).mkString(", ")
 	
 	
 		
@@ -97,7 +143,7 @@ object Tramler extends CLIApp {
 			allowedOperations.find(_.opString == op) match {
 				case Some(gen) => gen
 				case None =>
-					throw new IllegalArgumentException("'%s' is not a valid traml operation!".format(str))
+					throw new IllegalArgumentException("'%s' is not a valid traml operation!\n%s".format(str, allowedOpsString))
 			}
 		
 		def getParams(str:String):Seq[(String, String)] = 
@@ -118,7 +164,9 @@ object Tramler extends CLIApp {
 		Try(gen.makeInstance(params, mods)) match {
 			case Success(inst) => inst
 			case Failure(e) =>
-				throw new IllegalArgumentException(gen.toString, e)
+				println
+				println(gen)
+				throw new IllegalArgumentException(e.getMessage, e)
 		}
 	}
 		
@@ -132,7 +180,7 @@ object Tramler extends CLIApp {
 				)
 			(InCsv, replaceExt(inFile, ".csv", ".traml"))
 		else if (isExt(inFile, ".fragments.bin"))
-			(InFragmentBin, appendExt(inFile, ".traml"))
+			(InFragmentBin, replaceExt(inFile, ".fragments.bin", ".traml"))
 		else
 			(Unknown, appendExt(inFile, ".traml"))
 	}
@@ -144,9 +192,9 @@ object Tramler extends CLIApp {
 			case InCsv =>
 				CsvParser.fromFile(new BufferedReader(new FileReader(f)))
 			case InTraml =>
-				GhostTraML.fromFile(new XmlReader(
+				ClearTraML.fromFile(new XmlReader(
 					new BufferedReader(new FileReader(f))
-				))
+				), params.debugRate)
 			case InFragmentBin =>
 				FragmentBin.parse(f)
 			case Unknown =>

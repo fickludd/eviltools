@@ -1,6 +1,6 @@
 package se.lth.immun
 
-import se.lth.immun.traml.ghost._
+import se.lth.immun.traml.clear._
 import se.lth.immun.chem._
 
 import scala.collection.mutable.HashSet
@@ -22,7 +22,7 @@ object Trim extends TramlOperation.Generator(
     nTermMinOrdinal   The minimal ordinal to include for n-terminal fragments
     cTermMinOrdinal   The minimal ordinal to include for c-terminal fragments
     internalMinSize   The minimal length to include for internal fragments
-    fragmentTypes     FTYPE;FTYPE;...FTYPE - fragment types are a,b,c,x,y,z and m (internal)
+    fragmentTypes     FTYPE;FTYPE;...FTYPE - fragment types are a,b,c,x,y,z and m (internal) and u (unknown)
     onlyNote          No filtering will be done, but targets and transitions will be annotated 
                       with eventual reasons for exclusion.
     diaRule           Remove fragments with m/z in the DIA MS2 isolation window"""
@@ -32,6 +32,7 @@ object Trim extends TramlOperation.Generator(
 	case class CTerm(ftype:Char, ord:Int) extends FragmentType
 	case class NTerm(ftype:Char, ord:Int) extends FragmentType
 	case class Internal(first:Int, last:Int) extends FragmentType
+	case class Unknown(str:String) extends FragmentType
 	
 	def makeInstance(params:Seq[(String, String)], mods:Seq[IModifier]) = 
 		new TrimInstance(params, mods)
@@ -47,11 +48,12 @@ object Trim extends TramlOperation.Generator(
 		var fragMzRange 	= DRange(-1e6, 1e6)
 		var fragMassRange 	= DRange(-1e6, 1e6)
 		var fragZRange 		= IRange(-1000, 1000)
+		var nTargetRange 	= IRange(0, 1000)
 		var nFragRange 		= IRange(0, 1000)
 		var nTermMinOrdinal:Int = 0
 		var cTermMinOrdinal:Int = 0
 		var internalMinSize:Int = 0
-		var fragmentTypes = Array('a', 'b', 'c', 'x', 'y', 'z', 'm')
+		var fragmentTypes = Array('a', 'b', 'c', 'x', 'y', 'z', 'm', 'u')
 		var onlyNote 	= false
 		var diaRule 	= false
 		
@@ -63,6 +65,7 @@ object Trim extends TramlOperation.Generator(
 				case "fragmentMz" 		=> fragMzRange = toDoubleRange(v)
 				case "fragmentMass" 	=> fragMassRange = toDoubleRange(v)
 				case "fragmentCharge" 	=> fragZRange = toIntRange(v)
+				case "nMs1Targets" 		=> nTargetRange = toIntRange(v)
 				case "nFragments" 		=> nFragRange = toIntRange(v)
 				case "nTermMinOrdinal" 	=> nTermMinOrdinal = v.toInt
 				case "cTermMinOrdinal" 	=> cTermMinOrdinal = v.toInt
@@ -75,7 +78,7 @@ object Trim extends TramlOperation.Generator(
 			}
 		
 		
-		def operate(in:GhostTraML, params:TramlerParams):GhostTraML = {
+		def operate(in:ClearTraML, params:TramlerParams):ClearTraML = {
 			
 			def precMzOk(mz:Double) =
 				if (diaRule)
@@ -93,55 +96,49 @@ object Trim extends TramlOperation.Generator(
 					}
 				else true
 			
-			def setupPeptideAndCompound(out:GhostTraML, pepRef:String, compRef:String) = {
-				if (compRef != null && !out.compounds.contains(compRef))
-					out.compounds += compRef -> in.compounds(compRef)
-				if (pepRef != null && !out.peptides.contains(pepRef))
-					out.peptides += pepRef -> in.peptides(pepRef)
-			}
-				
-			val out = new GhostTraML
-			val okPrecIons = new HashSet[(String, Int)]
+			val out = new ClearTraML
 			
-			for {
-				((mz, pep), gts) <- in.transitionGroups
-				if precZRange.has(gts.head.q1z)
-				if precMassRange.has((gts.head.q1 - Constants.PROTON_WEIGHT)/gts.head.q1z)
-				if precMzOk(gts.head.q1)
-			} {
-				val okFrags =
-					for {
-						gt <- gts
-						if fragZRange.has(gt.q3z)
-						if fragMassRange.has((gt.q3 - Constants.PROTON_WEIGHT)/gt.q3z)
-						if fragMzRange.has(gt.q3)
-						if fragmentTypes.contains(gt.ions.head.head)
-						if ionOk(gt.ions.head)
-						if diaFragOk(gt.q1, gt.q3)
-					} yield gt
+			val compounds =
+				for (cp <- in.compounds) yield {
+					val outCP = new ClearPeptide(cp.id, cp.proteins)
+					outCP.rt = cp.rt
 					
-				if (okFrags.length >= nFragRange.low) {
-					setupPeptideAndCompound(out, pep, null)
-					okPrecIons += pep -> okFrags.head.q1z
-					for (gt <- okFrags.sortBy(_.intensity).reverse.take(nFragRange.high))
-						out += gt
+					val outAssays =
+						for {
+							a <- cp.assays
+							if precZRange.has(a.z)
+							if precMassRange.has((a.mz - Constants.PROTON_WEIGHT) * a.z)
+							if precMzOk(a.mz)
+						} yield {
+							val outAssay = a.metaCopy
+							outAssay.ms2Channels ++= 
+								a.ms2Channels.filter(ch =>
+									fragZRange.has(ch.z) &&
+									fragMassRange.has((ch.mz - Constants.PROTON_WEIGHT)*ch.z) &&
+									fragMzRange.has(ch.mz) &&
+									ionOk(ch.id) &&
+									diaFragOk(a.mz, a.z)
+								).sortBy(- _.expIntensity.getOrElse(0.0)).take(nFragRange.high)
+							outAssay.ms1Channels ++=
+								a.ms1Channels.filter(ch =>
+									precMassRange.has((ch.mz - Constants.PROTON_WEIGHT)/ch.z) &&
+									precMzOk(ch.mz)
+								).sortBy(- _.expIntensity.getOrElse(0.0)).take(nTargetRange.high)
+								
+							outAssay
+						}
+					
+					outCP.assays ++= 
+						outAssays.filter(a =>
+							a.ms1Channels.length >= nTargetRange.low &&
+							a.ms2Channels.length >= nFragRange.low
+						)
+					
+					outCP
 				}
-			}
-				
-			for {
-				t <- in.includes
-				if okPrecIons.contains((if (t.peptideRef != null) t.peptideRef else t.compoundRef, t.q1z))
-				if precZRange.has(t.q1z)
-				if precMassRange.has((t.q1 - Constants.PROTON_WEIGHT)/t.q1z)
-				if precMzOk(t.q1)
-			} {
-				setupPeptideAndCompound(out, t.peptideRef, t.compoundRef)
-				out += t
-			}
-						
-			val protRefs = out.peptides.values.flatMap(_.proteins).toSet
-			for (pr <- protRefs)
-				out.proteins += pr -> in.proteins(pr)
+			
+			for (cp <- compounds.filter(_.assays.nonEmpty)) out.compounds += cp
+			out.proteins ++= compounds.flatMap(_.proteins)
 			
 			out
 		}
@@ -155,22 +152,30 @@ object Trim extends TramlOperation.Generator(
 					fragmentTypes.contains(ftype) && ord >= nTermMinOrdinal
 				case Internal(first, last) =>
 					fragmentTypes.contains('m') && (last - first + 1) >= internalMinSize
+				case Unknown(str) =>
+					fragmentTypes.contains('u')
 			}
 		}
 	}
 	
 	
-	def fragmentType(ion:String) = {
-		ion.head match {
-			case 'a' => NTerm(ion.head, ion.tail.toInt)
-			case 'b' => NTerm(ion.head, ion.tail.toInt)
-			case 'c' => NTerm(ion.head, ion.tail.toInt)
-			case 'x' => CTerm(ion.head, ion.tail.toInt)
-			case 'y' => CTerm(ion.head, ion.tail.toInt)
-			case 'z' => CTerm(ion.head, ion.tail.toInt)
-			case 'm' => 
-				val FL = ion.tail.split(":", 2)
-				Internal(FL(0).toInt, FL(1).toInt)
+	val regularFragmentRE = """([abcxyz])(\d+)""".r.unanchored
+	val internalFragmentRE = """m(\d+):(\d+)""".r
+	def fragmentType(ion:String):FragmentType = {
+		def toRef(ionType:String, ordinal:String) =
+			ionType match {
+				case "a" => NTerm('a', ordinal.toInt)
+				case "b" => NTerm('b', ordinal.toInt)
+				case "c" => NTerm('c', ordinal.toInt)
+				case "x" => CTerm('x', ordinal.toInt)
+				case "y" => CTerm('y', ordinal.toInt)
+				case "z" => CTerm('z', ordinal.toInt)
+			}
+		
+		ion match {
+			case regularFragmentRE(ionType, ordinal) 	=> toRef(ionType, ordinal)
+			case internalFragmentRE(from, to) 			=> Internal(from.toInt, to.toInt)
+			case _ => Unknown(ion)
 		}
 	}
 }

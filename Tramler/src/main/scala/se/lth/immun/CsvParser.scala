@@ -6,7 +6,7 @@ import collection.mutable.HashSet
 
 import java.io.BufferedReader
 import se.lth.immun.files.Delimited
-import se.lth.immun.traml.ghost._
+import se.lth.immun.traml.clear._
 import se.lth.immun.chem.Constants
 
 object CsvParser {
@@ -118,7 +118,7 @@ object CsvParser {
 	
 		
 		
-	def fromFile(inCsv:BufferedReader):GhostTraML = {
+	def fromFile(inCsv:BufferedReader):ClearTraML = {
 		
 		val nextLines = new Queue[String]
 		def readAhead(n:Int):Unit = {
@@ -201,7 +201,8 @@ object CsvParser {
     	else if (cols.peptideCsv)
     		parsePeptideCsv(() => nextLine.map(rr), cols)
     	else if (cols.compoundCsv)
-    		parseCompoundCsv(() => nextLine.map(rr), cols)
+    		throw new Exception("Reading compound csv's in currently not implemented!")
+    		//parseCompoundCsv(() => nextLine.map(rr), cols)
     	else
     		throw new IllegalArgumentException("Could not parse csv!")
 	}
@@ -212,58 +213,48 @@ object CsvParser {
 	def parseTransitionCsv(
 			nextLine:() => Option[List[String]], 
 			cols:Cols
-	):GhostTraML = {
+	):ClearTraML = {
     	
-    	val b 	= new GhostTramlBuilder
-    	val ts 	= new HashSet[GhostTransition]
+    	val b 	= new ClearTraMLBuilder
     	
     	var line = nextLine()
     	while (line.isDefined) {
     		val vals = line.get
-    		val prot = vals(cols.prot)
-    		b.addProtein(prot, if (cols.acc >= 0) Some(vals(cols.acc)) else None)
+    		val prot = b.addProtein(vals(cols.prot))
     		
-    		val pep = vals(cols.seq)
-    		b.addPeptide(pep)
-    		b.setPepProt(pep, prot)
-    		
-    		val gt = new GhostTransition
-    		gt.q1 = vals(cols.q1).toDouble
-    		gt.q3 = vals(cols.q3).toDouble
-    		gt.ce = vals(cols.ce).toDouble
-    		gt.id = "%s @ %.3f / %.3f".format(pep, gt.q1, gt.q3)
-    		gt.peptideRef = pep
+    		val cp = b.addPeptide(vals(cols.seq), Array(prot))
     		
     		import PeptideParser._
     		lazy val pepMass:Option[Double] =
-    			PeptideParser.parseSequence(pep) match {
-    			case UniModPeptide(p) => Some(p.monoisotopicMass)
-    			case XLinkPeptide(xl) => Some(xl.monoisotopicMass)
-    			case _ => None
-    		}
+    			PeptideParser.parseSequence(cp.id) match {
+	    			case UniModPeptide(p) => Some(p.monoisotopicMass)
+	    			case XLinkPeptide(xl) => Some(xl.monoisotopicMass)
+	    			case _ => None
+	    		}
     		
-    		if (cols.q1z >= 0)
-    			gt.q1z = vals(cols.q1z).toInt
-    		else if (pepMass.isDefined)
-    			gt.q1z = math.round(pepMass.get / gt.q1).toInt
+    		val q1 = vals(cols.q1).toDouble
+    		val q1z =
+    			if (cols.q1z >= 0)
+	    			vals(cols.q1z).toInt
+	    		else if (pepMass.isDefined)
+	    			math.round(pepMass.get / q1).toInt
+	    		else 
+	    			throw new Exception("Unable to parse or compute precursor charge for line: "+line)
+	    			    	
+		    val q3 = vals(cols.q3).toDouble
+		    val channel = 
+		    	Clear.Channel(
+		    		q3,
+		    		vals(cols.q3z).toInt,
+		    		if (cols.frag >= 0) vals(cols.frag)
+		    		else "%s @ %.3f / %.3f".format(cp.id, q1, q3),
+		    		2,
+		    		if (cols.intensity >= 0) Some(vals(cols.intensity).toDouble) else None
+		    	)
     		
-    		if (cols.q3z >= 0)
-    			gt.q3z = vals(cols.q3z).toInt
-    		
-    		if (cols.rt >= 0) {
-    			val rt = vals(cols.rt).toDouble
-    			gt.rtStart = rt
-    			gt.rtEnd = rt
-    		}
-    		if (cols.irt >= 0) {
-    			val irt = vals(cols.irt).toDouble
-    			gt.irt = irt
-    		}
-    		if (cols.intensity >= 0)
-    			gt.intensity = vals(cols.intensity).toDouble
-    		
-    		b.addTransition(gt)
-    		
+		    val a = cp.getAssay(q1, q1z, None)
+		    a.ms2Channels += channel
+		    	
     		line = nextLine()
     	}
     	
@@ -276,44 +267,26 @@ object CsvParser {
 	def parsePeptideCsv(
 			nextLine:() => Option[List[String]], 
 			cols:Cols
-	):GhostTraML = {
-		val outTraml 	= new GhostTraML
+	):ClearTraML = {
+		val b = new ClearTraMLBuilder
 		
 		var line = nextLine()
     	while (line.isDefined) {
     		val vals = line.get
-    		val prot = vals(cols.prot)
-    		if (!outTraml.proteins.contains(prot)) {
-    			val gProt = new GhostProtein
-		    	gProt.id 		= prot
-		    	gProt.accession = 
-		    		if (cols.acc >= 0) vals(cols.acc) else "unknown"
-				gProt.name 		= prot 
-				gProt.shortName = prot
-				gProt.sequence 	= ""
-		    	outTraml.proteins += gProt.id -> gProt
-    		}
+    		val prot = b.addProtein(vals(cols.prot))
     		
-    		val pep = vals(cols.seq)
-    		if (!outTraml.peptides.contains(pep)) {
-    			val gPep = new GhostPeptide
-    			gPep.id = pep
-    			gPep.sequence = pep
-    			outTraml.peptides += gPep.id -> gPep
-    		}
-    		if (!outTraml.peptides(pep).proteins.contains(prot))
-    			outTraml.peptides(pep).proteins += prot
+    		val cp = b.addPeptide(vals(cols.seq), Array(prot))
     			
     		line = nextLine()
     	}
 		
-		return outTraml
+		return b.result
 	}
 	
 	
 	
 	
-	def parseCompoundCsv(
+	/*def parseCompoundCsv(
 			nextLine:() => Option[List[String]], 
 			cols:Cols
 	):GhostTraML = {
@@ -342,5 +315,5 @@ object CsvParser {
     	}
 		
 		return outTraml
-	}
+	}*/
 }

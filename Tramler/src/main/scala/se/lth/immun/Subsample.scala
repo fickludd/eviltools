@@ -1,6 +1,6 @@
 package se.lth.immun
 
-import se.lth.immun.traml.ghost._
+import se.lth.immun.traml.clear._
 import se.lth.immun.chem._
 
 import scala.util.Random
@@ -17,82 +17,64 @@ object Subsample extends TramlOperation.Generator(
 	def makeInstance(params:Seq[(String, String)], mods:Seq[IModifier]) = 
 		new SubsampleInstance(params, mods)
 	
+	trait SubSampleMode
+	case class Fraction(f:Double) extends SubSampleMode
+	case class N(n:Int) extends SubSampleMode
+	
 	class SubsampleInstance(
 			params:Seq[(String, String)], 
 			mods:Seq[IModifier]
 	) extends TramlOperation.Instance(opString, params) {
-		var fraction = -1.0
-		var n = -1
+		var mode:SubSampleMode = Fraction(1)
 		var seed:Option[Long] = None
 		
 		for ((k,v) <- params)
 			k match {
-				case "fraction" => fraction = v.toDouble
-				case "n" 		=> n = v.toInt
+				case "fraction" => mode = Fraction(v.toDouble)
+				case "n" 		=> mode = N(v.toInt)
 				case "seed" 	=> seed = Some(v.toLong)
 				case x =>
 					throw new IllegalArgumentException("Unknown param '"+x+"'")
 			}
 		
-		if (fraction < 0 && n < 0)
-			throw new IllegalArgumentException("Size of subfraction not given... need either parameter 'n' or 'fraction'")
-		if (fraction >= 0 && n >= 0)
-			throw new IllegalArgumentException("Cannot parse both parameter 'n' and 'fraction'. Pick one.")
-		if (fraction > 1.0)
-			throw new IllegalArgumentException("Monto carlo sampling not supported yet")
-		
-		
-		def operate(in:GhostTraML, params:TramlerParams):GhostTraML = {
+		def operate(in:ClearTraML, params:TramlerParams):ClearTraML = {
 			
-			val out = new GhostTraML
-			val nCompound = if (n > 0) n else (in.compounds.size * fraction).toInt
-			val compounds:Map[String, GhostCompound] =
-				if (nCompound > in.compounds.size)
-					monteCarlo(in.compounds, nCompound)
-				else
-					sample(in.compounds, nCompound)
-			
-			val nPeptide = if (n > 0) n else (in.peptides.size * fraction).toInt
-			val peptides:Map[String, GhostPeptide] =
-				if (nPeptide > in.peptides.size)
-					monteCarlo(in.peptides, nPeptide)
-				else
-					sample(in.peptides, nPeptide)
-			
-			out.compounds ++= compounds
-			out.peptides ++= peptides
-			
-			val protRefs = peptides.values.flatMap(_.proteins).toSet
-			for (pr <- protRefs)
-				out.proteins += pr -> in.proteins(pr)
-			
-			for (t <- in.includes) {
-				if (compounds.contains(t.compoundRef) || peptides.contains(t.peptideRef))
-					out += t
-			}
-			
-			for (t <- in.transitions) {
-				if (compounds.contains(t.compoundRef) || peptides.contains(t.peptideRef))
-					out += t
-			}
+			val out = new ClearTraML
+				
+			out.compounds ++= subsample(in.compounds, mode, seed)
+			out.proteins ++= out.compounds.flatMap(_.proteins).distinct
 					
 			return out
 		}
+	}
+	
+	
+	def subsample[T](xs:Seq[T], mode:SubSampleMode, seed:Option[Long]) = {
+		val n = 
+			mode match {
+				case Fraction(f) => (xs.length * f).toInt
+				case N(n) => n
+			}
+		val r =
+			seed match {
+				case Some(s) => new Random(seed.get)
+				case None => new Random
+			}
+		if (n > xs.size)
+			monteCarlo(r)(xs, n)
+		else
+			sample(r)(xs, n)
+	}	
 		
-		
-		def monteCarlo[T, U](m:HashMap[T, U], n:Int):Map[T, U] = {
-			if (n <= 0 || m.size <= 0) return Nil.toMap
-			val pool = m.toSeq
-			if (seed.isDefined) Random.setSeed(seed.get)
-			(for (i <- 0 until n) yield 
-					pool(Random.nextInt(pool.length))
-			).toMap
-		}
-		
-		def sample[T, U](m:HashMap[T, U], n:Int):Map[T, U] = {
-			if (n <= 0 || m.size <= 0) return Nil.toMap
-			if (seed.isDefined) Random.setSeed(seed.get)
-			Random.shuffle(m.toSeq).take(n).toMap
-		}
+	def monteCarlo[T](r:Random)(xs:Iterable[T], n:Int):Seq[T] = {
+		if (n <= 0 || xs.size <= 0) return Nil
+		val pool = xs.toSeq
+		for (i <- 0 until n) yield 
+			pool(r.nextInt(pool.length))
+	}
+	
+	def sample[T](r:Random)(xs:Iterable[T], n:Int):Seq[T] = {
+		if (n <= 0 || xs.size <= 0) return Nil
+		r.shuffle(xs.toSeq).take(n)
 	}
 }

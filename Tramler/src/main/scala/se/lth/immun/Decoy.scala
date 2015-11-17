@@ -1,11 +1,13 @@
 package se.lth.immun
 
-import se.lth.immun.traml.ghost._
+import se.lth.immun.traml.clear._
+import se.lth.immun.traml.clear.Clear._
 import se.lth.immun.chem._
 import se.lth.immun.unimod.UniMod
 import se.lth.immun.xlink.XLink
 
 import collection.mutable.ArrayBuffer
+import collection.mutable.HashMap
 import collection.mutable.Queue
 import util.Random
 
@@ -13,25 +15,29 @@ object Decoy extends TramlOperation.Generator(
 		"decoy", 
 		"""  Replace peptides and compounds with similar fakes. 
     novel            generate new peptides based on aa frequencies
-    shuffle          generate new peptides by shuffling aas, except c-term and modified n-term aas.
+    shuffle          generate new peptides by shuffling aas, except c-term and modified n-term aas. (default)
     reverse          generate new peptides by reversing aas, except c-term and modified n-term aas.
     same             reuse the same peptides (fake fakes).
     decoy-factor     integer stating how many decoys should be generated per compound / peptide (novel and shuffle only).
-    n                integer stating how many decoy peptides and compounds that should be generated in total."""
+    n                integer stating how many decoy peptides and compounds that should be generated in total.
+    seed             seed for decoy sub-selection.
+    verbose          output a lot on std out."""
 ) {
-		
-	import Decoy._
 	
 	def makeInstance(params:Seq[(String, String)], mods:Seq[IModifier]) = 
 		new DecoyInstance(params, mods)
+	
+	import Subsample._
 	
 	class DecoyInstance(
 			params:Seq[(String, String)], 
 			val mods:Seq[IModifier]
 	) extends TramlOperation.Instance(opString, params) {
 		var getDecoyPep = shuffle _
-		var decoyFactor = 1
-		var nDecoys = -1
+		var mode:SubSampleMode = Fraction(1)
+		var seed:Option[Long] = None
+		var verbose = false
+		val timer = new Timer
 		
 		for ((k,v) <- params)
 			k match {
@@ -39,72 +45,54 @@ object Decoy extends TramlOperation.Generator(
 				case "shuffle" 		=> getDecoyPep = shuffle _
 				case "reverse" 		=> getDecoyPep = reverse _
 				case "same" 		=> getDecoyPep = same _
-				case "decoy-factor" => decoyFactor = v.toInt
-				case "n=" 			=> nDecoys = v.toInt
+				case "decoy-factor" => mode = Fraction(v.toDouble)
+				case "n" 			=> mode = N(v.toInt)
+				case "seed"			=> seed = Some(v.toLong)
+				case "verbose"		=> verbose = true
 				case _ =>
 					throw new IllegalArgumentException("Unknown param '%s'".format(k))
 			}
 		
-		def operate(in:GhostTraML, params:TramlerParams):GhostTraML = {
-			val out = new GhostTraML
-	    	val gProt = new GhostProtein
-	    	gProt.id 		= "decoy"
-	    	gProt.accession = "decoy"
-			gProt.name 		= "decoy" 
-			gProt.shortName = "decoy"
-			gProt.sequence 	= ""
-	    	out.proteins += gProt.id -> gProt
+		def operate(in:ClearTraML, params:TramlerParams):ClearTraML = {
+			timer.reset
+			
+			val out = new ClearTraML
 	    	
-	    	for ((ref, comp) <- in.compounds)
+	    	import PeptideParser._
+	    	out.compounds ++= 
+	    		subsample(in.compounds, mode, seed).map(cp => {
+	    			parseSequence(cp.id) match {
+	    				case XLinkPeptide(xl) => toXLinkDecoy(xl, cp)
+	    				case UniModPeptide(p) => toUniModDecoy(p, cp)
+	    			}
+	    		})
+	    		
+	    	out.proteins ++= out.compounds.flatMap(_.proteins)
+	    		
+	    	/*for ((ref, comp) <- in.compounds)
 	    		addCompoundDecoys(in, out, ref, comp)
-	    	    	
+	    	val pepTransTable = in.transitionGroups.keys.groupBy(_.pepCompId)
+	    	
 	    	import PeptideParser._
 	    	for ((ref, pep) <- in.peptides) {
-	    		PeptideParser.parseSequence(pep.sequence) match {
+	    		parseSequence(pep.sequence) match {
 	    			case XLinkPeptide(xl) =>
-	    				addXLinkDecoys(in, out, xl, ref, pep)
+	    				addXLinkDecoys(in, out, xl, ref, pep, pepTransTable)
 	    			case UniModPeptide(p) =>
-	    				addUniModDecoys(in, out, p, ref, pep)
+	    				addUniModDecoys(in, out, p, ref, pep, pepTransTable)
 	    		}
 	    	}
+	    	*/
 	    	
 	    	out
 		}
 		
 		
-		
-		def findIons(q3s:Seq[Double], peptide:Peptide):Seq[Ion[PeptideFragment]] = {
-			val fs = peptide.getFragments(Array(EPeptideFragment.y, EPeptideFragment.b))
-			var fsz = (for {
-					f <- fs
-					z <- 1 until 4
-				} yield (f, z)).toSet
-			var retFs = new ArrayBuffer[Ion[PeptideFragment]]
-			q3s.map(q3 => {
-				var diff = Double.MaxValue
-				var best:PeptideFragment = null
-				var bestz = 0
-				for ((f,z) <- fsz) {
-					if (math.abs(f.mass - (z*q3 - z)) < diff) {
-						diff = math.abs(f.mass - (z*q3 - z))
-						best = f
-						bestz = z
-					}
-				}
-				if (best != null) {
-					retFs += new Ion(best, bestz)
-					fsz -= best -> bestz
-				}
-			})
-			return retFs
-		}
-		
-		
-		
+		/*
 		def addCompoundDecoys(in:GhostTraML, out:GhostTraML, ref:String, comp:GhostCompound) = {
 			
-			val allTransitions = in.transitions.filter(_.compoundRef == ref)
-			val allTargets = in.includes.filter(_.compoundRef == ref)
+			val allTransitions = in.transitions.filter(_.isCompound(ref))
+			val allTargets = in.includeGroups.getOrElse(ref, new ArrayBuffer)
 			val q1zs = 
 				if (comp.preferredCharges.nonEmpty) comp.preferredCharges
 				else	allTransitions.map(_.q1z).toSet ++ allTargets.map(_.q1z)
@@ -124,125 +112,96 @@ object Decoy extends TramlOperation.Generator(
 	    			for (j <- 0 until targets.length) {
 	    				val gt = new GhostTarget
 	    				gt.id = "DECOY_"+i+"_"+targets(j).id
-	    				gt.compoundRef = decoyCompRef
+	    				gt.compound = Some(decoyC)
 	    				gt.q1 = dq1 + (targets(j).q1 - q1)
 	    				gt.q1z = q1z
-	    				gt.rtStart = targets(j).rtStart
-	    				gt.rtEnd = targets(j).rtEnd
+	    				gt.localRT = targets(j).localRT
 	    				gt.intensity = targets(j).intensity
 	    				out += gt
 	    			}
 				}
 			}
 		}
+		*/
 		
 		
-		
-		def addXLinkDecoys(in:GhostTraML, out:GhostTraML, xl:XLink, ref:String, pep:GhostPeptide) = {
-			
+		def toXLinkDecoy(xl:XLink, cp:ClearPeptide):ClearPeptide = {
+			throw new Exception("Xlink decoy generation is not yet possible!")
 		}
 		
 		
 		
-		def addUniModDecoys(in:GhostTraML, out:GhostTraML, p:Peptide, ref:String, pep:GhostPeptide) = {
+		def toUniModDecoy(p:Peptide, cp:ClearPeptide):ClearPeptide = {
 			//var p = UniMod.parseUniModSequence(pep.sequence)
-			val allTransitions = in.transitions.filter(_.peptideRef == ref)
-			val allTargets = in.includes.filter(_.peptideRef == ref)
-			val q1zs = allTransitions.map(_.q1z).toSet ++ allTargets.map(_.q1z)
+			//timer.click
+			//val pm = p.monoisotopicMass
 			
-			for (q1z <- q1zs) {
-				val trans = allTransitions.filter(_.q1z == q1z)
-				val targets = allTargets.filter(_.q1z == q1z)
-				val q1 = (trans.map(_.q1) ++ targets.map(_.q1)).min
-				val ions = findIons(trans.map(_.q3), p)
+			import EPeptideFragment._
+			val decoyP 	= Modifier.modify(getDecoyPep(p), mods.toArray)
+			val decoyFrags = decoyP.getFragments(Array(a, b, c, x, y, z))
+    		val dm 		= decoyP.monoisotopicMass
+    		val decoyCompound = new ClearPeptide(decoyP.toString, cp.proteins.map("DECOY_"+_))
+    		decoyCompound.rt = cp.rt
+			
+			for (a <- cp.assays) {
 				
-	    		try {
-	    			println("%8.3f %s | %s".format(q1, p.toString, 
-	    					ions.map(i => i.molecule.fragmentType+""+i.molecule.ordinal).mkString(" ")))
-	    		} catch {
-	    			case e:Exception => {
-	    				println("ERROR IN peptide %8.3f %s | %s".format(q1, p.toString, trans.map(x => "%.3f".format(x.q3)).mkString(" ")))
-					e.printStackTrace
-	    			}
-	    		}
-	    		
-	    		for (i <- 0 until decoyFactor) {
-	    			val decoyP 	= Modifier.modify(getDecoyPep(p), mods.toArray)
-	    			val decoyPepRef = "DECOY_"+i+"_"+ref
-	    			out.peptides += decoyPepRef -> toGhostPeptide(decoyPepRef, decoyP, pep)
-	    			val dm 		= decoyP.monoisotopicMass
-	    			val dq1mz 	= (dm + q1z * Constants.PROTON_WEIGHT) / q1z
-	    			val dq1 	= Ion.mz(decoyP, q1z)
-	    			
-	    			for (j <- 0 until targets.length) {
-	    				val gt = new GhostTarget
-	    				gt.id = "DECOY_"+i+"_"+targets(j).id
-	    				gt.peptideRef = decoyPepRef
-	    				gt.q1 = dq1 + (targets(j).q1 - q1)
-	    				gt.q1z = q1z
-	    				gt.rtStart = targets(j).rtStart
-	    				gt.rtEnd = targets(j).rtEnd
-	    				gt.intensity = targets(j).intensity
-	    				out += gt
-	    			}
-	    			
-	    			val decoyQ3s = getQ3s(ions, decoyP)
-	    			println("%10.3f %25s | %s".format(dq1, decoyP.toString, decoyQ3s.map(x => "%7.2f".format(x)).mkString(" ")))
-	    			for (j <- 0 until decoyQ3s.length) {
-	    				val gt = new GhostTransition
-	    				gt.id = "DECOY_"+i+"_"+trans(j).id
-	    				gt.peptideRef = decoyPepRef
-	    				gt.q1 = dq1
-	    				gt.q3 = decoyQ3s(j)
-	    				gt.ions = ArrayBuffer("" + ions(j).molecule.fragmentType + ions(j).molecule.ordinal)
-	    				gt.ce = trans(j).ce
-	    				gt.rtStart = trans(j).rtStart
-	    				gt.rtEnd = trans(j).rtEnd
-	    				gt.intensity = trans(j).intensity
-	    				out += gt
-	    			}
-	    		}
+				val q1 = dm / a.z + Constants.PROTON_WEIGHT
+				val decoyAssay = 
+					decoyCompound.getAssay(q1, a.z, a.ce)
+				
+				for (c <- a.ms1Channels)
+					decoyAssay.ms1Channels += 
+						Channel(
+							(dm / c.z + Constants.PROTON_WEIGHT) + (c.mz - q1),
+							c.z,
+							c.id,
+							1,
+							c.expIntensity
+						)
+				
+				decoyAssay.ms2Channels ++= a.ms2Channels.map(reinterpretMs2Channel(_, decoyP, decoyFrags))
 			}
+	    	
+	    	//val dt4 = timer.click
+	    	
+	    	//println("%8d %8d %8d %8d".format(dt1, dt2, dt3, dt4))
+	    	decoyCompound
 		}
 		
 		
 		
-		def toGhostPeptide(id:String, p:Peptide, inPep:GhostPeptide):GhostPeptide = {
-			var gp = new GhostPeptide
-			gp.id = id
-			gp.sequence = p.toString
-			gp.proteins += "decoy"
-			gp.tramlPeptide = inPep.tramlPeptide
-			return gp
-		}
-		
-		
-		
-		def getQ3s(ions:Seq[Ion[PeptideFragment]], p:Peptide):Seq[Double] = {
-			var fs = p.getFragments(Array(EPeptideFragment.y, EPeptideFragment.b))
-			var unused = new Queue[PeptideFragment]
-			for (pf <- fs.filter(x => !ions.contains(x) && x.ordinal > 4)) unused.enqueue(pf)
-			return ions.map(i => {
-				Ion.mz(
-					fs.find(_.same(i.molecule)).getOrElse(unused.dequeue), 
-					i.numExtraProtons, 
-					i.numExtraElectrons
-				)
-			})
-		}
-		
-		
-		def getDecoyComp(c:GhostCompound):GhostCompound = {
-			val x = new GhostCompound
-			x.mass = c.mass + 
-				(Random.nextInt(6) - 2) * Element.C.monoisotopicWeight + 
-				(Random.nextInt(12) - 5) * Element.H.monoisotopicWeight + 
-				(Random.nextInt(8) - 3) * Element.O.monoisotopicWeight
-			x.preferredCharges = c.preferredCharges
-			x.label = c.label
-			x.labelGroup = c.labelGroup
-			if (x.mass == c.mass) getDecoyComp(c)
-			else x
+		val regularIonRE = """([abcxyz])([0-9]+)""".r.unanchored
+		val internalIonRE = """m([0-9]+):([0-9]+)""".r.unanchored
+		def reinterpretMs2Channel(ch:Channel, p:Peptide, frags:Seq[PeptideFragment]):Channel = {
+			ch.id match {
+				case regularIonRE(frag, ordinal) =>
+					val ePepFrag = EPeptideFragment.fromChar(frag.head)
+					frags.find(f => f.fragmentType == ePepFrag && f.ordinal == ordinal.toInt) match {
+						case Some(pepFrag) =>
+							Channel(
+								pepFrag.monoisotopicMass / ch.z + Constants.PROTON_WEIGHT,
+								ch.z,
+								ch.id,
+								2,
+								ch.expIntensity
+							)
+						case None =>
+							throw new Exception("Fragment '%s' not parsable in peptide %s".format(ch.id, p.toString))
+							
+					}
+				case internalIonRE(start, stop) =>
+					val aas = p.aminoAcids
+					val m = aas.slice(start.toInt, stop.toInt+1).map(_.monoisotopicMass).sum
+					Channel(
+						m / ch.z + Constants.PROTON_WEIGHT,
+						ch.z,
+						ch.id,
+						2,
+						ch.expIntensity
+					)
+				case x:String =>
+					throw new Exception("Unparsable fragment '%s' in %s".format(x, p.toString))
+			}
 		}
 	}
 	
