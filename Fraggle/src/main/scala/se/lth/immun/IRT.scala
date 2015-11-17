@@ -1,6 +1,8 @@
 package se.lth.immun
 
 import java.io.File
+import java.io.FileWriter
+import java.io.BufferedWriter
 import scala.io.Source
 import scala.collection.mutable.ArrayBuffer
 import scala.util.{Try, Success, Failure}
@@ -36,6 +38,7 @@ object IRT {
 							o.x.precursorMz,
 							o.x.precursorIntensity,
 							Some(o.rt * slope + intercept),
+							None,
 							o.x.fragBaseIntensity,
 							o.x.qValue,
 							o.x.percentAnnotatedOfMS2tic,
@@ -49,6 +52,19 @@ object IRT {
 				
 		override def toString = 
 			"IRTMap(slope=%f, intercept=%f, r2=%f, resStd=%f, nDataPoints=%d)".format(slope, intercept, r2, residualStd, dataPoints.length)
+			
+		def toFile(f:File) = {
+			val w = new BufferedWriter(new FileWriter(f))
+			w.write("slope: %f\n".format(slope))
+			w.write("intercept: %f\n".format(intercept))
+			w.write("r2: %f\n".format(r2))
+			w.write("residualStd: %f\n".format(residualStd))
+			w.write(" %d datapoints:\n".format(dataPoints.length))
+			w.write("peptide\tiRT\trt\n")
+			for (dp <- dataPoints)
+				w.write("%s\t%f\t%f\n".format(dp.sequence, dp.iRT, dp.rt))
+			w.close
+		}
 	}
 	
 	
@@ -66,8 +82,10 @@ object IRT {
 			
 			if (!headerParsed) {
 				val lc = p.map(_.toLowerCase) 
-				if (lc.contains("peptide") && lc.contains("irt")) {
+				if ((lc.contains("peptide") || lc.contains("sequence")) && lc.contains("irt")) {
 					iPEPTIDE = lc.indexOf("peptide")
+					if (iPEPTIDE < 0) 
+						iPEPTIDE = lc.indexOf("sequence")
 					iIRT = lc.indexOf("irt")
 				} else {
 					iPEPTIDE = p.indexWhere(x => Try(x.toDouble).isFailure)

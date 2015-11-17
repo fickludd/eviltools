@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>se.lth.immun</groupId>
   <artifactId>Fraggle</artifactId>
-  <version>0.6.0</version>
+  <version>0.6.3</version>
   <inceptionYear>2015</inceptionYear>
   <properties>
     <scala.version>2.10.0</scala.version>
@@ -46,7 +46,7 @@
     <dependency>
     	<groupId>se.lth.immun</groupId>
     	<artifactId>MsFragmentationIO</artifactId>
-    	<version>0.5.0</version>
+    	<version>0.5.2</version>
     </dependency>
     <dependency>
     	<groupId>se.lth.immun</groupId>

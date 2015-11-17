@@ -14,7 +14,7 @@ object Export extends Command with CLIApp {
 		
 		val fragmentFile = ReqString("The fragment file to export")
 		
-		val outType = ""		## "Type of output (traml(default) or tsv)"
+		val mode = "fragment"		## "fragment (default) or observation"
 		//val maxTransitions = 6	## "The maximal number of transitions to include"
 		//val minTransitions = 6	## "Exclude peptide ions with less than this number of transitions"
 		
@@ -58,7 +58,20 @@ object Export extends Command with CLIApp {
 		
 		status("reading fragment file...")
 		val aaMolecules = MsFragmentationFile.read(new File(params.fragmentFile), params.verbose)
-		status("writing output tsv...")
-		FragmentTsv.write(params.outTsv, aaMolecules)
+		
+		val f = params.outTsv
+		params.mode.value match {
+			case "fragment" =>
+				status("writing fragment tsv to '%s'...".format(f))
+				FragmentTsv.write(f, aaMolecules)
+				
+			case "observation" =>
+				status("writing observation tsv to '%s'...".format(f))
+				ObservationTsv.write(f, aaMolecules)
+				
+			case x =>
+				throw new Exception("Unknown export mode '%s'".format(x))
+		}
+		
 	}
 }

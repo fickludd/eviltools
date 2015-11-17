@@ -28,7 +28,7 @@ object Fraggle extends CLIApp {
 					cmd.execute(name, version, args.head, args.tail)
 				} catch {
 					case e:Exception =>
-						println(e)
+						e.printStackTrace()
 						System.exit(1)
 				}
 			case None =>

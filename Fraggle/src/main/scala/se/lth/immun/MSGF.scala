@@ -12,8 +12,7 @@ object MSGF extends Interpret.IDs {
 	val formatName = "MS-GF+ identification tsv" 
 		
 	case class MSGFid(
-			val specId:String,
-			val scanNum:Int,
+			val specID:SpectrumID,
 			val specIndex:Int,
 			val fragmentationType:FragmentationType,
 			val precursorMz:Double,
@@ -28,7 +27,10 @@ object MSGF extends Interpret.IDs {
 			val eValue:Double,
 			val qValue:Double,
 			val pepQValue:Double
-		) extends ID
+	) extends ID { 
+		def score = eValue 
+		def psmLevelOk = qValue < params.psmFDR && eValue < params.eValue
+	}
 	
 	val scanNumRE = """scan=(\d+)""".r.unanchored		
 
@@ -37,15 +39,8 @@ object MSGF extends Interpret.IDs {
 		(for ( line <- Source.fromFile(f).getLines.drop(1) ) yield {
 			val p = line.split("\t")
 			
-			val scanNum = 
-				p(1) match {
-					case scanNumRE(x) => x.toInt
-					case _ => -1
-				}
-			
 			MSGFid(
-				p(1),
-				scanNum,
+				parseSpectrumID(p(1)),
 				p(2).toInt,
 				p(3) match {
 					case "CID" => FragmentationType.CID
@@ -65,7 +60,7 @@ object MSGF extends Interpret.IDs {
 				p(14).toDouble,
 				p(15).toDouble
 			)
-		}).toSeq.filter(x => x.qValue < params.psmFDR && x.eValue < params.eValue)
+		}).toSeq
 	}
 	
 	

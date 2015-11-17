@@ -51,7 +51,7 @@ object Interpret extends Command with CLIApp {
 	case class InternalIon(first:Int, last:Int, mz:Double, z:Int)
 	
 	trait SpectrumID { def scan:Int }
-	case class ScanID(val scan:Int) extends SpectrumID
+	case class ScanID(scan:Int, id:String) extends SpectrumID
 	case class DemixOrigID(
 			val scan:Int, 
 			val precInt:Double, 
@@ -71,13 +71,16 @@ object Interpret extends Command with CLIApp {
 		) extends SpectrumID
 	
 	trait ID {
-		def scanNum:Int
+		def specID:SpectrumID
 		def precursorMz:Double
 		def z:Int
 		def pepSequence:String
 		def protein:String
 		def qValue:Double
+		def score:Double
+		def psmLevelOk:Boolean
 	}
+	
 	
 	trait IDs {
 		def fromFile(f:File, params:InterpretParams):Seq[ID]
@@ -97,10 +100,11 @@ object Interpret extends Command with CLIApp {
 		val maxInternalLength = 6	## "Max length of internal ions to consider"
 		val psmFDR = 1.0				## "The PSM level FDR cutoff to apply on loaded identifications"
 		val eValue = 1.0				## "The eValue cutoff to apply on MS-GF+ identifications"
-		val peptideProb = 0.0			## "The peptide probability cutoff to apply on loaded Peptide Csv identifications"
+		val peptideProb = 0.0			## "The peptide/inter probability cutoff to apply on loaded Peptide Csv identifications. Note that interprophet probabilities will be used if present."
 		val irtR2 = 0.9					## "r2 threshold required for iRT maps. Will fail if this level is not met."
 		
 		val excludeProtPrefix = "DECOY"	## "Proteins with this prefix will be ignored"
+		val excludeMode = "full"		## "How much to exclude by ProtPrefix or thresholds (full or primary)"
 		val useFeatureApexRT = false 	## "Use MS1 feature apex rt when available (parsed from spectrum id)"
 		
 		val outDir			= ""		## "output directory (by default same as input mzML)"
@@ -129,6 +133,11 @@ object Interpret extends Command with CLIApp {
 			new File(dir, name + ".fragments.tsv")
 		}
 		
+		def outIrtMap = {
+			val (dir, name) = outBase
+			new File(dir, name + ".irtmap")
+		}
+		
 		def stripExt(path:String, ext:String) =
 			if (path.toLowerCase.endsWith(ext.toLowerCase))
 				path.dropRight(ext.length)
@@ -153,23 +162,32 @@ object Interpret extends Command with CLIApp {
 		
 		printHeader(command)
 		
-		val format = guessFormat(params.identTsv)
+		status("reading iRT peptides...")
+		val irtPeptides = IRT.readPeptideTsv(new File(params.irt))
 		
+		
+		val format = guessFormat(params.identTsv)
 		status("reading identifications from %s...".format(format.formatName))
 		val idsByScan = 
 			format.fromFile(new File(params.identTsv), params)
-				.sortBy(_.scanNum)
+				.sortBy(_.specID.scan)
 				.toArray
-		val afterExclusion = idsByScan.filter(!_.protein.startsWith(params.excludeProtPrefix))
-		info("read %d IDs".format(afterExclusion.length))
-		info("excluded %d IDs".format(idsByScan.length - afterExclusion.length))
+		info("read %d IDs of %d unique peptides".format(idsByScan.length, idsByScan.map(_.pepSequence).distinct.length))
 		
 		status("interpreting mzML...")
-		val rawAAMolecules = parseMzML(new File(params.mzML), afterExclusion)
-		info("interpreted %d IDs from %d spectra".format(rawAAMolecules.length, interpretedSpectra.size))
+		val rawAAMolecules = parseMzML(new File(params.mzML), idsByScan)
+		val obses = rawAAMolecules.flatMap(_.observations)
+		val wholeObses = obses.filter(_.x.fragments.nonEmpty)
+		info("interpreted %d IDs from %d spectra".format(wholeObses.length, interpretedSpectra.size))
+		params.excludeMode.value match {
+			case "full" =>
+				info(" excluded %d IDs based of protein exclusion and thresholds".format(idsByScan.length - obses.length))
+			case "primary" =>
+				info(" included %d meta data IDs".format(obses.length - wholeObses.length))
+			case x =>
+				throw new Exception("Unknown exclude mode '%s'".format(x))
+		}
 		
-		status("reading iRT peptides...")
-		val irtPeptides = IRT.readPeptideTsv(new File(params.irt))
 		status("extracting iRT peptide identifications...")
 		val irtDataPoints = IRT.findDataPoints(irtPeptides, rawAAMolecules)
 		status("building iRT map...")
@@ -202,6 +220,9 @@ object Interpret extends Command with CLIApp {
 		if (irtMap.r2 < params.irtR2)
 			throw irtFail("iRT map r2=%f below required level %f".format(irtMap.r2, params.irtR2.value))
 		
+		status("writing irtMap to '%s'...".format(params.outIrtMap))
+		irtMap.toFile(params.outIrtMap)
+			
 		status("calculating iRTs...")
 		val aaMolecules:Seq[AAMolecule] = rawAAMolecules.map(irtMap)
 		
@@ -217,8 +238,9 @@ object Interpret extends Command with CLIApp {
 		status("done")
 	}
 	
-	def parseMzML(f:File, byScan:Array[ID]) = {
-		
+	
+	
+	def parseMzML(f:File, byScan:Array[ID]) = {	
 		val aaMolecules = new ArrayBuffer[RawAAMolecule]
 		val dh = new MzMLDataHandlers(
 			n => {},
@@ -229,6 +251,7 @@ object Interpret extends Command with CLIApp {
 		MzML.fromFile(getReader(f), dh, null)
 		aaMolecules
 	}
+	
 	
 	
 	var idIndex = 0
@@ -244,9 +267,9 @@ object Interpret extends Command with CLIApp {
 		val specID = parseSpectrumID(s.id)
 		
 		lazy val gs = GhostSpectrum.fromSpectrum(s)
-		while (idIndex < byScan.length && byScan(idIndex).scanNum <= specID.scan) {
+		while (idIndex < byScan.length && byScan(idIndex).specID.scan <= specID.scan) {
 			
-			if (byScan(idIndex).scanNum == specID.scan) {
+			if (byScan(idIndex).specID.scan == specID.scan) {
 				msLevel match {
 					case Some(x) =>
 						if (x != 2)
@@ -258,7 +281,12 @@ object Interpret extends Command with CLIApp {
 				// check centroiding!!
 				
 				try {
-					aaMolecules += interpret(gs, byScan(idIndex), specID)
+					val id = byScan(idIndex)
+					if (id.psmLevelOk && !id.protein.startsWith(params.excludeProtPrefix))
+						aaMolecules += interpret(gs, id)
+					else if (params.excludeMode.value == "primary")
+						aaMolecules += parseMeta(gs, id)
+							
 					interpretedSpectra += idIndex
 				} catch {
 					case e:Exception =>
@@ -272,7 +300,8 @@ object Interpret extends Command with CLIApp {
 	}
 	
 	
-	def interpret(gs:GhostSpectrum, id:ID, specID:SpectrumID):RawAAMolecule = {
+	
+	def interpret(gs:GhostSpectrum, id:ID):RawAAMolecule = {
 		
 		import EPeptideFragment._
 		
@@ -339,11 +368,11 @@ object Interpret extends Command with CLIApp {
 				val (ft, ce) = parseFragmentationType(gs.spectrum)
 				val fragBaseIntensity = fragIons.map(_.base.intensity).max
 				val (rt, apexInt, precType, precRank) = 
-					specID match {
-						case DemixFeatID(precInt, rt, apexInt, scan, precRank) => 
+					id.specID match {
+						case DemixFeatID(scan, precInt, rt, apexInt, precRank) => 
 							(rt, Some(apexInt), PrecursorType.FEAT, precRank)
-						case DemixOrigID(precInt, rt, scan, precRank) => 
-							(rt, None, PrecursorType.ORIG, precRank)
+						case DemixOrigID(scan, precInt, rt, precRank) => 
+							(rt, Some(precInt), PrecursorType.ORIG, precRank)
 						case DemixComplFragID(scan, precRank) =>
 							(gs.scanStartTime, None, PrecursorType.COMPL_FRAG, precRank)
 						case _ =>
@@ -358,6 +387,7 @@ object Interpret extends Command with CLIApp {
 							Some(id.precursorMz),
 							parsePrecursorIntensity(gs.spectrum, id.precursorMz, id.z),
 							None,
+							None,
 							Some(fragBaseIntensity),
 							Some(id.qValue),
 							Some(fragIons.map(_.base.intensity).sum / gs.intensities.sum),
@@ -365,9 +395,10 @@ object Interpret extends Command with CLIApp {
 							Some(precType),
 							Some(precRank),
 							apexInt,
+							Some(id.score),
 							normalize(fragIons, fragBaseIntensity)
 						),
-						rt
+						if (params.useFeatureApexRT) rt else gs.scanStartTime
 					))
 			}
 		
@@ -378,6 +409,52 @@ object Interpret extends Command with CLIApp {
 				id.protein,
 				pep.monoisotopicMass, 
 				observations
+			)
+	}
+	
+	
+	
+	def parseMeta(gs:GhostSpectrum, id:ID):RawAAMolecule = {
+		val (ft, ce) = parseFragmentationType(gs.spectrum)
+		val (rt, apexInt, precType, precRank) = 
+			id.specID match {
+				case DemixFeatID(scan, precInt, rt, apexInt, precRank) => 
+					(rt, Some(apexInt), PrecursorType.FEAT, precRank)
+				case DemixOrigID(scan, precInt, rt, precRank) => 
+					(rt, None, PrecursorType.ORIG, precRank)
+				case DemixComplFragID(scan, precRank) =>
+					(gs.scanStartTime, None, PrecursorType.COMPL_FRAG, precRank)
+				case _ =>
+					(gs.scanStartTime, None, PrecursorType.ORIG, 1)
+			}
+		val pep = UniMod.parseUniModSequence(id.pepSequence)
+		RawAAMolecule(
+				id.pepSequence, 
+				id.protein,
+				pep.monoisotopicMass, 
+				Array(
+					RawObservation(
+						Observation(
+							ft,
+							id.z,
+							ce,
+							Some(id.precursorMz),
+							parsePrecursorIntensity(gs.spectrum, id.precursorMz, id.z),
+							None,
+							None,
+							None,
+							Some(id.qValue),
+							None,
+							None,
+							Some(precType),
+							Some(precRank),
+							apexInt,
+							Some(id.score),
+							Nil
+						),
+						if (params.useFeatureApexRT) rt else gs.scanStartTime
+					)
+				)
 			)
 	}
 	
@@ -461,16 +538,16 @@ object Interpret extends Command with CLIApp {
 		(ft, ce)
 	}
 	
-	val demixOrigRE = """ORIG precInt=([^ ]) rtInSec=([^ ]) scan=(\d+) precRank=(\d+)""".r
-	val demixFeatRE = """FEAT precInt=([^ ]) rtInSec=([^ ]) featApexInt=([^ ]) scan=(\d+) precRank=(\d+)""".r
+	val demixOrigRE = """ORIG precInt=([^ ]+) rtInSec=([^ ]+) scan=(\d+) precRank=(\d+)""".r
+	val demixFeatRE = """FEAT precInt=([^ ]+) rtInSec=([^ ]+) featApexInt=([^ ]+) scan=(\d+) precRank=(\d+)""".r
 	val demixComplFragRE = """COMPL_FRAG scan=(\d+) precRank=(\d+)""".r
 	val scanNumRE = """scan=(\d+)""".r.unanchored
 	def parseSpectrumID(id:String) = 
 		id match {
-			case demixOrigRE(pInt, rt, scan, pRank) => DemixOrigID(pInt.toInt, rt.toDouble, scan.toInt, pRank.toInt)
-			case demixFeatRE(pInt, rt, fApexInt, scan, pRank) => DemixFeatID(pInt.toInt, rt.toDouble, fApexInt.toDouble, scan.toInt, pRank.toInt)
+			case demixOrigRE(pInt, rt, scan, pRank) => DemixOrigID(scan.toInt, pInt.toDouble, rt.toDouble, pRank.toInt)
+			case demixFeatRE(pInt, rt, fApexInt, scan, pRank) => DemixFeatID(scan.toInt, pInt.toDouble, rt.toDouble, fApexInt.toDouble, pRank.toInt)
 			case demixComplFragRE(scan, pRank) => DemixComplFragID(scan.toInt, pRank.toInt)
-			case scanNumRE(scan) => ScanID(scan.toInt)
+			case scanNumRE(scan) => ScanID(scan.toInt, id)
 			case _ => 
 				throw new Exception("Couldn't parse scan number from spectrum title '%s'".format(id))
 		
@@ -493,9 +570,9 @@ object Interpret extends Command with CLIApp {
 		if (path.endsWith(".pep.csv") || path.endsWith(".pep.tsv")) PepCsv
 		else if (path.endsWith(".xl.tsv") || path.endsWith(".xl.tsv")) Kojak
 		else if (path.endsWith(".tsv") || path.endsWith(".csv")) MSGF
-		else throw new Exception("""Unknown file format for path 'path'!
+		else throw new Exception("""Unknown file format for path '%s'!
 use
 	.pep.csv or .pep.tsv 	for PeptideProphet derived IDs
 	.xl.csv or .xl.tsv		for Kojak derived master XL format files
-	.csv or .tsv			for MS-GF+ (demix) derived IDs""")
+	.csv or .tsv			for MS-GF+ (demix) derived IDs""".format(path))
 }

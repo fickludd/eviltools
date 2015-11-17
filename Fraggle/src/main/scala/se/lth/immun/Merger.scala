@@ -34,6 +34,7 @@ trait Merger {
 						Some(f(ob.xs.flatMap(_.precursorMz))),
 						Some(f(ob.xs.flatMap(_.precursorIntensity))),
 						Some(f(ob.xs.flatMap(_.iRT))),
+						Some(math.sqrt(StatUtils.variance(ob.xs.flatMap(_.iRT).toArray))),
 						Some(ob.xs.flatMap(_.fragBaseIntensity).sum),
 						Some(ob.xs.flatMap(_.qValue).max),
 						Some(f(ob.xs.flatMap(_.percentAnnotatedOfMS2tic))),

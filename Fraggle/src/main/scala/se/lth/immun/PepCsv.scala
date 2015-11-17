@@ -14,7 +14,7 @@ object PepCsv extends Interpret.IDs {
 	
 	case class PepCsvId(
 			val file:String,
-			val scanNum:Int,
+			val specID:SpectrumID,
 			val precursorMz:Double,
 			val z:Int,
 			val rtInSec:Double,
@@ -27,7 +27,12 @@ object PepCsv extends Interpret.IDs {
 			val numMissedCleavages:Int,
 			val prob:Double,
 			val qValue:Double
-		) extends ID
+	) extends ID { 
+		def score = prob
+		def psmLevelOk =
+			qValue < params.psmFDR && 
+			prob > params.peptideProb
+	}
 	
 	def fromFile(f:File, params:InterpretParams):Seq[PepCsvId] = {
 		
@@ -77,8 +82,12 @@ object PepCsv extends Interpret.IDs {
 				iMASS_DIFF = p.indexOf("massDiff")
 				iNUM_TOL_TERM = p.indexOf("numTolTerm")
 				iNUM_MISSED_CLEAVAGES = p.indexOf("numMissedCleavages")
-				iPROB = p.indexOf("prob")
-				iQ_VALUE = p.indexOf("q-value")
+				iPROB = p.indexOf("iProb")
+				iQ_VALUE = p.indexOf("iQvalue")
+				if (iPROB == -1) {
+					iPROB = p.indexOf("pepProb")
+					iQ_VALUE = p.indexOf("pepQvalue")
+				}
 				headerParsed = true
 			} else {
 				val m = p(iPREC_MASS).toDouble 
@@ -88,7 +97,7 @@ object PepCsv extends Interpret.IDs {
 				if (f == mzMLBase)
 					pepIDs += PepCsvId(
 						f,
-						p(iSCAN).toInt,
+						ScanID(p(iSCAN).toInt, p(iSCAN)),
 						m / z + Constants.PROTON_WEIGHT,
 						z,
 						p(iRT_IN_SEC).toDouble,
@@ -106,10 +115,7 @@ object PepCsv extends Interpret.IDs {
 		}
 			
 			
-		pepIDs.filter(x => 
-				x.qValue < params.psmFDR && 
-				x.prob > params.peptideProb
-			)
+		pepIDs
 	}
 	
 	

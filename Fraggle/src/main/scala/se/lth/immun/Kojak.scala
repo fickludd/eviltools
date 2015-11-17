@@ -14,7 +14,7 @@ object Kojak extends Interpret.IDs {
 	case class KojakId(
 			val psmID:String,
 			val label:String,
-			val scanNum:Int,
+			val specID:SpectrumID,
 			val score:Double,
 			val z:Int,
 			val precursorMz:Double,
@@ -22,17 +22,20 @@ object Kojak extends Interpret.IDs {
 			val protein:String,
 			val qValue:Double,
 			val postErrProb:Double
-		) extends ID
+	) extends ID {
+		def psmLevelOk =
+			qValue < params.psmFDR
+	}
 	
 	def fromFile(f:File, params:InterpretParams):Seq[KojakId] = {
 		
 		val masterRows = XLMasterReader.read(f.getPath)
-		(for (r <- masterRows) yield {
+		for (r <- masterRows) yield {
 			val idParts = r.kojak.psmID.split("-")
 			KojakId(
 					r.kojak.psmID,
 					idParts(0),
-					idParts(1).toInt,
+					ScanID(idParts(1).toInt, idParts(1)),
 					r.kojak.score,
 					r.common.z,
 					r.common.mz,
@@ -41,6 +44,6 @@ object Kojak extends Interpret.IDs {
 					r.kojak.qValue,
 					r.kojak.posteriorErrorProb
 				)
-		}).filter(_.qValue < params.psmFDR)
+		}
 	}
 }
