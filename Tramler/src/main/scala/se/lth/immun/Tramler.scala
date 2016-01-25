@@ -41,13 +41,20 @@ object Tramler extends CLIApp {
     
 	val params = new TramlerParams
     
-	val allowedOperations = Array(Clean, Decoy, Distort, Ms1Isotopes, Subsample, Stats, Trim, Tsv)
+	val allowedOperations = Array(Clean, Decoy, Distort, Ms1Isotopes, Subsample, Stats, Trim, Tsv, QvalueFilter)
 	
 	def main(args:Array[String]):Unit = {
 		
 		val helpRE = """--help=(\w+)""".r
 		for (a <- args)
 			a match {
+				case "--help=INPUT" =>
+					println(">> TRAMLER INPUT TYPES:")
+					println("  - traml (.traml)")
+					println("  - fragments binary format from Fraggle (.fragments.bin")
+					println("  - csv/tsv")
+					println("     "+CsvParser.USAGE)
+					println
 				case helpRE(op) =>
 					println(">> TRAMLER HELP MODE:")
 					println(allowedOpsString)
@@ -72,6 +79,8 @@ object Tramler extends CLIApp {
 			println(allowedOpsString)
 			println
 			println("    operations syntax is 'operation(option1,option2=value,...,optionN)'")
+			println("    --help=OPERATION gives specific help for the given operation")
+			println("    --help=INPUT lists valid input formats")
 			//println(operationsHelp)
 			failOnError(argsErrs)
 		}
@@ -113,8 +122,8 @@ object Tramler extends CLIApp {
 				traml = op.operate(traml, params)
 			}
 	    	
-			if (readMode == InTraml && params.ops.split(" ").forall(_.startsWith("stats")))
-				println("    no output written since only stats operation specified on input TraML")
+			if (readMode == InTraml && params.ops.split(" ").forall(x => x.startsWith("stats") || x.startsWith("tsv")))
+				println("    no output written since only passive operations specified (stats, tsv) on input TraML")
 			else {
 				val outFile = params.outFile.getOrElse(outputDefault)
 				println("    [OUTPUT] file: "+outFile)
@@ -188,9 +197,17 @@ object Tramler extends CLIApp {
 	
 	
 	def readFile(readMode:ReadMode, f:File) = {
+		def parseCsv = {
+			val (csvMode, traml) = CsvParser.fromFile(new BufferedReader(new FileReader(f)))
+			csvMode match {
+				case CsvParser.TransitionCsv => println("parsed transition csv")
+				case CsvParser.PeptideCsv => println("parsed peptide csv")
+				case CsvParser.CompoundCsv => println("parsed compound csv")
+			}
+			traml
+		}
 		readMode match {
-			case InCsv =>
-				CsvParser.fromFile(new BufferedReader(new FileReader(f)))
+			case InCsv => parseCsv
 			case InTraml =>
 				ClearTraML.fromFile(new XmlReader(
 					new BufferedReader(new FileReader(f))
@@ -199,7 +216,7 @@ object Tramler extends CLIApp {
 				FragmentBin.parse(f)
 			case Unknown =>
 				println("WARN: unknown file extension, attemping to read as a .csv")
-				CsvParser.fromFile(new BufferedReader(new FileReader(f)))
+				parseCsv
 		}
 	}
 	

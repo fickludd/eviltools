@@ -29,6 +29,10 @@ object Decoy extends TramlOperation.Generator(
 	
 	import Subsample._
 	
+	trait DecoyLevel
+	case object Protein extends DecoyLevel
+	case object Compound extends DecoyLevel
+	
 	class DecoyInstance(
 			params:Seq[(String, String)], 
 			val mods:Seq[IModifier]
@@ -37,6 +41,8 @@ object Decoy extends TramlOperation.Generator(
 		var mode:SubSampleMode = Fraction(1)
 		var seed:Option[Long] = None
 		var verbose = false
+		var level:DecoyLevel = Compound
+		var prefix = "DECOY_"
 		val timer = new Timer
 		
 		for ((k,v) <- params)
@@ -49,6 +55,15 @@ object Decoy extends TramlOperation.Generator(
 				case "n" 			=> mode = N(v.toInt)
 				case "seed"			=> seed = Some(v.toLong)
 				case "verbose"		=> verbose = true
+				case "prefix"		=> prefix = v
+				case "level"		=> 
+					level = 
+						v match {
+							case "protein" => Protein
+							case "compound" => Compound
+							case "peptide" => Compound
+							case x => throw new IllegalArgumentException("Unknown decoy level '%s'".format(x))
+						}
 				case _ =>
 					throw new IllegalArgumentException("Unknown param '%s'".format(k))
 			}
@@ -59,15 +74,36 @@ object Decoy extends TramlOperation.Generator(
 			val out = new ClearTraML
 	    	
 	    	import PeptideParser._
-	    	out.compounds ++= 
-	    		subsample(in.compounds, mode, seed).map(cp => {
-	    			parseSequence(cp.id) match {
-	    				case XLinkPeptide(xl) => toXLinkDecoy(xl, cp)
-	    				case UniModPeptide(p) => toUniModDecoy(p, cp)
-	    			}
-	    		})
-	    		
-	    	out.proteins ++= out.compounds.flatMap(_.proteins)
+	    	
+			level match {
+				case Compound =>
+					out.compounds ++= 
+			    		subsample(in.compounds, mode, seed).map(cp => {
+			    			parseSequence(cp.id) match {
+			    				case XLinkPeptide(xl) => toXLinkDecoy(xl, cp)
+			    				case UniModPeptide(p) => toUniModDecoy(p, cp)
+			    			}
+			    		})
+		    		
+		    		out.proteins ++= out.compounds.flatMap(_.proteins)
+		    	
+				case Protein =>
+					val prots = subsample(in.proteins.toSeq, mode, seed)
+					out.proteins ++= prots.map(p => prefix + p)
+					
+					for {
+						cp <- in.compounds
+						if cp.proteins.exists(out.proteins.contains)
+					} {
+						out.compounds +=
+							(parseSequence(cp.id) match {
+			    				case XLinkPeptide(xl) => toXLinkDecoy(xl, cp)
+			    				case UniModPeptide(p) => toUniModDecoy(p, cp)
+			    			})
+					}
+			}
+			
+	    	
 	    		
 	    	/*for ((ref, comp) <- in.compounds)
 	    		addCompoundDecoys(in, out, ref, comp)
@@ -140,7 +176,7 @@ object Decoy extends TramlOperation.Generator(
 			val decoyP 	= Modifier.modify(getDecoyPep(p), mods.toArray)
 			val decoyFrags = decoyP.getFragments(Array(a, b, c, x, y, z))
     		val dm 		= decoyP.monoisotopicMass
-    		val decoyCompound = new ClearPeptide(decoyP.toString, cp.proteins.map("DECOY_"+_))
+    		val decoyCompound = new ClearPeptide(decoyP.toString, cp.proteins.map(prefix+_))
     		decoyCompound.rt = cp.rt
 			
 			for (a <- cp.assays) {

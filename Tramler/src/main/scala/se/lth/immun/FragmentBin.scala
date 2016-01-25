@@ -105,7 +105,10 @@ object FragmentBin {
 		
 		val c = new ClearTraML
 		
-		for (aaMol <- aaMolecules) {
+		for {
+			aaMol <- aaMolecules
+			if aaMol.observations.exists(_.fragments.nonEmpty)
+		} {
 			c.proteins += aaMol.protein
 			val cp = new ClearPeptide(aaMol.sequence, Array(aaMol.protein))
 			cp.rt = Some(ClearRetentionTime.IRT(mean(aaMol.observations.flatMap(_.iRT))))
@@ -119,7 +122,7 @@ object FragmentBin {
 				}
 			lazy val fragMassCalc = FragmentMassCalculator(aaMol.sequence)
 			
-			for (obs <- aaMol.observations) {
+			for (obs <- aaMol.observations.filter(_.fragments.nonEmpty)) {
 				val a = 
 					cp.getAssay(
 						aaMol.mass / obs.z + Constants.PROTON_WEIGHT,

@@ -22,6 +22,7 @@ object Stats extends TramlOperation.Generator(
 			val nMs1Channels = assays.map(_.ms1Channels.length).sum
 			val nMs2Channels = assays.map(_.ms2Channels.length).sum
 			val rts = in.compounds.map(_.rt)
+			println("%6d proteins".format(in.proteins.size))
 			println("%6d peptides".format(uniquePeps.size))
 			println("%6d assays (pep ions)".format(assays.length))
 			println("%6d ms1 channels".format(nMs1Channels))

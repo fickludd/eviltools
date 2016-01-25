@@ -20,13 +20,34 @@ object CsvParser {
 	val Q1Z = Array("q1z", "precursorcharge")
 	val Q3Z = Array("q3z", "productcharge")
 	val RT = Array("rt", "retentiontime")
-	val iRT = Array("irt", "ntime")
+	val iRT = Array("irt")
+	val NTIME = Array("ntime")
 	val IC = Array("intensity", "area", "libraryintensity", "rel_area")
 	val SCORE = Array("score", "ddbscore")
 	val ACC = Array("acc", "accession", "proteinaccession")
 	val LABEL = Array("label", "isotopeLabel")
 	val LABELGROUP = Array("labelgroup")
 	
+	trait CsvMode {
+		def isValid(cols:Cols):Boolean
+		def reqCols():Seq[String]
+	}
+	case object PeptideCsv extends CsvMode {
+		def isValid(cols:Cols) =
+			cols.seq >= 0 && cols.prot >= 0
+		val reqCols = List("SEQ", "PROT")
+	}
+	case object TransitionCsv extends CsvMode {
+		def isValid(cols:Cols) =
+			cols.q1 >= 0 && cols.q3 >= 0 && cols.ce >= 0 &&
+			cols.seq >= 0 && cols.prot >= 0 && cols.frag >= 0
+		val reqCols = List("Q1", "Q3", "CE", "SEQ", "PROT", "FRAG")
+	}
+	case object CompoundCsv extends CsvMode {
+		def isValid(cols:Cols) =
+			cols.q1 >= 0 && cols.q1z >= 0
+		val reqCols = List("Q1", "Q1Z")
+	}
 	
 	val USAGE = "understood columns (not case-sensistive):"+
 				"\n    Q1         " + Q1.mkString(", ")+
@@ -39,6 +60,7 @@ object CsvParser {
 				"\n    Q3Z        " + Q3Z.mkString(", ")+
 				"\n    RT (sec)   " + RT.mkString(", ")+
 				"\n    iRT        " + iRT.mkString(", ")+
+				"\n    NTime        " + NTIME.mkString(", ")+
 				"\n    IC         " + IC.mkString(", ")+
 				"\n    SCORE      " + SCORE.mkString(", ")+
 				"\n    ACC        " + ACC.mkString(", ")+
@@ -70,33 +92,13 @@ object CsvParser {
 		val q3z:Int 		= -1,
 		val rt:Int	 		= -1,
 		val irt:Int	 		= -1,
+		val ntime:Int	 	= -1,
 		val intensity:Int	= -1,
 		val score:Int		= -1,
 		val acc:Int			= -1,
 		val label:Int		= -1,
 		val labelGroup:Int		= -1
-	) {
-	
-		
-		def transitionCsv =
-			q1 >= 0 && q3 >= 0 && ce >= 0 &&
-			seq >= 0 && prot >= 0 && frag >= 0
-			
-		def peptideCsv =
-			seq >= 0 && prot >= 0
-			
-		def compoundCsv =
-			q1 >= 0 && q1z >= 0
-		/*
-		require(q1 >= 0, "q1 column should be >= 0")
-		require(q3 >= 0, "q3 column should be >= 0")
-		require(ce >= 0, "ce column should be >= 0")
-		require(seq >= 0, "seq column should be >= 0")
-		require(prot >= 0, "prot column should be >= 0")
-		require(frag >= 0, "frag column should be >= 0")
-		
-		*/
-	}
+	) {}
 	
 	
 	def isNum(str:String) = 
@@ -118,7 +120,7 @@ object CsvParser {
 	
 		
 		
-	def fromFile(inCsv:BufferedReader):ClearTraML = {
+	def fromFile(inCsv:BufferedReader):(CsvMode, ClearTraML) = {
 		
 		val nextLines = new Queue[String]
 		def readAhead(n:Int):Unit = {
@@ -168,6 +170,7 @@ object CsvParser {
 						indexOf(Q3Z),
 						indexOf(RT),
 						indexOf(iRT),
+						indexOf(NTIME),
 						indexOf(IC),
 						indexOf(SCORE),
 						indexOf(ACC),
@@ -196,15 +199,15 @@ object CsvParser {
     	
     	
     	
-    	if (cols.transitionCsv)
-    		parseTransitionCsv(() => nextLine.map(rr), cols)
-    	else if (cols.peptideCsv)
-    		parsePeptideCsv(() => nextLine.map(rr), cols)
-    	else if (cols.compoundCsv)
+    	if (TransitionCsv.isValid(cols))
+    		(TransitionCsv, parseTransitionCsv(() => nextLine.map(rr), cols))
+    	else if (PeptideCsv.isValid(cols))
+    		(PeptideCsv, parsePeptideCsv(() => nextLine.map(rr), cols))
+    	else if (CompoundCsv.isValid(cols))
     		throw new Exception("Reading compound csv's in currently not implemented!")
     		//parseCompoundCsv(() => nextLine.map(rr), cols)
     	else
-    		throw new IllegalArgumentException("Could not parse csv!")
+    		throw new IllegalArgumentException("Could not parse csv!\n"+USAGE)
 	}
 	
 	
@@ -223,7 +226,13 @@ object CsvParser {
     		val prot = b.addProtein(vals(cols.prot))
     		
     		val cp = b.addPeptide(vals(cols.seq), Array(prot))
-    		
+    		if (cols.irt >= 0)
+    			cp.rt = Some(ClearRetentionTime.IRT(vals(cols.irt).toDouble))
+    		else if (cols.ntime >= 0)
+    			cp.rt = Some(ClearRetentionTime.Ntime(vals(cols.ntime).toDouble))
+    		else if (cols.rt >= 0)
+    			cp.rt = Some(ClearRetentionTime.AbsoluteRT(vals(cols.rt).toDouble, None, None))
+    			
     		import PeptideParser._
     		lazy val pepMass:Option[Double] =
     			PeptideParser.parseSequence(cp.id) match {
