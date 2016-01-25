@@ -24,6 +24,7 @@ object Combine extends Command with CLIApp {
 		val outName			= "combined"	## "basename for output files (by default 'combined')"
 		val verbose 		= false			## "set to enable a lot of output"
 		val writeTsv		= false		## "set to write tsv instead of fragment binary file"
+		val tsvFragN		= -1		## "number of most intense fragments to output upon writeTsv (-1 means all are written)"
 		
 		
 		def outFile = out(outName + ".fragments.bin")
@@ -65,7 +66,7 @@ object Combine extends Command with CLIApp {
 		
 		if (params.writeTsv) {
 			status("writing output tsv...")
-			FragmentTsv.write(params.outTsv, aaMolecules)
+			FragmentTsv.write(params.outTsv, aaMolecules, params.tsvFragN)
 		} else { 
 			status("writing output binary...")
 			MsFragmentationFile.write(params.outFile, aaMolecules, params.verbose)

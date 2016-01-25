@@ -18,24 +18,25 @@ object Export extends Command with CLIApp {
 		//val maxTransitions = 6	## "The maximal number of transitions to include"
 		//val minTransitions = 6	## "Exclude peptide ions with less than this number of transitions"
 		
-		val outDir			= ""			## "output directory (by default same as input mzML)"
-		val outName			= ""			## "basename for output files (by default 'combined')"
-		val verbose 		= false			## "set to enable a lot of output"
+		val outDir			= ""		## "output directory (by default same as input mzML)"
+		val outName			= ""		## "basename for output files (by default 'combined')"
+		val verbose 		= false		## "set to enable a lot of output"
+		val tsvFragN		= -1		## "number of most intense fragments to output upon writeTsv (-1 means all are written)"
 		
 		def outBase = {
-			val identFile = new File(fragmentFile)
+			val fragsFile = new File(fragmentFile)
 			val dir = 
 				if (outDir.value != "") outDir.value
-				else identFile.getParent
+				else fragsFile.getParent
 			val name =
 				if (outName.value != "") outName.value
-				else stripExts(identFile.getName)
+				else stripExts(fragsFile.getName)
 			(dir, name)
 		}
 		
-		def outTsv = { 
+		def outExt(ext:String) = { 
 			val (dir, name) = outBase
-			new File(dir, name + ".fragments.tsv")
+			new File(dir, name + ext)
 		}
 		
 		def stripExt(path:String, ext:String) =
@@ -44,7 +45,7 @@ object Export extends Command with CLIApp {
 			else path
 		
 		def stripExts(path:String) =
-			stripExt(stripExt(stripExt(path, ".gz"), ".tsv"), ".mzML")
+			stripExt(path, ".fragments.bin")
 	}
 	
 	val desc = "Export fragment library to tsv or traml, applying some rules"
@@ -52,18 +53,18 @@ object Export extends Command with CLIApp {
 	
 	def execute(name:String, version:String, command:String, args:Array[String]) = {
 		
-		failOnError(parseArgs(name, version, args, params, List("fragmentFile"), Some("fragmentFile")))
+		failOnError(parseArgs(name, version, args, params, List("fragmentFile"), None))
 		
 		printHeader(command)
 		
 		status("reading fragment file...")
 		val aaMolecules = MsFragmentationFile.read(new File(params.fragmentFile), params.verbose)
 		
-		val f = params.outTsv
+		val f = params.outExt(".%ss.tsv".format(params.mode.value))
 		params.mode.value match {
 			case "fragment" =>
 				status("writing fragment tsv to '%s'...".format(f))
-				FragmentTsv.write(f, aaMolecules)
+				FragmentTsv.write(f, aaMolecules, params.tsvFragN)
 				
 			case "observation" =>
 				status("writing observation tsv to '%s'...".format(f))

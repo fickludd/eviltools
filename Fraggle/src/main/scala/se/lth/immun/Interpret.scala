@@ -48,10 +48,17 @@ object Interpret extends Command with CLIApp {
 	val CID_ACC = "MS:1000133"
 	val ETD_ACC = "MS:1000598"
 	
-	case class InternalIon(first:Int, last:Int, mz:Double, z:Int)
 	
 	trait SpectrumID { def scan:Int }
 	case class ScanID(scan:Int, id:String) extends SpectrumID
+	case class IndexID(scan:Int, id:String) extends SpectrumID
+	case class AbSciexID(
+			scan:Int, 
+			sample:Int, 
+			period:Int, 
+			cycle:Int, 
+			experiment:Int
+		) extends SpectrumID
 	case class DemixOrigID(
 			val scan:Int, 
 			val precInt:Double, 
@@ -94,14 +101,18 @@ object Interpret extends Command with CLIApp {
 		val identTsv 	= ReqString("ident tsv to create fraggle file from")
 		val irt		 	= ReqString("irt peptides to create rt -> irt map")
 		
-		val fragMatchTol = 10.0 	## "Tolerance for fragment interpretation (ppm)"
-		val fragMaxCharge = 2 		## "Maximal fragment charge to consider"
-		val minInternalLength = 2	## "Min length of internal ions to consider"
-		val maxInternalLength = 6	## "Max length of internal ions to consider"
+		val fragMatchTol = "10.0ppm" 	## "Tolerance for fragment interpretation [Xppm or XDa]"
+		val fragMatchMode = "closest" 	## "Mode for fragment interpretation [closest (default), greedy or uniform]"
+		val fragMaxCharge = 2 			## "Maximal fragment charge to consider"
+		val minInternalLength = 2		## "Min length of internal ions to consider"
+		val maxInternalLength = 6		## "Max length of internal ions to consider"
 		val psmFDR = 1.0				## "The PSM level FDR cutoff to apply on loaded identifications"
 		val eValue = 1.0				## "The eValue cutoff to apply on MS-GF+ identifications"
 		val peptideProb = 0.0			## "The peptide/inter probability cutoff to apply on loaded Peptide Csv identifications. Note that interprophet probabilities will be used if present."
-		val irtR2 = 0.9					## "r2 threshold required for iRT maps. Will fail if this level is not met."
+		val irtR2 = 0.9					## "r2 threshold required for regression iRT maps. Will fail if this level is not met."
+		val irtMode = "weight-mean-ipolate"		## "The iRT mapping algorithm to use: simple-reg, robust-reg, median-ipolate or weight-mean-ipolate"
+		val irtNAnchors = 5				## "The number of anchor points (iRT peptides) required for interpolating iRT maps. Will fail if this number is not met."
+		val defaultCollisionEnergy = 0.0	## "The default collision energy to use if not annotated (5600 mzML files). If 0 and ce not found, will report error and exit."
 		
 		val excludeProtPrefix = "DECOY"	## "Proteins with this prefix will be ignored"
 		val excludeMode = "full"		## "How much to exclude by ProtPrefix or thresholds (full or primary)"
@@ -111,6 +122,20 @@ object Interpret extends Command with CLIApp {
 		val outName			= ""		## "basename for output files (by default same as input mzML)"
 		val verbose 		= false		## "set to enable a lot of output"
 		val writeTsv		= false		## "set to write tsv instead of fragment binary file"
+		val tsvFragN		= -1		## "number of most intense fragments to output upon writeTsv (-1 means all are written)"
+		
+		lazy val fragThreshold = {
+			if (fragMatchTol.toLowerCase.endsWith("ppm")) Interpretation.PPMThreshold(fragMatchTol.value.dropRight(3).toDouble)
+			else if (fragMatchTol.toLowerCase.endsWith("da")) Interpretation.AbsThreshold(fragMatchTol.value.dropRight(2).toDouble)
+			else throw new Exception("Invalid fragment tolerance '%s'. Needs to be Xppm or XDa".format(fragMatchTol.value))
+		}
+		
+		lazy val fragInterpret = 
+			fragMatchMode.value match {
+				case "closest" => Interpretation.advanced(meta => new Interpretation.Closest(meta)) _
+				case "uniform" => Interpretation.advanced(meta => new Interpretation.Uniform(meta)) _
+				case "greedy" => Interpretation.naive _
+			}
 		
 		def outBase = {
 			val identFile = new File(identTsv)
@@ -123,7 +148,7 @@ object Interpret extends Command with CLIApp {
 			(dir, name) 
 		}
 		
-		def outFile = { 
+		def outFile = {
 			val (dir, name) = outBase
 			new File(dir, name + ".fragments.bin")
 		}
@@ -135,7 +160,12 @@ object Interpret extends Command with CLIApp {
 		
 		def outIrtMap = {
 			val (dir, name) = outBase
-			new File(dir, name + ".irtmap")
+			new File(dir, name + "."+irtMode.value+".irtmap")
+		}
+		
+		def outIrtMapPlot = {
+			val (dir, name) = outBase
+			new File(dir, name + "."+irtMode.value+".irtmap.png")
 		}
 		
 		def stripExt(path:String, ext:String) =
@@ -148,6 +178,14 @@ object Interpret extends Command with CLIApp {
 			
 		def mzMLBaseName = 
 			new File(stripExts(mzML)).getName
+	
+	def computeIRTMap = 
+		irtMode.value match {
+			case "median-ipolate" => IRT.medianInterpolationMap _
+			case "weight-mean-ipolate" => IRT.weightedMeanInterpolationMap _
+			case "simple-reg" => IRT.simpleRegressionMap _
+			case "robust-reg" => IRT.robustRegressionMap _
+		}
 	}
 	
 	
@@ -189,12 +227,12 @@ object Interpret extends Command with CLIApp {
 		}
 		
 		status("extracting iRT peptide identifications...")
-		val irtDataPoints = IRT.findDataPoints(irtPeptides, rawAAMolecules)
+		val irtDataPoints = FraggleIRT.findDataPoints(irtPeptides, rawAAMolecules)
 		status("building iRT map...")
 		def irtFail(msg:String) =
 			new Exception("Failure creating iRT map: "+msg)
 		val irtMap = 
-			Try(IRT.createMap(irtDataPoints)) match {
+			Try(params.computeIRTMap(irtDataPoints)) match {
 				case Success(map) => map
 				case Failure(e) =>
 					e match {
@@ -209,26 +247,23 @@ object Interpret extends Command with CLIApp {
 			}
 		
 		
-		
 		info("IRT MAP:")
-		info("             slope = "+irtMap.slope)
-		info("         intercept = "+irtMap.intercept)
-		info("                r2 = "+irtMap.r2)
-		info(" residual std.dev. = "+irtMap.residualStd)
-		info("     n data points = "+irtMap.dataPoints.length)
-		
-		if (irtMap.r2 < params.irtR2)
-			throw irtFail("iRT map r2=%f below required level %f".format(irtMap.r2, params.irtR2.value))
+		irtMap.writeMapParams(print)
 		
 		status("writing irtMap to '%s'...".format(params.outIrtMap))
 		irtMap.toFile(params.outIrtMap)
+		status("writing irtMap plot to '%s'...".format(params.outIrtMapPlot))
+		irtMap.plot(params.outIrtMapPlot)
+		
+		for (errMsg <- irtMap.anythingWrong(params.irtR2, params.irtNAnchors))
+			throw irtFail(errMsg)
 			
 		status("calculating iRTs...")
-		val aaMolecules:Seq[AAMolecule] = rawAAMolecules.map(irtMap)
+		val aaMolecules:Seq[AAMolecule] = rawAAMolecules.map(FraggleIRT.map(irtMap.predict))
 		
 		if (params.writeTsv) {
 			status("writing output tsv...")
-			FragmentTsv.write(params.outTsv, aaMolecules)
+			FragmentTsv.write(params.outTsv, aaMolecules, params.tsvFragN)
 			info("wrote to '%s'".format(params.outTsv))
 		} else {
 			status("writing output binary...")
@@ -264,7 +299,7 @@ object Interpret extends Command with CLIApp {
 	) = {
 		
 		val msLevel = s.cvParams.find(_.accession == MS_LEVEL_ACC).map(_.value.get.toInt)
-		val specID = parseSpectrumID(s.id)
+		val specID = parseSpectrumID(s.index, s.id)
 		
 		lazy val gs = GhostSpectrum.fromSpectrum(s)
 		while (idIndex < byScan.length && byScan(idIndex).specID.scan <= specID.scan) {
@@ -306,61 +341,11 @@ object Interpret extends Command with CLIApp {
 		import EPeptideFragment._
 		
 		val pep = UniMod.parseUniModSequence(id.pepSequence)
-		val possFragIons:Seq[(Double, Either[Ion[PeptideFragment], InternalIon])] = 
+		val possFragIons:Seq[(Double, Either[Ion[PeptideFragment], Interpretation.InternalIon])] = 
 			PeptideUtil.possibleIons(pep, Array(a,b,c,x,y,z), params.fragMaxCharge.value).map(x => (x.mz, Left(x))) ++
 			ionize(genInternalFragments(pep, params.minInternalLength, params.maxInternalLength), params.fragMaxCharge).map(x => (x.mz, Right(x)))
-		
-		val sortedFragIons = possFragIons.sortBy(_._1)
-		
-		val fragIons = new ArrayBuffer[FragmentAnnotation]
-		var i = 0
-		var j = 0
-		while (i < gs.mzs.length && j < sortedFragIons.length) {
-			val (fmz, fdesc) = sortedFragIons(j)
-			val mzDiff = gs.mzs(i) - fmz
-			val mzErrPPM = math.abs(mzDiff) / fmz * 1e6 
-			if (mzErrPPM < params.fragMatchTol) {
-				val fragIon = 
-					fdesc match {
-						case Left(fi) =>
-							SimpleFragment(
-								BaseFragment(
-									gs.intensities(i), 
-									fi.numExtraProtons - fi.numExtraElectrons, 
-									Some(fmz),
-									Some(mzErrPPM),
-									None,
-									1
-								),
-								toFragType(fi.molecule.fragmentType),
-								fi.molecule.ordinal
-							)
-						case Right(ii) => 
-							InternalFragment(
-								BaseFragment(
-									gs.intensities(i), 
-									ii.z, 
-									Some(ii.mz),
-									Some(mzErrPPM),
-									None,
-									1
-								),
-								ii.first, 
-								ii.last
-							)
-					}
-				fragIons += fragIon
-				i += 1
-				j += 1
-			} else if (mzDiff < 0) {
 				
-				i += 1
-			} else {
-				
-				j += 1
-			}
-		}
-		
+		val fragIons = Interpretation.naive(gs, possFragIons.sortBy(_._1), params.fragThreshold)		
 		
 		val observations =
 			if (fragIons.isEmpty) Array[RawObservation]()
@@ -482,11 +467,11 @@ object Interpret extends Command with CLIApp {
 	}
 	
 	
-	def ionize(frags:Seq[(Int, Int, Double)], maxCharge:Int):Seq[InternalIon] = {
+	def ionize(frags:Seq[(Int, Int, Double)], maxCharge:Int):Seq[Interpretation.InternalIon] = {
 		for {
 			z <- 1 to maxCharge 
 			(i, j, m) <- frags
-		} yield InternalIon(i, j-1, m / z + Constants.PROTON_WEIGHT, z)
+		} yield Interpretation.InternalIon(i, j-1, m / z + Constants.PROTON_WEIGHT, z)
 	}
 	
 	
@@ -505,17 +490,6 @@ object Interpret extends Command with CLIApp {
 			(mz, z, int) <- selectedIon2Mz(si)
 			if idMz == mz && idz == z
 		} yield int).headOption
-	
-	
-	def toFragType(t:EPeptideFragment):FragmentType = 
-		t match {
-			case EPeptideFragment.a => FragmentType.A
-			case EPeptideFragment.b => FragmentType.B
-			case EPeptideFragment.c => FragmentType.C
-			case EPeptideFragment.x => FragmentType.X
-			case EPeptideFragment.y => FragmentType.Y
-			case EPeptideFragment.z => FragmentType.Z
-		}
 		 
 	
 	def parseFragmentationType(s:Spectrum):(MSFragmentationProtocol.FragmentationType, Double) = {
@@ -532,7 +506,12 @@ object Interpret extends Command with CLIApp {
 		val ce =
 			a.cvParams.find(_.accession == COLLISION_ENERGY_ACC) match {
 				case Some(cv) => cv.value.get.toDouble
-				case None => throw new Exception("No collision energy found in spectrum '%s'".format(s.id))
+				case None => 
+					val defCE = params.defaultCollisionEnergy.value
+					if (defCE == 0.0)
+						throw new Exception("No collision energy found in spectrum '%s'".format(s.id))
+					else
+						defCE
 			}
 			
 		(ft, ce)
@@ -542,15 +521,15 @@ object Interpret extends Command with CLIApp {
 	val demixFeatRE = """FEAT precInt=([^ ]+) rtInSec=([^ ]+) featApexInt=([^ ]+) scan=(\d+) precRank=(\d+)""".r
 	val demixComplFragRE = """COMPL_FRAG scan=(\d+) precRank=(\d+)""".r
 	val scanNumRE = """scan=(\d+)""".r.unanchored
-	def parseSpectrumID(id:String) = 
+	val absciexRE = """sample=(\d+) period=(\d+) cycle=(\d+) experiment=(\d+)""".r
+	def parseSpectrumID(specIndex:Int, id:String) = 
 		id match {
 			case demixOrigRE(pInt, rt, scan, pRank) => DemixOrigID(scan.toInt, pInt.toDouble, rt.toDouble, pRank.toInt)
 			case demixFeatRE(pInt, rt, fApexInt, scan, pRank) => DemixFeatID(scan.toInt, pInt.toDouble, rt.toDouble, fApexInt.toDouble, pRank.toInt)
 			case demixComplFragRE(scan, pRank) => DemixComplFragID(scan.toInt, pRank.toInt)
 			case scanNumRE(scan) => ScanID(scan.toInt, id)
-			case _ => 
-				throw new Exception("Couldn't parse scan number from spectrum title '%s'".format(id))
-		
+			case absciexRE(sample, period, cycle, experiment) => AbSciexID(specIndex+1, sample.toInt, period.toInt, cycle.toInt, experiment.toInt)
+			case _ => IndexID(specIndex+1, id)
 		}
 	
 	

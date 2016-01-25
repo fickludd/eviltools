@@ -16,7 +16,7 @@ object ObservationTsv {
 			aaMol <- aaMolecules
 			obs <- aaMol.observations
 		} {
-			w.row(aaMol.protein, aaMol.sequence, obs.z, obs)
+			w.row(aaMol.protein, aaMol.sequence, obs.z, obs.score.getOrElse("-"))
 		}
 		
 		w.close

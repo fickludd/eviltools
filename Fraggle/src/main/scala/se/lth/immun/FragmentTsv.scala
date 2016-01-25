@@ -6,12 +6,14 @@ import se.lth.immun.protocol.AAMolecule
 import se.lth.immun.protocol.SimpleFragment
 import se.lth.immun.protocol.InternalFragment
 import se.lth.immun.protocol.XLinkFragment
+import se.lth.immun.protocol.Observation
+import se.lth.immun.protocol.FragmentAnnotation
 import se.lth.immun.protocol.MSFragmentationProtocol.FragmentType
 import se.lth.immun.protocol.MSFragmentationProtocol.PrecursorType
 
 object FragmentTsv {
 
-	def write(f:File, aaMolecules:Seq[AAMolecule]) = {
+	def write(f:File, aaMolecules:Seq[AAMolecule], nFrags:Int) = {
 		
 		val w = new TsvWriter(f)
 		
@@ -19,15 +21,19 @@ object FragmentTsv {
 			Array(
 				"sequence", "mass", 
 				"fragmentationType", "ce", "precursorCharge", "iRT", 
-				"precursorMz", "precursorIntensity", "precursorIntensityRank",
+				"precursorMz", "precursorIntensity", "precursorIntensityRank", "precursorType",
 				"fragmentIntensity", "fragmentCharge", "fragmentMz", "fragmentIntensityStd", "fragmentMzErrPPM",
 				"fragmentType", "ordinal", "firstInternal", "lastInternal", "xlinkPeptide"
-			))
+			).toSeq)
+		
+		def filterFrags(frags:Seq[FragmentAnnotation]) = 
+			if (nFrags <= 0) frags
+			else frags.sortBy(-_.base.intensity).take(nFrags).sortBy(_.base.mz)
 			
 		for {
 			aaMol <- aaMolecules
 			obs <- aaMol.observations
-			frag <- obs.fragments
+			frag <- filterFrags(obs.fragments)
 		} {
 			val fragCols = 
 				frag match {

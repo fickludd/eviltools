@@ -27,8 +27,8 @@ object MSGF extends Interpret.IDs {
 			val eValue:Double,
 			val qValue:Double,
 			val pepQValue:Double
-	) extends ID { 
-		def score = eValue 
+	) extends ID {
+		def score = - math.log10(eValue) 
 		def psmLevelOk = qValue < params.psmFDR && eValue < params.eValue
 	}
 	
@@ -39,9 +39,10 @@ object MSGF extends Interpret.IDs {
 		(for ( line <- Source.fromFile(f).getLines.drop(1) ) yield {
 			val p = line.split("\t")
 			
+			val specIndex = p(2).toInt
 			MSGFid(
-				parseSpectrumID(p(1)),
-				p(2).toInt,
+				parseSpectrumID(specIndex, p(1)),
+				specIndex,
 				p(3) match {
 					case "CID" => FragmentationType.CID
 					case "HCD" => FragmentationType.HCD
@@ -52,7 +53,7 @@ object MSGF extends Interpret.IDs {
 				p(6).toDouble,
 				p(7).toInt,
 				toUniModSequence(p(8)),
-				p(9),
+				cleanProteins(p(9)),
 				p(10).toInt,
 				p(11).toInt,
 				p(12).toDouble,
@@ -67,4 +68,7 @@ object MSGF extends Interpret.IDs {
 	def toUniModSequence(pep:String):String = 
 		pep.replaceAllLiterally("+15.995", "(UniMod:35)")
 			.replaceAllLiterally("+57.021", "(UniMod:4)")
+			
+	def cleanProteins(proteins:String):String =
+		proteins.split(";").map(_.takeWhile(_ != '(')).mkString(";")
 }

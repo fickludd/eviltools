@@ -26,24 +26,33 @@ trait Merger {
 				b.sequence,
 				b.protein,
 				b.mass,
-				b.observations.map(ob =>
-					Observation(
-						ob.fragmentationType,
-						ob.z,
-						ob.ce,
-						Some(f(ob.xs.flatMap(_.precursorMz))),
-						Some(f(ob.xs.flatMap(_.precursorIntensity))),
-						Some(f(ob.xs.flatMap(_.iRT))),
-						Some(math.sqrt(StatUtils.variance(ob.xs.flatMap(_.iRT).toArray))),
-						Some(ob.xs.flatMap(_.fragBaseIntensity).sum),
-						Some(ob.xs.flatMap(_.qValue).max),
-						Some(f(ob.xs.flatMap(_.percentAnnotatedOfMS2tic))),
-						Some(ob.xs.length),
-						None,
-						None,
-						Some(f(ob.xs.flatMap(_.precursorFeatureApexIntensity))),
-						mergeObservations(ob.xs)
-					)))
+				b.observations.map(ob => {
+					val (real, meta) = ob.xs.partition(_.fragments.nonEmpty)
+					def buildObservation(obs:Seq[Observation]) = {
+						val irts = obs.flatMap(_.iRT).toArray
+						Observation(
+							ob.fragmentationType,
+							ob.z,
+							ob.ce,
+							Some(f(obs.flatMap(_.precursorMz))),
+							Some(f(obs.flatMap(_.precursorIntensity))),
+							Some(f(irts)),
+							Some(math.sqrt(StatUtils.variance(irts))),
+							Some(obs.flatMap(_.fragBaseIntensity).sum),
+							Some(obs.flatMap(_.qValue).max),
+							Some(f(obs.flatMap(_.percentAnnotatedOfMS2tic))),
+							Some(obs.length),
+							None,
+							None,
+							Some(f(obs.flatMap(_.precursorFeatureApexIntensity))),
+							Some(obs.flatMap(_.score).max),
+							mergeObservations(obs)
+						)
+					}
+					
+					if (real.isEmpty) buildObservation(meta)
+					else buildObservation(real)
+				}))
 					
 	def mergeObservations(fobses:Seq[Observation]):Seq[FragmentAnnotation] = {
 		val pivot = new HashMap[FragKey, ArrayBuffer[FragmentAnnotation]]
