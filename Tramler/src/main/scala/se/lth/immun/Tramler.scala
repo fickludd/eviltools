@@ -41,7 +41,7 @@ object Tramler extends CLIApp {
     
 	val params = new TramlerParams
     
-	val allowedOperations = Array(Clean, Decoy, Distort, Ms1Isotopes, Subsample, Stats, Trim, Tsv, QvalueFilter)
+	val allowedOperations = Array(Clean, Decoy, Distort, Filter, Ms1Isotopes, Subsample, Stats, Trim, Tsv, QvalueFilter)
 	
 	def main(args:Array[String]):Unit = {
 		
@@ -123,7 +123,7 @@ object Tramler extends CLIApp {
 			}
 	    	
 			if (readMode == InTraml && params.ops.split(" ").forall(x => x.startsWith("stats") || x.startsWith("tsv")))
-				println("    no output written since only passive operations specified (stats, tsv) on input TraML")
+				println("    no output traml written since only passive operations specified (stats, tsv) on input TraML")
 			else {
 				val outFile = params.outFile.getOrElse(outputDefault)
 				println("    [OUTPUT] file: "+outFile)

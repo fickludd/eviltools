@@ -10,9 +10,9 @@ import scala.collection.mutable.HashSet
 
 object QvalueFilter extends TramlOperation.Generator(
 		"qvalueFilter",
-		"""Filters proteins, peptides and assays by qvalues. Needs file w. qvalues
+		"""Filters proteins, AA-molecules and assays by qvalues. Needs file w. qvalues
     qvalues  file     File with qvalues in the Franklin format w. the levels Protein, 
-                      aaMolecule and Assay (precursor charge). This option is required.
+                      AA-molecule and Assay (precursor charge). This option is required.
     mode     string   What level to filter on, protein, aamolecule, assay (default) or all 
     qvalue   float    The FDR threshold. 0.01 by default"""
 ) {
