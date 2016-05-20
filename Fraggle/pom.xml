@@ -5,9 +5,9 @@
   <version>0.7.1</version>
   <inceptionYear>2015</inceptionYear>
   <properties>
-    <scala.version>2.10.0</scala.version>
+    <scala.version>2.10.3</scala.version>
     <mainClass>se.lth.immun.Fraggle</mainClass>
-    <!--project.build.sourceEncoding>UTF-8</project.build.sourceEncoding-->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   
   <dependencies>
@@ -24,7 +24,7 @@
     </dependency>
     <dependency>
     	<groupId>org.scalatest</groupId>
-    	<artifactId>scalatest_${scala.version}</artifactId>
+    	<artifactId>scalatest_2.10.0</artifactId>
     	<version>2.0.M5</version>
     	<scope>test</scope>
     </dependency>
@@ -34,7 +34,7 @@
     	<version>2.3.9</version>
     </dependency>
     <dependency>
-    	<groupId>se.jt</groupId>
+    	<groupId>se.johanteleman</groupId>
     	<artifactId>CLIApp</artifactId>
     	<version>1.2.0</version>
     </dependency>
@@ -74,14 +74,6 @@
     	<version>1.0.0</version>
     </dependency>
   </dependencies>
-  
-  <repositories>
-    <repository>
-      <id>scala-tools.org</id>
-      <name>Scala-Tools Maven2 Repository</name>
-      <url>http://scala-tools.org/repo-releases</url>
-    </repository>
-  </repositories>
   
   <build>
     <sourceDirectory>src/main/scala</sourceDirectory>
@@ -138,26 +130,9 @@
       </plugin>
       
       <plugin>
-        <artifactId>maven-eclipse-plugin</artifactId>
-        <configuration>
-          <downloadSources>true</downloadSources>
-          <buildcommands>
-            <buildcommand>ch.epfl.lamp.sdt.core.scalabuilder</buildcommand>
-          </buildcommands>
-          <additionalProjectnatures>
-            <projectnature>ch.epfl.lamp.sdt.core.scalanature</projectnature>
-          </additionalProjectnatures>
-          <classpathContainers>
-            <classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
-            <classpathContainer>ch.epfl.lamp.sdt.launching.SCALA_CONTAINER</classpathContainer>
-          </classpathContainers>
-        </configuration>
-      </plugin>
-      
-      <plugin>
 	    <artifactId>maven-assembly-plugin</artifactId>
 	    <configuration>
-              <finalName>${artifactId}-${version}.free</finalName>
+              <finalName>${project.artifactId}-${project.version}.free</finalName>
               <appendAssemblyId>false</appendAssemblyId>
 	      <descriptorRefs>
 	        <descriptorRef>jar-with-dependencies</descriptorRef>
