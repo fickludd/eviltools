@@ -20,8 +20,11 @@ object Decoy extends TramlOperation.Generator(
     same             reuse the same peptides (fake fakes).
     decoy-factor     integer stating how many decoys should be generated per compound / peptide (novel and shuffle only).
     n                integer stating how many decoy peptides and compounds that should be generated in total.
+    decoy-tries      how many attempts that are made at creating a decoy peptide before giving up. (default = 10)
+    decoy-overlap    the number of transition that can overlap between the decoy and the template target peptide (default = 0)
     seed             seed for decoy sub-selection.
-    verbose          output a lot on std out."""
+    verbose          output a lot on std out.
+    level            level on which to generate decoys, peptide (default) or protein."""
 ) {
 	
 	def makeInstance(params:Seq[(String, String)], mods:Seq[IModifier]) = 
@@ -37,7 +40,12 @@ object Decoy extends TramlOperation.Generator(
 			params:Seq[(String, String)], 
 			val mods:Seq[IModifier]
 	) extends TramlOperation.Instance(opString, params) {
-		var getDecoyPep = shuffle _
+		
+		var decoyTries = 10
+		var decoyOverlap = 0
+		
+		var getDecoyPepMode = "shuffle"
+		var getDecoyPep:(Peptide, Int) => Peptide = _
 		var mode:SubSampleMode = Fraction(1)
 		var seed:Option[Long] = None
 		var verbose = false
@@ -45,45 +53,57 @@ object Decoy extends TramlOperation.Generator(
 		var prefix = "DECOY_"
 		val timer = new Timer
 		
-		for ((k,v) <- params)
-			k match {
-				case "novel" 		=> getDecoyPep = novel _
+		{
+			for ((k,v) <- params)
+				k match {
+					case "novel" 		=> getDecoyPepMode = k
+					case "shuffle" 		=> getDecoyPepMode = k
+					case "reverse" 		=> getDecoyPepMode = k
+					case "same" 		=> getDecoyPepMode = k
+					case "decoy-factor" => mode = Fraction(v.toDouble)
+					case "decoy-tries"	=> decoyTries = v.toInt
+					case "decoy-overlap" => decoyOverlap = v.toInt
+					case "n" 			=> mode = N(v.toInt)
+					case "seed"			=> seed = Some(v.toLong)
+					case "verbose"		=> verbose = true
+					case "prefix"		=> prefix = v
+					case "level"		=> 
+						level = 
+							v match {
+								case "protein" => Protein
+								case "compound" => Compound
+								case "peptide" => Compound
+								case x => throw new IllegalArgumentException("Unknown decoy level '%s'".format(x))
+							}
+					case _ =>
+						throw new IllegalArgumentException("Unknown param '%s'".format(k))
+				}
+			getDecoyPepMode match {
+				case "novel" 		=> getDecoyPep = novelBySize _
 				case "shuffle" 		=> getDecoyPep = shuffle _
 				case "reverse" 		=> getDecoyPep = reverse _
 				case "same" 		=> getDecoyPep = same _
-				case "decoy-factor" => mode = Fraction(v.toDouble)
-				case "n" 			=> mode = N(v.toInt)
-				case "seed"			=> seed = Some(v.toLong)
-				case "verbose"		=> verbose = true
-				case "prefix"		=> prefix = v
-				case "level"		=> 
-					level = 
-						v match {
-							case "protein" => Protein
-							case "compound" => Compound
-							case "peptide" => Compound
-							case x => throw new IllegalArgumentException("Unknown decoy level '%s'".format(x))
-						}
-				case _ =>
-					throw new IllegalArgumentException("Unknown param '%s'".format(k))
 			}
+		}
 		
 		def operate(in:ClearTraML, params:TramlerParams):ClearTraML = {
 			timer.reset
 			
 			val out = new ClearTraML
 	    	
-	    	import PeptideParser._
 	    	
 			level match {
 				case Compound =>
-					out.compounds ++= 
-			    		subsample(in.compounds, mode, seed).map(cp => {
-			    			parseSequence(cp.id) match {
-			    				case XLinkPeptide(xl) => toXLinkDecoy(xl, cp)
-			    				case UniModPeptide(p) => toUniModDecoy(p, cp)
-			    			}
-			    		})
+					
+					for {
+						cp <- subsample(in.compounds, mode, seed)
+					} {
+						makeValidDecoy(cp) match {
+							case Some(decoy) => out.compounds += decoy
+							case None =>
+								println("Unable to create valid decoy from '%s'. Ignoring".format(cp.id))
+						}
+					}
 		    		
 		    		out.proteins ++= out.compounds.flatMap(_.proteins)
 		    	
@@ -95,11 +115,11 @@ object Decoy extends TramlOperation.Generator(
 						cp <- in.compounds
 						if cp.proteins.exists(out.proteins.contains)
 					} {
-						out.compounds +=
-							(parseSequence(cp.id) match {
-			    				case XLinkPeptide(xl) => toXLinkDecoy(xl, cp)
-			    				case UniModPeptide(p) => toUniModDecoy(p, cp)
-			    			})
+						makeValidDecoy(cp) match {
+							case Some(decoy) => out.compounds += decoy
+							case None =>
+								println("Unable to create valid decoy from '%s'. Ignoring".format(cp.id))
+						}
 					}
 			}
 			
@@ -121,6 +141,37 @@ object Decoy extends TramlOperation.Generator(
 	    	*/
 	    	
 	    	out
+		}
+		
+		
+		def validDecoy(cp:ClearPeptide, decoy:ClearPeptide):Boolean = {
+			for (da <- decoy.assays) {
+				cp.assays.find(_.z == da.z) match {
+					case Some(a) => 
+						if (da.ms2Channels.count(dc => a.ms2Channels.exists(_.mz == dc.mz)) > decoyOverlap)
+							return false
+					case None => {}
+				}
+			}
+			return true
+		}
+		
+		
+		def makeValidDecoy(cp:ClearPeptide):Option[ClearPeptide] = {
+			
+	    	import PeptideParser._
+	    	
+			for (i <- 0 until decoyTries) {
+				val decoy = 
+					parseSequence(cp.id) match {
+	    				case XLinkPeptide(xl) => toXLinkDecoy(xl, cp)
+	    				case UniModPeptide(p) => toUniModDecoy(p, cp, decoyTries - i)
+	    			}
+				
+				if (getDecoyPepMode == "same" || validDecoy(cp, decoy))
+					return Some(decoy)
+			}
+	    	return None
 		}
 		
 		
@@ -167,13 +218,13 @@ object Decoy extends TramlOperation.Generator(
 		
 		
 		
-		def toUniModDecoy(p:Peptide, cp:ClearPeptide):ClearPeptide = {
+		def toUniModDecoy(p:Peptide, cp:ClearPeptide, triesLeft:Int):ClearPeptide = {
 			//var p = UniMod.parseUniModSequence(pep.sequence)
 			//timer.click
 			//val pm = p.monoisotopicMass
 			
 			import EPeptideFragment._
-			val decoyP 	= Modifier.modify(getDecoyPep(p), mods.toArray)
+			val decoyP 	= Modifier.modify(getDecoyPep(p, triesLeft), mods.toArray)
 			val decoyFrags = decoyP.getFragments(Array(a, b, c, x, y, z))
     		val dm 		= decoyP.monoisotopicMass
     		val decoyCompound = new ClearPeptide(decoyP.toString, cp.proteins.map(prefix+_))
@@ -242,7 +293,12 @@ object Decoy extends TramlOperation.Generator(
 	}
 	
 	
-	def shuffle(p:Peptide):Peptide = {
+	def shuffle(p:Peptide, triesLeft:Int):Peptide = {
+		if (triesLeft <= 1) {
+			val newDecoyPep = novelBySize(p, triesLeft)
+			println("Unable to generate new decoy by shuffling peptide '%s'. Revering to novel decoy '%s'.".format(p.toString, newDecoyPep.toString))
+			return newDecoyPep
+		}
 		var shuffled =
 			p.aminoAcids.head match {
 				case saa:StandardAminoAcid =>
@@ -251,15 +307,13 @@ object Decoy extends TramlOperation.Generator(
 					p.aminoAcids.head +: Random.shuffle(p.aminoAcids.dropRight(1).drop(1).toList) :+ p.aminoAcids.last
 			}
 		if (shuffled.zip(p.aminoAcids).forall(t => t._1 == t._2))
-			shuffle(p)
+			shuffle(p, triesLeft-1)
 		else
 			new Peptide(shuffled.toArray)
 	}
 	
-	def novel(p:Peptide) = {
-		import StandardAminoAcid._
-		
-		def getAA:StandardAminoAcid = {
+	
+	def getAA:StandardAminoAcid = {
 			val r = math.random * 100
 			var cumsum = 0.0
 			for ((aa, freq) <- aaFreq) {
@@ -269,6 +323,10 @@ object Decoy extends TramlOperation.Generator(
 			}
 			return aaFreq.last._1//throw new Exception("This definitely shouldn't happen!")
 		}
+	
+	
+	def novelByMass(p:Peptide, triesLeft:Int) = {
+		import StandardAminoAcid._
 		
 		val m = p.monoisotopicMass
 		val aas = new ArrayBuffer[StandardAminoAcid]
@@ -289,12 +347,24 @@ object Decoy extends TramlOperation.Generator(
 	}
 	
 	
-	def reverse(p:Peptide) = {
+	def novelBySize(p:Peptide, triesLeft:Int) = {
+		import StandardAminoAcid._
+		
+		val aas = new ArrayBuffer[StandardAminoAcid]
+		aas += (if (math.random * (5.84+5.53) < 5.84) K else R)
+		for (i <- 0 until p.aminoAcids.length - 1)
+			aas += getAA
+			
+		new Peptide(aas.reverse.toArray)
+	}
+	
+	
+	def reverse(p:Peptide, triesLeft:Int) = {
 		new Peptide(p.aminoAcids.dropRight(1).reverse :+ p.aminoAcids.last)
 	}
 	
 	
-	def same(p:Peptide) = p
+	def same(p:Peptide, triesLeft:Int) = p
 	
 	/**
 	 * AA frequencies in entire UniProtKB according to 

@@ -5,6 +5,7 @@ import se.lth.immun.chem._
 
 import scala.util.Random
 import scala.collection.mutable.HashMap
+import scala.collection.mutable.ArrayBuffer
 
 object Subsample extends TramlOperation.Generator(
 		"subsample",
@@ -75,6 +76,6 @@ object Subsample extends TramlOperation.Generator(
 	
 	def sample[T](r:Random)(xs:Iterable[T], n:Int):Seq[T] = {
 		if (n <= 0 || xs.size <= 0) return Nil
-		r.shuffle(xs.toSeq).take(n)
+		r.shuffle(xs.toBuffer).take(n)
 	}
 }

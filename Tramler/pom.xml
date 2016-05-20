@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>se.lth.immun</groupId>
   <artifactId>Tramler</artifactId>
-  <version>0.9.0</version>
+  <version>0.9.2</version>
   <inceptionYear>2014</inceptionYear>
   <properties>
     <scala.version>2.10.0</scala.version>
@@ -35,7 +35,7 @@
   	<dependency>
   		<groupId>se.lth.immun</groupId>
   		<artifactId>TraML</artifactId>
-  		<version>2.0.0</version>
+  		<version>2.0.1</version>
   	</dependency>
   	<dependency>
   		<groupId>se.lth.immun</groupId>
