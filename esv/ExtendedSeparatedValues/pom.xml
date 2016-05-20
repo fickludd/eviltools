@@ -5,7 +5,7 @@
   <version>1.0.0</version>
   <inceptionYear>2013</inceptionYear>
   <properties>
-    <scala.version>2.10.0</scala.version>
+    <scala.version>2.10.3</scala.version>
   </properties>
   
   <dependencies>
@@ -31,14 +31,6 @@
     </dependency>
   </dependencies>
     
-  <repositories>
-    <repository>
-      <id>scala-tools.org</id>
-      <name>Scala-Tools Maven2 Repository</name>
-      <url>http://scala-tools.org/repo-releases</url>
-    </repository>
-  </repositories>
-  
   <build>
     <sourceDirectory>src/main/scala</sourceDirectory>
     <testSourceDirectory>src/test/scala</testSourceDirectory>
@@ -57,22 +49,6 @@
         </executions>
         <configuration>
           <scalaVersion>${scala.version}</scalaVersion>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-eclipse-plugin</artifactId>
-        <configuration>
-          <downloadSources>true</downloadSources>
-          <buildcommands>
-            <buildcommand>ch.epfl.lamp.sdt.core.scalabuilder</buildcommand>
-          </buildcommands>
-          <additionalProjectnatures>
-            <projectnature>ch.epfl.lamp.sdt.core.scalanature</projectnature>
-          </additionalProjectnatures>
-          <classpathContainers>
-            <classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
-            <classpathContainer>ch.epfl.lamp.sdt.launching.SCALA_CONTAINER</classpathContainer>
-          </classpathContainers>
         </configuration>
       </plugin>
       <plugin>
