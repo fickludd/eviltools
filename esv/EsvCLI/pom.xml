@@ -5,11 +5,10 @@
   <version>1.0.1</version>
   <inceptionYear>2014</inceptionYear>
   <properties>
-    <scala.version>2.10.0</scala.version>
+    <scala.version>2.10.3</scala.version>
     <short.name>esv</short.name>
     <mainClass>se.lth.immun.EsvCLI</mainClass>
-    <script.file>target/${short.name}</script.file>
-    <selfContained.jar>${basedir}/target/${build.finalName}-jar-with-dependencies.jar</selfContained.jar>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   
   <dependencies>
@@ -29,7 +28,7 @@
     
     <dependency>
     	<groupId>org.scalatest</groupId>
-    	<artifactId>scalatest_${scala.version}</artifactId>
+    	<artifactId>scalatest_2.10.0</artifactId>
     	<version>2.0.M5</version>
     	<scope>test</scope>
     </dependency>
@@ -44,14 +43,6 @@
     	<version>1.0.0</version>
     </dependency>
   </dependencies>
-  
-  <repositories>
-    <repository>
-      <id>scala-tools.org</id>
-      <name>Scala-Tools Maven2 Repository</name>
-      <url>http://scala-tools.org/repo-releases</url>
-    </repository>
-  </repositories>
   
   <build>
     <sourceDirectory>src/main/scala</sourceDirectory>
@@ -75,25 +66,10 @@
       </plugin>
       
       <plugin>
-        <artifactId>maven-eclipse-plugin</artifactId>
-        <configuration>
-          <downloadSources>true</downloadSources>
-          <buildcommands>
-            <buildcommand>ch.epfl.lamp.sdt.core.scalabuilder</buildcommand>
-          </buildcommands>
-          <additionalProjectnatures>
-            <projectnature>ch.epfl.lamp.sdt.core.scalanature</projectnature>
-          </additionalProjectnatures>
-          <classpathContainers>
-            <classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
-            <classpathContainer>ch.epfl.lamp.sdt.launching.SCALA_CONTAINER</classpathContainer>
-          </classpathContainers>
-        </configuration>
-      </plugin>
-      
-      <plugin>
 	    <artifactId>maven-assembly-plugin</artifactId>
 	    <configuration>
+              <finalName>${project.artifactId}-${project.version}.free</finalName>
+              <appendAssemblyId>false</appendAssemblyId>
 	      <descriptorRefs>
 	        <descriptorRef>jar-with-dependencies</descriptorRef>
 	      </descriptorRefs>
@@ -146,51 +122,9 @@
               <goal>verify</goal>
             </goals>
           </execution>
-	    </executions>
-	  </plugin>
-      
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.6</version>
-        <executions>
-          <execution>
-            <id>deploy to public</id>
-            <phase>verify</phase>
-            <configuration>
-              <target>
-				<!-- 
-				<copy file="${selfContained.jar}"
-					tofile="${publicDeploy.jar}"
-					overwrite="true"/>
-				<chmod file="${publicDeploy.jar}" perm="755"/>
-				-->
-				<echo message="changed '${publicDeploy.jar}' permissions to 755"/>
-              </target>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-          
-          <execution>
-            <id>install shortcut script</id>
-            <phase>install</phase>
-            <configuration>
-              <target>
-              	<echo message="creating shortcut script '${script.file}'"/>
-				<echo file="${script.file}">#!/bin/bash 
-java -jar ${selfContained.jar} "$@"
-				</echo>
-				<chmod file="${script.file}" perm="755"/>
-				<echo message="changed '${script.file}' permissions to 755"/>
-              </target>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
         </executions>
       </plugin>
+      
     </plugins>
   </build>
 </project>
