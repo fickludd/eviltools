@@ -243,8 +243,8 @@ proteinIndex = -1
 idIndex = -1
 hasId = False
 
-print "          Franklin 2 "
-print "          ^^^^^^^^^^ "
+print "          Franklin 1.1 "
+print "          ^^^^^^^^^^^ "
 print ""
 
 STATUS("building score tree...") 
