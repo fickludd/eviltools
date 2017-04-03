@@ -1,0 +1,434 @@
+#!/usr/bin/python
+
+import sys
+import subprocess
+import math
+import time
+import os
+
+usage = """usage:
+> franklin [OPTIONS] DECOY_PREFIX SCORE_TSV
+
+SCORE_TSV is a tsv with one column score, and other columns 
+  are treated as hierarchical, with the top level to the left
+  If the column 'protein' is detected it will get special treatment. Entries
+  in 'protein' will be interpreted as a ;-delimited protein group. MS-GF+ proteins
+  have a (pre=X,post=-) annotation for flanking AAs of the peptide, which will be 
+  removed. Note that the 'protein' column needs to be the top (leftmost) column currently,
+  Scores need to be positive (higher is better). 
+
+
+
+OPTIONS:
+   --printTree      print the parsed node tree to stdout. Warning: it's huge.
+   --scoreOutput    include meta data like node name and number of children in
+                    score files. Doing this disables qvality and final statistics
+                    calculations.
+   --simplifyProteinGroups   
+                    Only keep the first protein is several ;-separated protein
+                    identifiers are detected in a protein field. Don't do this. 
+   --proteotypic    Discard entries with more than one forward protein, or no forward
+                    and more than one decoy protein
+"""
+
+t0 = time.time()
+def STATUS(str):
+	global t0
+	t = time.time()
+	print "[%8.2fs] %s" % (t-t0, str)
+
+def DETAIL(str):
+	print "             "+str
+
+def TABLE(title, header):
+	DETAIL(("== %s " % title).ljust(len(header), "="))
+	DETAIL(header)
+	DETAIL("-" * len(header))
+
+decoyPrefix = ""
+scoreTsv = ""
+printTree = False
+scoreOutput = False
+simplifyProteinGroups = False
+proteotypic = False
+
+def readArgs(args):
+	if len(args) == 0:
+		print usage
+		exit(1)
+	elif args[0] == "--printTree":
+		global printTree
+		printTree = True
+		readArgs(args[1:])
+
+	elif args[0] == "--scoreOutput":
+		global scoreOutput
+		scoreOutput = True
+		readArgs(args[1:])
+
+	elif args[0] == "--simplifyProteinGroups":
+		global simplifyProteinGroups
+		simplifyProteinGroups = True
+		readArgs(args[1:])
+
+	elif args[0] == "--proteotypic":
+		global proteotypic
+		proteotypic = True
+		readArgs(args[1:])
+
+	elif len(args) == 2:
+		global decoyPrefix
+		global scoreTsv
+		decoyPrefix = args[-2]
+		scoreTsv = args[-1]
+	else:
+		print usage
+		exit(1)
+
+readArgs(sys.argv[1:])
+
+
+# PARSE IN BASE NAME
+# ==================
+
+class Option:
+	def __init__(self, value):
+		self.value = value
+	def isDefined(self):
+		return self.value is not None
+	def get(self):
+		if self.isDefined():
+			return self.value
+		else:
+			raise "Cannot get None value!"
+	def orElse(self, defaultOpt):
+		if self.isDefined():
+			return self
+		else:
+			return defaultOpt
+	
+def withoutExt(path, ext):
+	if path.lower().endswith(ext):
+		return Option(path[:-len(ext)])
+	else:
+		return Option(None)
+		
+def removeExts(path, exts):
+	if len(exts) == 0:
+		return Option(path)
+	return withoutExt(path, exts[0]).orElse(removeExts(path, exts[1:]))
+
+inBase = removeExts(scoreTsv, [".observations.tsv", ".tsv", ".csv" ]).get()
+
+
+# PROTEIN MANIPULATION
+# ====================
+
+def cleanProteinEntry(prot):
+	return prot.split("(pre=")[0]
+
+def isDecoy(prot):
+	return prot.startswith(decoyPrefix)
+
+def isDecoyNum(prot):
+	if isDecoy(prot):
+		return 1
+	else:
+		return 0
+
+def sortByDecoy(prots):
+	return sorted(prots, key=isDecoyNum)
+
+def splitByDecoy(prots):
+	targets = []
+	decoys = []
+	for p in prots:
+		if isDecoy(p):
+			decoys.append(p)
+		else:
+			targets.append(p)
+	return (targets, decoys)
+
+def reassembleProteins(prots):
+	return ";".join([ cleanProteinEntry(prot) for prot in prots ])
+
+
+# HIERARCHICAL TREE
+# =================
+
+class Node:
+	def __init__(self):
+		self.children = {}
+		self.score = 0.0
+		self.id = ""
+		self.qval = None
+
+	def __str__(self):
+		return "score=%.4f, children=%d, qval=%s" % (self.score, len(self.children), str(self.qval))
+
+	def makeOrGet(self, name):
+		if name in self.children:
+			return self.children[name]
+		else:
+			newChild = Node()
+			self.children[name] = newChild
+			return newChild
+
+	def nicePrint(self, prefix=""):
+		print "%d children, score=%f" % (len(self.children), self.score)
+		for k in self.children:
+			print prefix, k,
+			self.children[k].nicePrint(prefix + "  ")
+
+	def computeScores(self):
+		if len(self.children) > 0:
+			self.score = max([ self.children[name].computeScores() for name in self.children ])
+		return self.score
+
+
+	def writeChildScores(self, files):
+		for name in self.children:
+			self.children[name].writeScores(name, files)
+
+	def writeScores(self, prefix, files):
+		if isDecoy(prefix):
+			w = files[0][1]
+		else:
+			w = files[0][0]
+		id = ""
+		if scoreOutput:
+			id = prefix+"\t%d\t" % len(self.children)
+		w.write("%s%.5f\n" % (id, self.score))
+		for name in self.children:
+			self.children[name].writeScores(prefix + name, files[1:])
+
+
+	def targetChildrenByLevel(self, levelCollectors):
+		for name in self.children:
+			if not isDecoy(name):
+				self.children[name].byLevel(levelCollectors)
+		
+	def byLevel(self, levelCollectors):
+		levelCollectors[0].append(self)
+		for name in self.children:
+			self.children[name].byLevel(levelCollectors[1:])
+
+	def tsvCols(self):
+		return [ "%.4f" % x for x in [self.qval.score, self.qval.pep, self.qval.qvalue]]
+
+	def writeTsvRows(self, rowPrefix, w):
+		row = rowPrefix + self.tsvCols()
+		if len(self.children) == 0:
+			if hasId:
+				row = row + [self.id]
+			w.write("\t".join( row )+"\n") 
+		else:
+			for name in self.children:
+				self.children[name].writeTsvRows(row + [name], w)
+
+	def writeTargetChildrenTsvRows(self, w):
+		for name in self.children:
+			if not isDecoy(name):
+				self.children[name].writeTsvRows([name], w)		
+
+
+# BEGIN PROGRAM!
+# ==============
+
+top = Node()
+
+levels = []
+scoreIndex = -1
+proteinIndex = -1
+idIndex = -1
+hasId = False
+
+print "          Franklin"
+print "          ^^^^^^^^\n"
+
+STATUS("building score tree...") 
+
+with open(scoreTsv) as f:
+	for line in f:
+		p = [ x.strip("\"") for x in line.strip().split("\t") ]
+		if len(levels) == 0:
+			scoreIndex = p.index("score")
+			if "id" in p:
+				idIndex = p.index("id")
+				hasId = True
+
+			proteinIndex = p.index("protein")
+			levelIndices = [x for x in range(0, len(p)) if x not in [scoreIndex, idIndex]]
+			levels = [p[i] for i in levelIndices]
+		else:
+			rowOk = True
+			if proteinIndex >= 0:
+				prots = p[proteinIndex].split(";")
+				targets, decoys = splitByDecoy(prots)
+				if proteotypic and len(targets) > 1:
+					rowOk = False
+				elif proteotypic and len(targets) == 0 and len(decoys) > 1:
+					rowOk = False
+				
+				if simplifyProteinGroups:
+					targets = targets[:1]
+					decoys = decoys[:1]
+				
+				if len(targets) > 0:
+					p[proteinIndex] = reassembleProteins(targets)
+				else:
+					p[proteinIndex] = reassembleProteins(decoys)
+			
+			if rowOk:
+				parent = top
+				for i in levelIndices:
+					parent = parent.makeOrGet(p[i])
+				parent.score = float(p[scoreIndex])
+				if hasId:
+					parent.id = p[idIndex]
+				
+
+STATUS("computing scores...") 
+
+top.computeScores()
+if printTree:
+	STATUS("printing tree...")
+	top.nicePrint()
+
+workDir = inBase + "-FRANKLIN"
+try:
+	os.mkdir(workDir)
+except:
+	pass
+
+os.chdir(workDir)
+STATUS("writing score files per tree level...") 
+DETAIL("using intermediary folder '%s'" % workDir)
+scorePaths = [(x+".scores", x+".null.scores", x) for x in levels]
+scoreFiles = [(open(x[0], 'w'), open(x[1], 'w')) for x in scorePaths]
+top.writeChildScores(scoreFiles)
+for (target, null) in scoreFiles:
+	target.close()
+	null.close()
+
+
+if scoreOutput:
+	STATUS("done.")
+	exit(0)
+
+
+class QvalRow:
+	def __init__(self, score, pep, qvalue):
+		self.score = score
+		self.pep = pep
+		self.qvalue = qvalue
+
+	def __str__(self):
+		return "{ score=%.4f, PEP=%.4f, q-value=%.4f }" % (self.score, self.pep, self.qvalue)
+
+STATUS("Running Qvality...")
+
+qvalityResults = []
+for (target, null, level) in scorePaths:
+	DETAIL("  level: "+ level)
+	qvalityResult = level + ".qvality"
+	subprocess.call(["qvality", "-o", qvalityResult, target, null])
+	rows = []
+	with open(qvalityResult) as f:
+		for line in f:
+			p = line.strip().split("\t")
+			if p[0] != "Score":
+				rows.append(QvalRow(float(p[0]), float(p[1]), float(p[2])))
+	
+	qvalityResults.append(rows)
+
+os.chdir("..")
+
+STATUS("collecting nodes per level...")
+
+nodesPerLevel = [ [] for l in levels ]
+top.targetChildrenByLevel(nodesPerLevel)
+
+STATUS("sorting nodes in each level...")
+
+sortedNodesPerLevel = [ sorted(nodeLevel, key=lambda x: -x.score) for nodeLevel in nodesPerLevel ]
+
+STATUS("joining qvality results and nodes...")
+for i in range(0, len(levels)):
+	qval = qvalityResults[i]
+	nodes = sortedNodesPerLevel[i]
+	for j in range(0, len(nodes)):
+		nodes[j].qval = qval[j]
+	DETAIL("first 10 %s nodes" % levels[i])
+	for n in nodes[:10]:
+		DETAIL("  " + str(n))
+
+
+def countThresholdsInSorted(thresholds, x, f):
+	counts = []
+	t = 0
+	for i in range(0, len(x)):
+		if f(x[i]) > thresholds[t]:
+			counts.append(i)
+			if t+1 == len(thresholds):
+				return counts
+			t = t+1
+	while len(counts) < len(thresholds):
+		counts.append(len(x))
+	return counts
+
+def countThreshold(n, t, f, levels, top = True):
+	if not top and f(n) >= t:
+		return 0
+	if len(n.children) == 0:
+		return 1
+	count = 0
+	for name in n.children:
+		if not (top and isDecoy(name)):
+			count = count + countThreshold(n.children[name], t, f, levels[1:], False)
+	if len(levels) == 0:
+		return min(1, count)
+	else:
+		return count
+
+def size(str, size):
+	return ("%%%ds"%size) % str
+
+statsThresholds = [0.001, 0.002, 0.005, 0.01, 0.02, 0.05, 0.1, 0.2]
+levelNameSize = max([len(name) for name in levels])
+STATUS("stats per level:")
+tableHeader = " ".join(["filter", size("level", levelNameSize)]+["%8s" % str(t) for t in statsThresholds])
+
+TABLE("q-values", tableHeader)
+fQValue = lambda n: n.qval.qvalue
+for i in range(0, len(levels)):
+	nodes = sortedNodesPerLevel[i]
+	counts = countThresholdsInSorted(statsThresholds, nodes, fQValue) 
+	DETAIL(" ".join(["single", size(levels[i], levelNameSize)] + ["%8d"%c for c in counts]))
+for i in range(0, len(levels)):
+	DETAIL(" ".join(["  full", size(levels[i], levelNameSize)] + [ "%8d"% countThreshold(top, t, fQValue, levels[:i+1]) for t in statsThresholds ]))
+
+TABLE("PEPs", tableHeader)
+fPEP = lambda n: n.qval.pep
+for i in range(0, len(levels)):
+	nodes = sortedNodesPerLevel[i]
+	counts = countThresholdsInSorted(statsThresholds, nodes, fPEP) 
+	DETAIL(" ".join(["single", size(levels[i], levelNameSize)] + ["%8d"%c for c in counts]))
+for i in range(0, len(levels)):
+	DETAIL(" ".join(["  full", size(levels[i], levelNameSize)] + [ "%8d"% countThreshold(top, t, fPEP, levels[:i+1]) for t in statsThresholds ]))
+
+
+resultFile = inBase + ".qvalues"
+STATUS("writing results to '%s'..." % resultFile)
+
+header = []
+for l in levels:
+	header = header + [l, l+"_score", l+"_PEP", l+"_qvalue"]
+if hasId:
+	header = header + ["id"]
+
+with open(resultFile, 'w') as w:
+	w.write("\t".join(header) + "\n")
+	top.writeTargetChildrenTsvRows(w)
+
+STATUS("done!")
