@@ -243,8 +243,9 @@ proteinIndex = -1
 idIndex = -1
 hasId = False
 
-print "          Franklin"
-print "          ^^^^^^^^\n"
+print "          Franklin 2 "
+print "          ^^^^^^^^^^ "
+print ""
 
 STATUS("building score tree...") 
 
@@ -261,31 +262,36 @@ with open(scoreTsv) as f:
 			levelIndices = [x for x in range(0, len(p)) if x not in [scoreIndex, idIndex]]
 			levels = [p[i] for i in levelIndices]
 		else:
-			rowOk = True
+			okRows = []
 			if proteinIndex >= 0:
 				prots = p[proteinIndex].split(";")
 				targets, decoys = splitByDecoy(prots)
 				if proteotypic and len(targets) > 1:
-					rowOk = False
+					pass
 				elif proteotypic and len(targets) == 0 and len(decoys) > 1:
-					rowOk = False
-				
-				if simplifyProteinGroups:
-					targets = targets[:1]
-					decoys = decoys[:1]
-				
-				if len(targets) > 0:
-					p[proteinIndex] = reassembleProteins(targets)
+					pass
 				else:
-					p[proteinIndex] = reassembleProteins(decoys)
+					if simplifyProteinGroups:
+						targets = targets[:1]
+						decoys = decoys[:1]
+				
+					if len(targets) > 0:
+						targetRow = p[:]
+						targetRow[proteinIndex] = reassembleProteins(targets)
+						okRows.append(targetRow)
+					
+					if len(decoys) > 0:
+						decoyRow = p[:]
+						decoyRow[proteinIndex] = reassembleProteins(decoys)
+						okRows.append(decoyRow)
 			
-			if rowOk:
+			for row in okRows:
 				parent = top
 				for i in levelIndices:
-					parent = parent.makeOrGet(p[i])
-				parent.score = float(p[scoreIndex])
+					parent = parent.makeOrGet(row[i])
+				parent.score = float(row[scoreIndex])
 				if hasId:
-					parent.id = p[idIndex]
+					parent.id = row[idIndex]
 				
 
 STATUS("computing scores...") 
